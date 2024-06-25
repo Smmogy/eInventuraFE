@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { AuthService } from '../services/auth/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { InventuraService } from '../services/inventura/inventura.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-inventura-form',
@@ -10,28 +10,37 @@ import { InventuraService } from '../services/inventura/inventura.service';
   styleUrls: ['./inventura-form.component.css'],
 })
 export class InventuraFormComponent implements OnInit {
+  inventuraForm: FormGroup;
+
   constructor(
     private fb: FormBuilder,
     private inventuraService: InventuraService,
     private router: Router
-  ) {}
-
-  inventuraForm: FormGroup = this.fb.group({
-    naziv: ['', Validators.required],
-    datumPocetka: ['', Validators.required],
-    datumZavrsetka: ['', Validators.required],
-    akademskaGod: [null, Validators.required],
-  });
+  ) {
+    this.inventuraForm = this.fb.group({
+      naziv: ['', Validators.required],
+      datumPocetka: ['', Validators.required],
+      datumZavrsetka: ['', Validators.required],
+      akademskaGod: [null, Validators.required],
+    });
+  }
 
   ngOnInit(): void {}
 
   onSubmit(): void {
     if (this.inventuraForm.valid) {
-      this.inventuraService
-        .createInventura(this.inventuraForm.getRawValue())
-        .subscribe((_) => {
-          this.router.navigateByUrl('/dashboard');
-        });
+      const formValue = this.inventuraForm.getRawValue();
+
+      formValue.datumPocetka = this.formatDate(formValue.datumPocetka);
+      formValue.datumZavrsetka = this.formatDate(formValue.datumZavrsetka);
+
+      this.inventuraService.createInventura(formValue).subscribe(() => {
+        this.router.navigateByUrl('/dashboard');
+      });
     }
+  }
+
+  private formatDate(date: string): string {
+    return formatDate(date, 'yyyy-MM-dd', 'en');
   }
 }

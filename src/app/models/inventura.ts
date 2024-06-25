@@ -1,11 +1,11 @@
-import { Djelatnici } from "./djelatnici";
+import { Djelatnici } from './djelatnici';
 
 export interface Inventura {
-    idInventura: number;
-    naziv: string;
-    datumPocetka: string;
-    datumZavrsetka: string;
-    akademskaGod: number;
-    stanje: number;
-    djelatniciList: Djelatnici[];
+  idInventura: number;
+  naziv: string;
+  datumPocetka: Date;
+  datumZavrsetka: Date;
+  akademskaGod: number;
+  stanje: number;
+  djelatniciList: Djelatnici[];
 }

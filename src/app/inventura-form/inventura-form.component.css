@@ -1,0 +1,13 @@
+.form-pedding{
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: solid 2px black;
+    border-radius: 15px;
+    box-shadow: 10px 10px 10px 10px;
+}
+
+.submitButton{
+    margin-top: 2%;
+}
