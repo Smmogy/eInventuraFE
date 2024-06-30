@@ -1,6 +1,27 @@
-<div>
-  <div class="card flex justify-content-center form-pedding">
+<div class="w-6">
+  <div  class="card flex justify-content-center form-pedding">
     <button pButton label="Kreiraj Inventuru" [routerLink]="'/inventura-form'"
     class="p-button-success mt-5 w-full" ></button>
+</div>
+
+<div class="card w-6">
+  <p-table [value]="inventuraList"  class="mt-5 w-20rem">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Naziv</th>
+              <th>Datum Pocetka</th>
+              <th>Datum Zavrsetka</th>
+              <th>Akademska Godina</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-inventura>
+          <tr>
+              <td>{{ inventura.naziv }}</td>
+              <td>{{ inventura.datumPocetka }}</td>
+              <td>{{ inventura.datumZavrsetka }}</td>
+              <td>{{ inventura.akademskaGod }}</td>
+          </tr>
+      </ng-template>
+  </p-table>
 </div>
   </div>

@@ -11,7 +11,7 @@ export class InventuraService {
 
   public createInventura(inventuraInfo: any): Observable<any> {
     return this.http.post(
-      'http://localhost:8080/api/v1/inventura/saveInventura',
+      'http://localhost:8080/api/inventura/saveInventura',
       inventuraInfo
     );
   }

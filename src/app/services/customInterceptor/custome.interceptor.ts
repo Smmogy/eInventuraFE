@@ -4,7 +4,7 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -14,8 +14,11 @@ export const customeInterceptor: HttpInterceptorFn = (req, next) => {
 
 @Injectable()
 export class CustomeInterceptor implements HttpInterceptor {
-  constructor() { }
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  constructor() {}
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
     const token = localStorage.getItem('loginToken');
     let newCloneRequest = request;
     if (token != null) {

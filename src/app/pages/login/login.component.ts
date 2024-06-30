@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -33,8 +34,8 @@ export class LoginComponent {
       console.log(this.loginForm.getRawValue());
       this.authService.login(this.loginForm.getRawValue()).subscribe({
         next: (res: any) => {
-          alert('login success');
-          localStorage.setItem('loginToken', res.token);
+          this.authService.setToken(res.token);
+          console.log(this.authService.getUserData());
           this.router.navigateByUrl('/dashboard');
         },
         error: (res: any) => {

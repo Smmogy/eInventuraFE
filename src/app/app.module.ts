@@ -24,6 +24,8 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthVisibilityDirective } from './directives/auth-visibility.directive';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DashboardComponent,
     RegisterComponent,
     InventuraFormComponent,
+    AuthVisibilityDirective,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MessageModule,
     BrowserAnimationsModule,
     ToastModule,
+    TableModule,
   ],
   providers: [
     {

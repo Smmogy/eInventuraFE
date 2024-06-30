@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { InventuraService } from '../../services/inventura/inventura.service';
+import { Inventura } from '../../models/inventura';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,12 +9,15 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
-  users: any[] = [];
-  constructor(private http: HttpClient) {}
+  inventuraList: Inventura[] = [];
 
-  loadUsers() {
-    this.http.get('').subscribe((res: any) => {
-      this.users = res.data;
+  constructor(private inventuraService: InventuraService) {
+    this.getListOfInventuras();
+  }
+
+  getListOfInventuras() {
+    this.inventuraService.getAllInventura().subscribe((value) => {
+      this.inventuraList = value;
     });
   }
 }
