@@ -7,6 +7,7 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 export const customeInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req);
@@ -14,20 +15,19 @@ export const customeInterceptor: HttpInterceptorFn = (req, next) => {
 
 @Injectable()
 export class CustomeInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private authService: AuthService) {}
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const token = localStorage.getItem('loginToken');
+    const token = this.authService.getToken();
     let newCloneRequest = request;
     if (token != null) {
       newCloneRequest = request.clone({
         setHeaders: {
-        
-          Authorization: `Bearer ${token}`
-        }
-      })
+          Authorization: `Bearer ${token}`,
+        },
+      });
     }
     return next.handle(newCloneRequest);
   }
