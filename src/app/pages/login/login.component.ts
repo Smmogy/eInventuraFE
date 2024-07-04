@@ -48,11 +48,16 @@ export class LoginComponent {
   registerUser() {
     console.log(this.registerForm.getRawValue());
     if (this.registerForm.valid) {
-      this.authService
-        .register(this.registerForm.getRawValue())
-        .subscribe(() => {
-          console.log('succ');
-        });
+      this.authService.register(this.registerForm.getRawValue()).subscribe({
+        next: () => {
+          alert('Sign up was successful');
+          this.router.navigateByUrl('/login'); // Redirect to login page after successful registration
+        },
+        error: (err: any) => {
+          console.error('Registration failed:', err);
+          alert('email vec postoi');
+        },
+      });
     }
   }
 }

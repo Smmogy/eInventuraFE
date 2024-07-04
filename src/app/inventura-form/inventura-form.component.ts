@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { InventuraService } from '../services/inventura/inventura.service';
 import { formatDate } from '@angular/common';
+import { dateRangeValidator } from '../customValidators/date-range.validator';
 
 @Component({
   selector: 'app-inventura-form',
@@ -17,12 +18,17 @@ export class InventuraFormComponent implements OnInit {
     private inventuraService: InventuraService,
     private router: Router
   ) {
-    this.inventuraForm = this.fb.group({
-      naziv: ['', Validators.required],
-      datumPocetka: ['', Validators.required],
-      datumZavrsetka: ['', Validators.required],
-      akademskaGod: [null, Validators.required],
-    });
+    this.inventuraForm = this.fb.group(
+      {
+        naziv: ['', Validators.required],
+        datumPocetka: ['', Validators.required],
+        datumZavrsetka: ['', Validators.required],
+        akademskaGod: [null, Validators.required],
+      },
+      {
+        validator: dateRangeValidator('datumPocetka', 'datumZavrsetka'),
+      }
+    );
   }
 
   ngOnInit(): void {}
@@ -33,7 +39,7 @@ export class InventuraFormComponent implements OnInit {
 
       formValue.datumPocetka = this.formatDate(formValue.datumPocetka);
       formValue.datumZavrsetka = this.formatDate(formValue.datumZavrsetka);
-
+      alert('Inventura successfully created!');
       this.inventuraService.createInventura(formValue).subscribe(() => {
         this.router.navigateByUrl('/dashboard');
       });
