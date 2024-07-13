@@ -26,6 +26,7 @@ import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthVisibilityDirective } from './directives/auth-visibility.directive';
 import { TableModule } from 'primeng/table';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { TableModule } from 'primeng/table';
     BrowserAnimationsModule,
     ToastModule,
     TableModule,
+    DropdownModule,
   ],
   providers: [
     {

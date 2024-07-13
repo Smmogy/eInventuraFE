@@ -1,4 +1,6 @@
-<form [formGroup]="inventuraForm" (ngSubmit)="onSubmit()" class="p-fluid form-pedding" >
+<form [formGroup]="inventuraForm" (ngSubmit)="onSubmit()" class="p-fluid form-padding">
+  <!-- Existing form fields for Inventura -->
+
   <div class="p-field">
     <label for="naziv">Naziv:</label>
     <input id="naziv" type="text" pInputText formControlName="naziv" />
@@ -25,11 +27,56 @@
 
   <div class="p-field">
     <label for="akademskaGod">Akademska Godina:</label>
-    <p-inputNumber id="akademskaGod" formControlName="akademskaGod" ></p-inputNumber>
+    <p-inputNumber id="akademskaGod" formControlName="akademskaGod"></p-inputNumber>
     <div *ngIf="inventuraForm.get('akademskaGod')?.invalid && inventuraForm.get('akademskaGod')?.touched" class="p-error">
       Akademska Godina is required.
     </div>
   </div>
 
+  <!-- Select Institution dropdown -->
+  <div class="p-field">
+    <label for="institution">Institution:</label>
+    <p-dropdown [options]="institutions" optionLabel="name" formControlName="institution" placeholder="Select Institution" (onChange)="onInstitutionChange($event)"></p-dropdown>
+  </div>
+
+  <!-- New Institution input -->
+  <div class="p-field">
+    <label for="newInstitutionName">New Institution:</label>
+    <input id="newInstitutionName" type="text" pInputText formControlName="newInstitutionName" />
+    <button type="button" pButton label="Add Institution" icon="pi pi-plus" (click)="addInstitution()"></button>
+  </div>
+
+  <!-- New Room input -->
+  <div *ngIf="selectedInstitution" class="p-field">
+    <label for="newRoomName">New Room:</label>
+    <input id="newRoomName" type="text" pInputText formControlName="newRoomName" />
+    <button type="button" pButton label="Add Room" icon="pi pi-plus" (click)="addRoom()"></button>
+  </div>
+
+  <!-- Room selection dropdown -->
+  <div *ngIf="rooms.length > 0" class="p-field">
+    <label for="selectedRoom">Select Room:</label>
+    <p-dropdown [options]="rooms" optionLabel="name" formControlName="selectedRoom"></p-dropdown>
+  </div>
+
+  <!-- New Artikl input -->
+  <div *ngIf="selectedRoom" class="p-field">
+    <label for="newArtiklName">New Artikl:</label>
+    <input id="newArtiklName" type="text" pInputText #artiklNameInput />
+    <button type="button" pButton label="Add Artikl" icon="pi pi-plus" (click)="addArtikl(artiklNameInput.value); artiklNameInput.value = '';"></button>
+  </div>
+
+  <!-- Display Artikl list -->
+  <div *ngIf="selectedRoom && selectedRoom.artikls && selectedRoom.artikls.length > 0" class="p-field">
+    <label>Artikls:</label>
+    <ul>
+      <li *ngFor="let artikl of selectedRoom.artikls">
+        {{ artikl.name }}
+        <button type="button" pButton icon="pi pi-trash" class="p-button-danger p-button-sm" (click)="removeArtikl(artikl)">Remove</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Submit button -->
   <button type="submit" pButton label="Submit" icon="pi pi-check" [disabled]="inventuraForm.invalid" class="submitButton"></button>
 </form>
