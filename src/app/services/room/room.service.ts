@@ -25,4 +25,10 @@ export class RoomService {
       `${this.apiUrl}/${roomId}/artikl/${artiklId}`
     );
   }
+
+  getRoomsByInstitutionId(institutionId: number): Observable<Room[]> {
+    return this.http.get<Room[]>(
+      `${this.apiUrl}?institutionId=${institutionId}`
+    );
+  }
 }

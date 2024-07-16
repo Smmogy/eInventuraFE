@@ -76,6 +76,21 @@
       </li>
     </ul>
   </div>
+  <div class="field">
+    <label for="loadUsers">Users</label>
+    <p-multiSelect
+      formControlName="loadUsers"
+      [options]="users"
+      [(ngModel)]="selectedUsers"
+      [defaultLabel]="'Select Users'"
+      optionLabel="name"
+      [selectedItemsLabel]="'{0} users selected'"
+      [maxSelectedLabels]="3"
+      [showHeader]="true"
+      [showToggleAll]="true"
+      [filter]="true"
+    ></p-multiSelect>
+  </div>
 
   <!-- Submit button -->
   <button type="submit" pButton label="Submit" icon="pi pi-check" [disabled]="inventuraForm.invalid" class="submitButton"></button>

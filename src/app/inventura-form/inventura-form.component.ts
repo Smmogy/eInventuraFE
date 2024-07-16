@@ -8,6 +8,8 @@ import { formatDate } from '@angular/common';
 import { Institution } from '../models/institution';
 import { Room } from '../models/room';
 import { Artikl } from '../models/artikl';
+import { Djelatnici } from '../models/djelatnici';
+import { DjelatniciService } from '../services/djelatnici/dijelatnici.service';
 
 @Component({
   selector: 'app-inventura-form',
@@ -20,12 +22,15 @@ export class InventuraFormComponent implements OnInit {
   selectedInstitution: Institution | null = null;
   rooms: Room[] = [];
   selectedRoom: Room | null = null;
+  users: Djelatnici[] = [];
+  selectedUsers: Djelatnici[] = [];
 
   constructor(
     private fb: FormBuilder,
     private inventuraService: InventuraService,
     private institutionService: InstitutionService,
     private roomService: RoomService,
+    private djelatniciService: DjelatniciService,
     private router: Router
   ) {
     this.inventuraForm = this.fb.group({
@@ -37,11 +42,24 @@ export class InventuraFormComponent implements OnInit {
       newInstitutionName: [''],
       newRoomName: [''],
       selectedRoom: [null],
+      selectedUsers: [[]],
     });
   }
 
   ngOnInit(): void {
     this.loadInstitutions();
+    this.loadDjelatnici();
+  }
+  loadDjelatnici(): void {
+    this.djelatniciService.getDjelatnici().subscribe(
+      (data) => {
+        this.users = data;
+      },
+      (error) => {
+        console.error('Error loading Djelatnici:', error);
+        // Handle error scenarios
+      }
+    );
   }
 
   loadInstitutions(): void {

@@ -7,7 +7,7 @@ import { Institution } from '../../models/institution';
   providedIn: 'root',
 })
 export class InstitutionService {
-  private apiUrl = 'http://localhost:8080/institution';
+  private apiUrl = 'http://localhost:8080/api/institution';
 
   constructor(private http: HttpClient) {}
 
