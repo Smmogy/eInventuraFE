@@ -6,7 +6,7 @@ import { InstitutionService } from '../services/institution/institution.service'
 import { RoomService } from '../services/room/room.service';
 import { formatDate } from '@angular/common';
 import { Institution } from '../models/institution';
-import { Room } from '../models/room';
+import { Prostorija } from '../models/prostorija';
 import { Artikl } from '../models/artikl';
 import { Djelatnici } from '../models/djelatnici';
 import { DjelatniciService } from '../services/djelatnici/dijelatnici.service';
@@ -20,8 +20,8 @@ export class InventuraFormComponent implements OnInit {
   inventuraForm: FormGroup;
   institutions: Institution[] = [];
   selectedInstitution: Institution | null = null;
-  rooms: Room[] = [];
-  selectedRoom: Room | null = null;
+  rooms: Prostorija[] = [];
+  selectedRoom: Prostorija | null = null;
   users: Djelatnici[] = [];
   selectedUsers: Djelatnici[] = [];
 
@@ -101,7 +101,7 @@ export class InventuraFormComponent implements OnInit {
         name: newRoomName,
         institution: this.selectedInstitution,
         artikls: [],
-      } as Room;
+      } as Prostorija;
       this.roomService.createRoom(newRoom).subscribe((data) => {
         this.rooms.push(data);
         this.selectedRoom = data;
@@ -115,7 +115,7 @@ export class InventuraFormComponent implements OnInit {
     if (this.selectedRoom && name.trim()) {
       const newArtikl = {
         name: name.trim(),
-        room: this.selectedRoom,
+        prostorija: this.selectedRoom,
       } as Artikl;
       this.roomService.createArtikl(newArtikl).subscribe((data) => {
         if (!this.selectedRoom!.artikls) {

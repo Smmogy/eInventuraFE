@@ -1,7 +1,7 @@
-import { Room } from './room';
+import { Prostorija } from './prostorija';
 
 export interface Artikl {
   id?: number;
   name: string;
-  room: Room;
+  prostorija: Prostorija;
 }

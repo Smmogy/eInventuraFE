@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Inventura } from '../../models/inventura';
 
@@ -7,18 +7,19 @@ import { Inventura } from '../../models/inventura';
   providedIn: 'root',
 })
 export class InventuraService {
+  private apiUrl = 'http://localhost:8080/api/inventura';
+
   constructor(private http: HttpClient) {}
 
-  public createInventura(inventuraInfo: any): Observable<any> {
-    return this.http.post(
-      'http://localhost:8080/api/inventura/saveInventura',
-      inventuraInfo
-    );
+  createInventura(inventura: Inventura): Observable<Inventura> {
+    return this.http.post<Inventura>(this.apiUrl, inventura);
   }
 
-  public getAllInventura(): Observable<Inventura[]> {
-    return this.http.get<Inventura[]>(
-      'http://localhost:8080/api/inventura/findAll'
-    );
+  getAllInventura(): Observable<Inventura[]> {
+    return this.http.get<Inventura[]>(this.apiUrl);
+  }
+
+  getInventuraById(id: number): Observable<Inventura> {
+    return this.http.get<Inventura>(`${this.apiUrl}/${id}`);
   }
 }

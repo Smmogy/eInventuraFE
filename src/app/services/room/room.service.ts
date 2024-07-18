@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Room } from '../../models/room';
+import { Prostorija } from '../../models/prostorija';
 import { Artikl } from '../../models/artikl';
 
 @Injectable({
@@ -12,8 +12,8 @@ export class RoomService {
 
   constructor(private http: HttpClient) {}
 
-  createRoom(room: Room): Observable<Room> {
-    return this.http.post<Room>(this.apiUrl, room);
+  createRoom(room: Prostorija): Observable<Prostorija> {
+    return this.http.post<Prostorija>(this.apiUrl, room);
   }
 
   createArtikl(artikl: Artikl): Observable<Artikl> {
@@ -26,8 +26,8 @@ export class RoomService {
     );
   }
 
-  getRoomsByInstitutionId(institutionId: number): Observable<Room[]> {
-    return this.http.get<Room[]>(
+  getRoomsByInstitutionId(institutionId: number): Observable<Prostorija[]> {
+    return this.http.get<Prostorija[]>(
       `${this.apiUrl}?institutionId=${institutionId}`
     );
   }
