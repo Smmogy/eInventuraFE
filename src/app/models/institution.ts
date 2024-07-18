@@ -1,7 +1,7 @@
 import { Inventura } from './inventura';
 
 export interface Institution {
-  id?: number;
+  idInstitution: number;
   name: string;
-  inventura: Inventura;
+  inventura: Inventura | null;
 }

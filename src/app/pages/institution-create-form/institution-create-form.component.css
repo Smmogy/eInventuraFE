@@ -1,0 +1,17 @@
+.institution-create-form {
+    margin: 20px;
+  }
+  
+  .institution-create-form h2 {
+    margin-bottom: 20px;
+  }
+  
+  .field {
+    margin-bottom: 10px;
+  }
+  
+  .error {
+    color: red;
+    font-size: 0.8em;
+  }
+  

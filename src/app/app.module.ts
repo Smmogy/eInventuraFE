@@ -28,6 +28,10 @@ import { AuthVisibilityDirective } from './directives/auth-visibility.directive'
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { InstitutionsFormComponent } from './pages/institutions-form/institutions-form.component';
+import { InstitutionCreateFormComponent } from './pages/institution-create-form/institution-create-form.component';
+import { InstitutionEditFormComponent } from './pages/institution-edit-form/institution-edit-form.component';
+import { ProstorijaFormaComponent } from './pages/prostorija-forma/prostorija-forma.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +42,10 @@ import { MultiSelectModule } from 'primeng/multiselect';
     RegisterComponent,
     InventuraFormComponent,
     AuthVisibilityDirective,
+    InstitutionsFormComponent,
+    InstitutionCreateFormComponent,
+    InstitutionEditFormComponent,
+    ProstorijaFormaComponent,
   ],
   imports: [
     BrowserModule,

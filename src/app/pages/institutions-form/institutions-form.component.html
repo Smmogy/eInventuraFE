@@ -1,0 +1,22 @@
+<!-- institutions.component.html -->
+
+<div class="institutions-form card">
+  <h2>Institutions</h2>
+  <button pButton label="Create New Institution" [routerLink]="'/institutions/create'" class="p-button-success create-btn"></button>
+
+  <h2>All Institutions</h2>
+  <div *ngIf="institutions.length">
+    <ul class="institution-list">
+      <li *ngFor="let institution of institutions" class="institution-item card">
+        <a class="institution-name" [routerLink]="['prostorija-forma', institution.idInstitution]">{{ institution.name }}</a>
+        <div class="action-buttons">
+          <button pButton icon="pi pi-pencil" class="p-button-warning edit-btn" [routerLink]="['/institutions/edit', institution.idInstitution]"></button>
+          <button pButton icon="pi pi-trash" class="p-button-danger delete-btn" (click)="deleteInstitution(institution.idInstitution)"></button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="!institutions.length">
+    <p>No institutions available. Please create a new institution.</p>
+  </div>
+</div>

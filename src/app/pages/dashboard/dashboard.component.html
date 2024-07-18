@@ -1,27 +1,29 @@
-<div class="w-6">
-  <div  class="card flex justify-content-center form-pedding">
-    <button pButton label="Kreiraj Inventuru" [routerLink]="'/inventura-form'"
-    class="p-button-success mt-5 w-full" ></button>
-</div>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <button pButton label="Kreiraj Inventuru" [routerLink]="'/inventura-form'" class="p-button-success"></button>
+      <button pButton label="Institucije" [routerLink]="'/institutions-form'" class="p-button-primary"></button>
+    </div>
 
-<div class="card w-6" class="form-pedding">
-  <p-table [value]="inventuraList"  class="mt-5 w-20rem">
-      <ng-template pTemplate="header">
+    <div class="card-body">
+      <p-table [value]="inventuraList" class="mt-5">
+        <ng-template pTemplate="header">
           <tr>
-              <th>Naziv</th>
-              <th>Datum Pocetka</th>
-              <th>Datum Zavrsetka</th>
-              <th>Akademska Godina</th>
+            <th>Naziv</th>
+            <th>Datum Pocetka</th>
+            <th>Datum Zavrsetka</th>
+            <th>Akademska Godina</th>
           </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-inventura>
+        </ng-template>
+        <ng-template pTemplate="body" let-inventura>
           <tr>
-              <td>{{ inventura.naziv }}</td>
-              <td>{{ inventura.datumPocetka }}</td>
-              <td>{{ inventura.datumZavrsetka }}</td>
-              <td>{{ inventura.akademskaGod }}</td>
+            <td>{{ inventura.naziv }}</td>
+            <td>{{ inventura.datumPocetka }}</td>
+            <td>{{ inventura.datumZavrsetka }}</td>
+            <td>{{ inventura.akademskaGod }}</td>
           </tr>
-      </ng-template>
-  </p-table>
-</div>
+        </ng-template>
+      </p-table>
+    </div>
   </div>
+</div>

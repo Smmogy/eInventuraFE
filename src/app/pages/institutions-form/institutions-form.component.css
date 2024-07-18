@@ -1,0 +1,96 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+/* Card Styles */
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.institutions-form {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+/* Header Styles */
+.institutions-form h2 {
+  color: #007bff;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Button Styles */
+.create-btn {
+  margin-bottom: 1rem;
+  display: block;
+  width: fit-content;
+}
+
+/* Institution List Styles */
+.institution-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.institution-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.institution-item:hover {
+  background-color: #f1f1f1;
+}
+
+.institution-name {
+  font-size: 1.25rem;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.institution-name:hover {
+  text-decoration: underline;
+}
+
+/* Action Buttons Styles */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-btn, .delete-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.edit-btn:hover {
+  background-color: #ffca2c;
+  border-color: #ffc107;
+}
+
+.delete-btn:hover {
+  background-color: #f44336;
+  border-color: #f44336;
+}
+
+/* Empty State Styles */
+.institutions-form p {
+  color: #6c757d;
+  font-size: 1rem;
+}
