@@ -1,0 +1,107 @@
+/* prostorija.component.css */
+
+/* General card styling */
+.prostorija-form.card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin: 16px auto;
+  max-width: 800px;
+}
+
+/* Header styling */
+.header {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+/* Button styling */
+.create-btn {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.p-button-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.p-button-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+/* Room list styling */
+.room-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.room-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.room-item:hover {
+  background-color: #f1f1f1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Room name link styling */
+.room-name {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.room-name:hover {
+  text-decoration: underline;
+}
+
+/* Action buttons styling */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-btn, .delete-btn {
+  border: none;
+  cursor: pointer;
+}
+
+/* Edit button color */
+.edit-btn {
+  background-color: #ffc107;
+  color: #ffffff;
+}
+
+.edit-btn:hover {
+  background-color: #e0a800;
+}
+
+/* Delete button color */
+.delete-btn {
+  background-color: #dc3545;
+  color: #ffffff;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+/* No rooms message styling */
+.no-rooms-message {
+  text-align: center;
+  color: #6c757d;
+  font-size: 1rem;
+}

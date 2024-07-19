@@ -8,7 +8,7 @@
   <div *ngIf="institutions.length">
     <ul class="institution-list">
       <li *ngFor="let institution of institutions" class="institution-item card">
-        <a class="institution-name" [routerLink]="['prostorija-forma', institution.idInstitution]">{{ institution.name }}</a>
+        <a class="institution-name" [routerLink]="['/prostorija-form', institution.idInstitution]">{{ institution.name }}</a>
         <div class="action-buttons">
           <button pButton icon="pi pi-pencil" class="p-button-warning edit-btn" [routerLink]="['/institutions/edit', institution.idInstitution]"></button>
           <button pButton icon="pi pi-trash" class="p-button-danger delete-btn" (click)="deleteInstitution(institution.idInstitution)"></button>

@@ -7,7 +7,11 @@ import { InventuraFormComponent } from './inventura-form/inventura-form.componen
 import { InstitutionsFormComponent } from './pages/institutions-form/institutions-form.component';
 import { InstitutionCreateFormComponent } from './pages/institution-create-form/institution-create-form.component';
 import { InstitutionEditFormComponent } from './pages/institution-edit-form/institution-edit-form.component';
-import { ProstorijaFormaComponent } from './pages/prostorija-forma/prostorija-forma.component';
+import { ProstorijaFormComponent } from './pages/prostorija-form/prostorija-form.component';
+import { ProstorijaCreateFormComponent } from './pages/prostorija-create-form/prostorija-create-form.component';
+import { ProstorijaEditFormComponent } from './pages/prostorija-edit-form/prostorija-edit-form.component';
+import { ArtiklFormComponent } from './pages/artikl-form/artikl-form.component';
+import { ArtiklCreateFormComponent } from './pages/artikl-create-form/artikl-create-form.component';
 
 const routes: Routes = [
   {
@@ -48,9 +52,25 @@ const routes: Routes = [
         component: InventuraFormComponent,
       },
 
-      { path: 'prostorija-forma/:id', component: ProstorijaFormaComponent },
+      { path: 'prostorija-form/:id', component: ProstorijaFormComponent },
 
-      { path: 'prostorija-forma', component: ProstorijaFormaComponent },
+      {
+        path: 'prostorija/create/:id',
+        component: ProstorijaCreateFormComponent,
+      },
+
+      {
+        path: 'prostorija/edit',
+        component: ProstorijaEditFormComponent,
+      },
+      {
+        path: 'artikl-form/:id',
+        component: ArtiklFormComponent,
+      },
+      {
+        path: 'artikl/create/:id',
+        component: ArtiklCreateFormComponent,
+      },
     ],
   },
   {

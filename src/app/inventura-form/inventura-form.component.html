@@ -45,12 +45,6 @@
     <button type="button" pButton label="Add Institution" icon="pi pi-plus" (click)="addInstitution()"></button>
   </div>
 
-  <!-- New Room input -->
-  <div *ngIf="selectedInstitution" class="p-field">
-    <label for="newRoomName">New Room:</label>
-    <input id="newRoomName" type="text" pInputText formControlName="newRoomName" />
-    <button type="button" pButton label="Add Room" icon="pi pi-plus" (click)="addRoom()"></button>
-  </div>
 
   <!-- Room selection dropdown -->
   <div *ngIf="rooms.length > 0" class="p-field">

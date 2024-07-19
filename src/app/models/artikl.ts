@@ -1,7 +1,7 @@
 import { Prostorija } from './prostorija';
 
 export interface Artikl {
-  id?: number;
+  idArtikl: number;
   name: string;
   prostorija: Prostorija;
 }

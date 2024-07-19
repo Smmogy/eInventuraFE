@@ -7,14 +7,16 @@ import { Artikl } from '../../models/artikl';
   providedIn: 'root',
 })
 export class ArticleService {
-  private apiUrl = 'http://localhost:8080/api/rooms/articles';
+  private apiUrl = 'http://localhost:8080/api/rooms/artikl';
 
   constructor(private http: HttpClient) {}
 
   createArticle(article: Artikl): Observable<Artikl> {
     return this.http.post<Artikl>(this.apiUrl, article);
   }
-
+  deleteArtikl(artiklId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${artiklId}`);
+  }
   getAllArticles(): Observable<Artikl[]> {
     return this.http.get<Artikl[]>(this.apiUrl);
   }
@@ -24,6 +26,6 @@ export class ArticleService {
   }
 
   getArticlesByRoomId(roomId: number): Observable<Artikl[]> {
-    return this.http.get<Artikl[]>(`${this.apiUrl}/by-room/${roomId}`);
+    return this.http.get<Artikl[]>(`${this.apiUrl}/get/${roomId}`);
   }
 }

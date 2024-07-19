@@ -1,0 +1,33 @@
+<!-- Updated prostorija.component.html -->
+
+<div class="prostorija-form card">
+  <!-- Display the selected institution's name -->
+  <h2>{{ selectedInstitution?.name }}</h2>
+  
+  <!-- Button to create a new room -->
+  <button pButton label="Create New Room" [routerLink]="['/prostorija/create', idInstitution]" class="p-button-success create-btn"></button>
+
+  <!-- Heading for the rooms section -->
+  <h2>All Rooms</h2>
+  
+  <!-- Display list of rooms if available -->
+  <div *ngIf="rooms.length; else noRoomsTemplate">
+    <ul class="room-list">
+      <li *ngFor="let room of rooms" class="room-item card">
+        <!-- Link to view room details -->
+        <a class="room-name" [routerLink]="['/artikl-form', room.idProstorija]">{{ room.name }}</a>
+        <div class="action-buttons">
+          <!-- Button to edit the room -->
+          <button pButton icon="pi pi-pencil" class="p-button-warning edit-btn" [routerLink]="['/prostorija/edit', room.idProstorija]"></button>
+          <!-- Button to delete the room -->
+          <button pButton icon="pi pi-trash" class="p-button-danger delete-btn" (click)="deleteRoom(room.idProstorija)"></button>
+        </div>
+      </li>
+    </ul>
+  </div>
+  
+  <!-- Template for when no rooms are available -->
+  <ng-template #noRoomsTemplate>
+    <p class="no-rooms-message">No rooms available. Please create a new room.</p>
+  </ng-template>
+</div>

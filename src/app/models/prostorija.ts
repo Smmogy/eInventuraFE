@@ -3,8 +3,8 @@ import { Institution } from './institution';
 import { Artikl } from './artikl';
 
 export interface Prostorija {
-  id?: number;
+  idProstorija: number;
   name: string;
-  institution: Institution;
+  idInstitution: number;
   artikls: Artikl[];
 }

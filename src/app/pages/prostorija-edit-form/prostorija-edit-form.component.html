@@ -1,0 +1,19 @@
+<div class="card prostorija-card">
+  <div class="card-header prostorija-card-header">
+    Edit Prostorija
+  </div>
+  <div class="card-body">
+    <form [formGroup]="prostorijaForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter name" required>
+      </div>
+      <!-- Add other form fields as needed for editing -->
+
+      <div class="form-buttons">
+        <button type="submit" [disabled]="!prostorijaForm.valid" class="btn btn-primary">Update Prostorija</button>
+        <a routerLink="/prostorija-list" class="btn btn-secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>

@@ -29,11 +29,13 @@ export class InstitutionCreateFormComponent implements OnInit {
       this.institutionService.createInstitution(institutionData).subscribe(
         (createdInstitution) => {
           console.log('Institution created successfully:', createdInstitution);
-          // Redirect to '/inventura-form' after successful creation
-          this.router.navigateByUrl('/institutions-form');
+          // Redirect to 'prostorija-form/:id' after successful creation
+          this.router.navigate([
+            'prostorija-form',
+            createdInstitution.idInstitution,
+          ]);
         },
         (error) => {
-          console.error('Failed to create institution:', error);
           // Handle error if necessary
         }
       );

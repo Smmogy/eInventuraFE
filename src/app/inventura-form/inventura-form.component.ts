@@ -94,23 +94,6 @@ export class InventuraFormComponent implements OnInit {
     }
   }
 
-  addRoom(): void {
-    const newRoomName = this.inventuraForm.get('newRoomName')?.value.trim();
-    if (this.selectedInstitution && newRoomName) {
-      const newRoom = {
-        name: newRoomName,
-        institution: this.selectedInstitution,
-        artikls: [],
-      } as Prostorija;
-      this.roomService.createRoom(newRoom).subscribe((data) => {
-        this.rooms.push(data);
-        this.selectedRoom = data;
-        this.inventuraForm.patchValue({ selectedRoom: data });
-        this.inventuraForm.patchValue({ newRoomName: '' });
-      });
-    }
-  }
-
   addArtikl(name: string): void {
     if (this.selectedRoom && name.trim()) {
       const newArtikl = {
@@ -123,18 +106,6 @@ export class InventuraFormComponent implements OnInit {
         }
         this.selectedRoom!.artikls.push(data);
       });
-    }
-  }
-
-  removeArtikl(artikl: Artikl): void {
-    if (this.selectedRoom && artikl.id) {
-      this.roomService
-        .deleteArtikl(this.selectedRoom.id!, artikl.id)
-        .subscribe(() => {
-          this.selectedRoom!.artikls = this.selectedRoom!.artikls.filter(
-            (a) => a.id !== artikl.id
-          );
-        });
     }
   }
 

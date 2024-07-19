@@ -59,7 +59,11 @@ export class InstitutionEditFormComponent implements OnInit {
       this.institutionService.updateInstitution(updatedInstitution).subscribe({
         next: () => {
           console.log('Institution updated successfully');
-          this.router.navigate(['/institutions-form']); // Navigate back to institutions list
+          // Navigate to prostorija-form/:id after successful update
+          this.router.navigate([
+            '/prostorija-form',
+            this.institution?.idInstitution,
+          ]);
         },
         error: (error) => {
           console.error('Error updating institution:', error);
