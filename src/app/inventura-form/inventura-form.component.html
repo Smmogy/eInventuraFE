@@ -1,90 +1,61 @@
-<form [formGroup]="inventuraForm" (ngSubmit)="onSubmit()" class="p-fluid form-padding" class="form-pedding">
+<div class="form-container">
+  <form [formGroup]="inventuraForm" (ngSubmit)="onSubmit()" class="p-fluid form-padding">
 
-  <div class="p-field">
-    <label for="naziv">Naziv:</label>
-    <input id="naziv" type="text" pInputText formControlName="naziv" />
-    <div *ngIf="inventuraForm.get('naziv')?.invalid && inventuraForm.get('naziv')?.touched" class="p-error">
-      Naziv is required.
+    <div class="p-field">
+      <label for="naziv">Naziv:</label>
+      <input id="naziv" type="text" pInputText formControlName="naziv" />
+      <div *ngIf="inventuraForm.get('naziv')?.invalid && inventuraForm.get('naziv')?.touched" class="p-error">
+        Naziv is required.
+      </div>
     </div>
-  </div>
 
-  <div class="p-field">
-    <label for="datumPocetka">Datum Pocetka:</label>
-    <p-calendar id="datumPocetka" formControlName="datumPocetka" dateFormat="yy-mm-dd" showIcon="true"></p-calendar>
-    <div *ngIf="inventuraForm.get('datumPocetka')?.invalid && inventuraForm.get('datumPocetka')?.touched" class="p-error">
-      Datum Pocetka is required.
+    <div class="p-field">
+      <label for="datumPocetka">Datum Pocetka:</label>
+      <p-calendar id="datumPocetka" formControlName="datumPocetka" dateFormat="yy-mm-dd" showIcon="true"></p-calendar>
+      <div *ngIf="inventuraForm.get('datumPocetka')?.invalid && inventuraForm.get('datumPocetka')?.touched" class="p-error">
+        Datum Pocetka is required.
+      </div>
     </div>
-  </div>
 
-  <div class="p-field">
-    <label for="datumZavrsetka">Datum Zavrsetka:</label>
-    <p-calendar id="datumZavrsetka" formControlName="datumZavrsetka" dateFormat="yy-mm-dd" showIcon="true"></p-calendar>
-    <div *ngIf="inventuraForm.get('datumZavrsetka')?.invalid && inventuraForm.get('datumZavrsetka')?.touched" class="p-error">
-      Datum Zavrsetka is required.
+    <div class="p-field">
+      <label for="datumZavrsetka">Datum Zavrsetka:</label>
+      <p-calendar id="datumZavrsetka" formControlName="datumZavrsetka" dateFormat="yy-mm-dd" showIcon="true"></p-calendar>
+      <div *ngIf="inventuraForm.get('datumZavrsetka')?.invalid && inventuraForm.get('datumZavrsetka')?.touched" class="p-error">
+        Datum Zavrsetka is required.
+      </div>
     </div>
-  </div>
 
-  <div class="p-field">
-    <label for="akademskaGod">Akademska Godina:</label>
-    <p-inputNumber id="akademskaGod" formControlName="akademskaGod"></p-inputNumber>
-    <div *ngIf="inventuraForm.get('akademskaGod')?.invalid && inventuraForm.get('akademskaGod')?.touched" class="p-error">
-      Akademska Godina is required.
+    <div class="p-field">
+      <label for="akademskaGod">Akademska Godina:</label>
+      <p-inputNumber id="akademskaGod" formControlName="akademskaGod" [useGrouping]="false"></p-inputNumber>
+      <div *ngIf="inventuraForm.get('akademskaGod')?.invalid && inventuraForm.get('akademskaGod')?.touched" class="p-error">
+        Akademska Godina is required.
+      </div>
     </div>
-  </div>
 
-  <!-- Select Institution dropdown -->
-  <div class="p-field">
-    <label for="institution">Institution:</label>
-    <p-dropdown [options]="institutions" optionLabel="name" formControlName="institution" placeholder="Select Institution" (onChange)="onInstitutionChange($event)"></p-dropdown>
-  </div>
+    <!-- Select Institution dropdown -->
+    <div class="p-field">
+      <label for="institution">Institution:</label>
+      <p-dropdown [options]="institutions" optionLabel="name" formControlName="institution" placeholder="Select Institution" (onChange)="onInstitutionChange($event)"></p-dropdown>
+    </div>
 
-  <!-- New Institution input -->
-  <div class="p-field">
-    <label for="newInstitutionName">New Institution:</label>
-    <input id="newInstitutionName" type="text" pInputText formControlName="newInstitutionName" />
-    <button type="button" pButton label="Add Institution" icon="pi pi-plus" (click)="addInstitution()"></button>
-  </div>
+    <div class="field">
+      <label for="loadUsers">Users</label>
+      <p-multiSelect
+        formControlName="loadUsers"
+        [options]="users"
+        [(ngModel)]="selectedUsers"
+        [defaultLabel]="'Select Users'"
+        optionLabel="name"
+        [selectedItemsLabel]="'{0} users selected'"
+        [maxSelectedLabels]="3"
+        [showHeader]="true"
+        [showToggleAll]="true"
+        [filter]="true"
+      ></p-multiSelect>
+    </div>
 
-
-  <!-- Room selection dropdown -->
-  <div *ngIf="rooms.length > 0" class="p-field">
-    <label for="selectedRoom">Select Room:</label>
-    <p-dropdown [options]="rooms" optionLabel="name" formControlName="selectedRoom"></p-dropdown>
-  </div>
-
-  <!-- New Artikl input -->
-  <div *ngIf="selectedRoom" class="p-field">
-    <label for="newArtiklName">New Artikl:</label>
-    <input id="newArtiklName" type="text" pInputText #artiklNameInput />
-    <button type="button" pButton label="Add Artikl" icon="pi pi-plus" (click)="addArtikl(artiklNameInput.value); artiklNameInput.value = '';"></button>
-  </div>
-
-  <!-- Display Artikl list -->
-  <div *ngIf="selectedRoom && selectedRoom.artikls && selectedRoom.artikls.length > 0" class="p-field">
-    <label>Artikls:</label>
-    <ul>
-      <li *ngFor="let artikl of selectedRoom.artikls">
-        {{ artikl.name }}
-        <button type="button" pButton icon="pi pi-trash" class="p-button-danger p-button-sm" (click)="removeArtikl(artikl)">Remove</button>
-      </li>
-    </ul>
-  </div>
-  <div class="field">
-    <label for="loadUsers">Users</label>
-    <p-multiSelect
-      formControlName="loadUsers"
-      [options]="users"
-      [(ngModel)]="selectedUsers"
-      [defaultLabel]="'Select Users'"
-      optionLabel="name"
-      [selectedItemsLabel]="'{0} users selected'"
-      [maxSelectedLabels]="3"
-      [showHeader]="true"
-      [showToggleAll]="true"
-      [filter]="true"
-    ></p-multiSelect>
-  </div>
-
-  <!-- Submit button -->
-  <button type="submit" pButton label="Submit" icon="pi pi-check" [disabled]="inventuraForm.invalid" class="submitButton"></button>
-</form>
+    <!-- Submit button -->
+    <button type="submit" pButton label="Submit" icon="pi pi-check" [disabled]="inventuraForm.invalid" class="submitButton"></button>
+  </form>
+</div>

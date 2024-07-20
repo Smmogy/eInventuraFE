@@ -35,6 +35,7 @@ import { ProstorijaCreateFormComponent } from './pages/prostorija-create-form/pr
 import { ProstorijaEditFormComponent } from './pages/prostorija-edit-form/prostorija-edit-form.component';
 import { ArtiklFormComponent } from './pages/artikl-form/artikl-form.component';
 import { ArtiklCreateFormComponent } from './pages/artikl-create-form/artikl-create-form.component';
+import { ArtiklEditFormComponent } from './pages/artikl-edit-form/artikl-edit-form.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { ArtiklCreateFormComponent } from './pages/artikl-create-form/artikl-cre
     ProstorijaEditFormComponent,
     ArtiklFormComponent,
     ArtiklCreateFormComponent,
+    ArtiklEditFormComponent,
   ],
   imports: [
     BrowserModule,

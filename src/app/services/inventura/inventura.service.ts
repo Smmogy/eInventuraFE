@@ -12,7 +12,7 @@ export class InventuraService {
   constructor(private http: HttpClient) {}
 
   createInventura(inventura: Inventura): Observable<Inventura> {
-    return this.http.post<Inventura>(this.apiUrl, inventura);
+    return this.http.post<Inventura>(`${this.apiUrl}/saveInventura`, inventura);
   }
 
   getAllInventura(): Observable<Inventura[]> {

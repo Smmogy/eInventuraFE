@@ -12,7 +12,7 @@ import { ProstorijaCreateFormComponent } from './pages/prostorija-create-form/pr
 import { ProstorijaEditFormComponent } from './pages/prostorija-edit-form/prostorija-edit-form.component';
 import { ArtiklFormComponent } from './pages/artikl-form/artikl-form.component';
 import { ArtiklCreateFormComponent } from './pages/artikl-create-form/artikl-create-form.component';
-
+import { ArtiklEditFormComponent } from './pages/artikl-edit-form/artikl-edit-form.component';
 const routes: Routes = [
   {
     path: 'login',
@@ -60,7 +60,7 @@ const routes: Routes = [
       },
 
       {
-        path: 'prostorija/edit',
+        path: 'prostorija/edit/:id',
         component: ProstorijaEditFormComponent,
       },
       {
@@ -70,6 +70,11 @@ const routes: Routes = [
       {
         path: 'artikl/create/:id',
         component: ArtiklCreateFormComponent,
+      },
+
+      {
+        path: 'artikl/edit/:id',
+        component: ArtiklEditFormComponent,
       },
     ],
   },

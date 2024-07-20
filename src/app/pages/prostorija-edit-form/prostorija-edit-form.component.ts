@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Prostorija } from '../../models/prostorija'; // Update model import
 import { RoomService } from '../../services/room/room.service'; // Update service import
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-prostorija-edit-form',
@@ -18,7 +19,8 @@ export class ProstorijaEditFormComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private prostorijaService: RoomService // Use RoomService instead of InstitutionService
+    private prostorijaService: RoomService, // Use RoomService instead of InstitutionService
+    private location: Location
   ) {
     this.prostorijaForm = this.fb.group({
       name: ['', Validators.required],
@@ -61,10 +63,7 @@ export class ProstorijaEditFormComponent implements OnInit {
       this.prostorijaService.updateProstorija(updatedProstorija).subscribe({
         next: () => {
           console.log('Prostorija updated successfully');
-          // Navigate to the appropriate route after successful update
-          this.router.navigate([
-            '/prostorija-form', // Adjust this to the correct route for listing rooms
-          ]);
+          this.location.back();
         },
         error: (error) => {
           console.error('Error updating prostorija:', error);

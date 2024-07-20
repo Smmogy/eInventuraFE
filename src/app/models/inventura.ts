@@ -1,4 +1,5 @@
 import { Djelatnici } from './djelatnici';
+import { Institution } from './institution';
 
 export interface Inventura {
   idInventura: number;
@@ -6,6 +7,6 @@ export interface Inventura {
   datumPocetka: Date;
   datumZavrsetka: Date;
   akademskaGod: number;
-  stanje: number;
   djelatniciList: Djelatnici[];
+  institution: Institution;
 }

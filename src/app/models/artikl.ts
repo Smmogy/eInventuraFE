@@ -3,5 +3,5 @@ import { Prostorija } from './prostorija';
 export interface Artikl {
   idArtikl: number;
   name: string;
-  prostorija: Prostorija;
+  idProstorija: number;
 }

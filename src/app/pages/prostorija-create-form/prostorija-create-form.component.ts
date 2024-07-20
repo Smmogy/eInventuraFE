@@ -46,13 +46,13 @@ export class ProstorijaCreateFormComponent implements OnInit {
         idProstorija: 0, // Provide default value if necessary
         artikls: [], // Provide default value if necessary
       };
-
+      console.log(prostorijaData);
       this.prostorijaService.createRoom(prostorijaData).subscribe(
         (createdProstorija) => {
           console.log('Prostorija created successfully:', createdProstorija);
           // Redirect to the relevant room form or list
           this.router.navigate([
-            '/prostorija-form',
+            '/artikl-form/',
             createdProstorija.idProstorija,
           ]);
         },

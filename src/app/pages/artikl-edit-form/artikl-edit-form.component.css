@@ -1,0 +1,46 @@
+.card.artikl-card {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header.artikl-card-header {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 10px 0;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-primary:disabled {
+    background-color: #6c757d;
+    border-color: #6c757d;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+  }
+  

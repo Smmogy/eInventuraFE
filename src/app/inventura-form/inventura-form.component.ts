@@ -3,13 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { InventuraService } from '../services/inventura/inventura.service';
 import { InstitutionService } from '../services/institution/institution.service';
-import { RoomService } from '../services/room/room.service';
-import { formatDate } from '@angular/common';
-import { Institution } from '../models/institution';
-import { Prostorija } from '../models/prostorija';
-import { Artikl } from '../models/artikl';
-import { Djelatnici } from '../models/djelatnici';
 import { DjelatniciService } from '../services/djelatnici/dijelatnici.service';
+import { Institution } from '../models/institution';
+import { Djelatnici } from '../models/djelatnici';
+import { Inventura } from '../models/inventura';
 
 @Component({
   selector: 'app-inventura-form',
@@ -19,109 +16,83 @@ import { DjelatniciService } from '../services/djelatnici/dijelatnici.service';
 export class InventuraFormComponent implements OnInit {
   inventuraForm: FormGroup;
   institutions: Institution[] = [];
-  selectedInstitution: Institution | null = null;
-  rooms: Prostorija[] = [];
-  selectedRoom: Prostorija | null = null;
   users: Djelatnici[] = [];
   selectedUsers: Djelatnici[] = [];
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private inventuraService: InventuraService,
     private institutionService: InstitutionService,
-    private roomService: RoomService,
-    private djelatniciService: DjelatniciService,
-    private router: Router
+    private userService: DjelatniciService
   ) {
     this.inventuraForm = this.fb.group({
       naziv: ['', Validators.required],
       datumPocetka: ['', Validators.required],
       datumZavrsetka: ['', Validators.required],
-      akademskaGod: [null, Validators.required],
+      akademskaGod: ['', Validators.required],
       institution: [null, Validators.required],
-      newInstitutionName: [''],
-      newRoomName: [''],
-      selectedRoom: [null],
-      selectedUsers: [[]],
+      loadUsers: [[], Validators.required],
     });
   }
 
   ngOnInit(): void {
     this.loadInstitutions();
-    this.loadDjelatnici();
+    this.loadUsers();
   }
-  loadDjelatnici(): void {
-    this.djelatniciService.getDjelatnici().subscribe(
-      (data) => {
-        this.users = data;
+
+  loadInstitutions(): void {
+    this.institutionService.getInstitutions().subscribe(
+      (data: Institution[]) => {
+        this.institutions = data;
       },
       (error) => {
-        console.error('Error loading Djelatnici:', error);
-        // Handle error scenarios
+        console.error('Error loading institutions:', error);
       }
     );
   }
 
-  loadInstitutions(): void {
-    this.institutionService
-      .getInstitutions()
-      .subscribe((data: Institution[]) => {
-        this.institutions = data;
-      });
+  loadUsers(): void {
+    this.userService.getDjelatnici().subscribe(
+      (data: Djelatnici[]) => {
+        this.users = data;
+      },
+      (error) => {
+        console.error('Error loading users:', error);
+      }
+    );
   }
 
   onInstitutionChange(event: any): void {
-    this.selectedInstitution = event.value;
-    this.rooms = [];
-    this.selectedRoom = null;
-    this.inventuraForm.patchValue({ selectedRoom: null });
-  }
-
-  addInstitution(): void {
-    const newInstitutionName = this.inventuraForm
-      .get('newInstitutionName')
-      ?.value.trim();
-    if (newInstitutionName) {
-      const newInstitution = { name: newInstitutionName } as Institution;
-      this.institutionService
-        .createInstitution(newInstitution)
-        .subscribe((data) => {
-          this.institutions.push(data);
-          this.selectedInstitution = data;
-          this.inventuraForm.patchValue({ institution: data });
-          this.inventuraForm.patchValue({ newInstitutionName: '' });
-        });
-    }
-  }
-
-  addArtikl(name: string): void {
-    if (this.selectedRoom && name.trim()) {
-      const newArtikl = {
-        name: name.trim(),
-        prostorija: this.selectedRoom,
-      } as Artikl;
-      this.roomService.createArtikl(newArtikl).subscribe((data) => {
-        if (!this.selectedRoom!.artikls) {
-          this.selectedRoom!.artikls = [];
-        }
-        this.selectedRoom!.artikls.push(data);
-      });
-    }
+    console.log('Institution changed:', event.value);
+    // Handle any additional logic when institution changes
   }
 
   onSubmit(): void {
     if (this.inventuraForm.valid) {
-      const formValue = this.inventuraForm.getRawValue();
-      formValue.datumPocetka = this.formatDate(formValue.datumPocetka);
-      formValue.datumZavrsetka = this.formatDate(formValue.datumZavrsetka);
-      alert('Inventura successfully created!');
-      this.inventuraService.createInventura(formValue).subscribe(() => {
-        this.router.navigateByUrl('/dashboard');
-      });
-    }
-  }
+      const inventuraData: Inventura = {
+        idInventura: 0, // Assuming idInventura will be auto-generated by the backend
+        naziv: this.inventuraForm.value.naziv,
+        datumPocetka: this.inventuraForm.value.datumPocetka,
+        datumZavrsetka: this.inventuraForm.value.datumZavrsetka,
+        akademskaGod: this.inventuraForm.value.akademskaGod,
+        institution: this.inventuraForm.value.institution,
+        djelatniciList: this.inventuraForm.value.loadUsers,
+      };
 
-  private formatDate(date: string): string {
-    return formatDate(date, 'yyyy-MM-dd', 'en');
+      this.inventuraService.createInventura(inventuraData).subscribe(
+        (createdInventura) => {
+          console.log('Inventura created successfully:', createdInventura);
+          // Redirect to the relevant form or list
+          this.router.navigate(['/inventura-list']);
+        },
+        (error) => {
+          console.error('Failed to create inventura:', error);
+          // Handle error if necessary
+        }
+      );
+    } else {
+      this.inventuraForm.markAllAsTouched();
+    }
   }
 }

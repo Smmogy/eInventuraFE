@@ -12,8 +12,13 @@ export class ArticleService {
   constructor(private http: HttpClient) {}
 
   createArticle(article: Artikl): Observable<Artikl> {
-    return this.http.post<Artikl>(this.apiUrl, article);
+    return this.http.post<Artikl>(`${this.apiUrl}`, article);
   }
+
+  updateArticle(article: Artikl): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${article.idArtikl}`, article);
+  }
+
   deleteArtikl(artiklId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${artiklId}`);
   }

@@ -1,0 +1,20 @@
+<div class="card artikl-card">
+    <div class="card-header artikl-card-header">
+      Edit Artikl
+    </div>
+    <div class="card-body">
+      <form [formGroup]="artiklForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter name" required>
+        </div>
+        <!-- Add other form fields as needed for editing -->
+  
+        <div class="form-buttons">
+          <button type="submit" [disabled]="!artiklForm.valid" class="btn btn-primary">Update Artikl</button>
+          <a routerLink="/artikl-list" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  
