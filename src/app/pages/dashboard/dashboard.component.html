@@ -18,8 +18,8 @@
         <ng-template pTemplate="body" let-inventura>
           <tr>
             <td>{{ inventura.naziv }}</td>
-            <td>{{ inventura.datumPocetka }}</td>
-            <td>{{ inventura.datumZavrsetka }}</td>
+            <td>{{ inventura.datumPocetka | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ inventura.datumZavrsetka | date: 'dd/MM/yyyy'}}</td>
             <td>{{ inventura.akademskaGod }}</td>
           </tr>
         </ng-template>
