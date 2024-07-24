@@ -33,8 +33,4 @@ export class ArticleService {
   getArticlesByRoomId(roomId: number): Observable<Artikl[]> {
     return this.http.get<Artikl[]>(`${this.apiUrl}/get/${roomId}`);
   }
-
-  articlePrisutan(article: ArtiklPrisutan): Observable<ArtiklPrisutan> {
-    return this.http.post<ArtiklPrisutan>(`${this.apiUrl}`, article);
-  }
 }

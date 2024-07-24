@@ -24,6 +24,6 @@
   </div>
 
   <div *ngIf="scanning" class="scanner-container">
-    <zxing-scanner (scanSuccess)="onBarcodeScanned($event)"></zxing-scanner>
+    <zxing-scanner [formats]="[4]" (scanSuccess)="onBarcodeScanned($event)"></zxing-scanner>
   </div>
 </div>

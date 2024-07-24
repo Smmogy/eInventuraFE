@@ -5,7 +5,7 @@ import { RoomService } from '../../services/room/room.service';
 import { ArticleService } from '../../services/article/article.service';
 import { Inventura, InventuraDetail } from '../../models/inventura';
 import { Prostorija, ProstorijaDetail } from '../../models/prostorija';
-import { Artikl } from '../../models/artikl';
+import { Artikl, ArtiklPrisutan } from '../../models/artikl';
 
 @Component({
   selector: 'app-inventura-details',
@@ -14,8 +14,6 @@ import { Artikl } from '../../models/artikl';
 })
 export class InventuraDetailsComponent implements OnInit {
   inventura!: InventuraDetail;
-  rooms: ProstorijaDetail[] = [];
-  articles: Map<number, Artikl[]> = new Map();
   scanning = false;
 
   constructor(
@@ -41,9 +39,9 @@ export class InventuraDetailsComponent implements OnInit {
   }
 
   onBarcodeScanned(result: string) {
+    console.log(result);
     this.scanning = false; // Stop scanning after a successful scan
 
-    // Assuming idArtikl is a number, convert scannedCode to number
     const idArtikl = +result;
     if (!isNaN(idArtikl)) {
       this.updateArticlePresence(idArtikl);
@@ -53,9 +51,25 @@ export class InventuraDetailsComponent implements OnInit {
   }
 
   private updateArticlePresence(idArtikl: number) {
-    this.rooms.forEach((room) => {
-      const articles = this.articles.get(room.idProstorija) || [];
-      articles.forEach((artikl) => {
+    const artiklPrisutan: ArtiklPrisutan = {
+      idArtikl: idArtikl,
+      idInventura: this.inventura.idInventura,
+    };
+
+    this.inventuraService.updateArticlePresence(artiklPrisutan).subscribe({
+      next: () => {
+        console.log('Article presence updated successfully.');
+        this.updateArticleStatusInUI(idArtikl);
+      },
+      error: (err) => {
+        console.error('Error updating article presence:', err);
+      },
+    });
+  }
+
+  private updateArticleStatusInUI(idArtikl: number) {
+    this.inventura.institution.prostorijas.forEach((room) => {
+      room.artikls.forEach((artikl) => {
         if (artikl.idArtikl === idArtikl) {
           artikl.prisutan = true; // Update the article's presence status
         }
