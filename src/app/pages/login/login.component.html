@@ -1,24 +1,29 @@
 <div class="parent">
-    <div class="main">  	
-    <input type="checkbox" id="chk" aria-hidden="true">
-
-        <div class="signup">
-            <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
-                <label for="chk" aria-hidden="true">Sign up</label>
-                <input type="text" name="txt" placeholder="Firstname" required="" formControlName= "firstname">
-                <input type="text" name="txt" placeholder="Lastname" required="" formControlName= "lastname">
-                <input type="email" name="email" placeholder="Email" required="" formControlName="email">
-                <input type="password" name="pswd" placeholder="Password" required="" formControlName="password">
-                <button type="submit">Sign up</button>
-            </form>
-        </div>
-
-        <div class="login">
-            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-                <label for="chk" aria-hidden="true">Login</label>
-                <input type="email" name="email" placeholder="Email" required="" formControlName="email">
-                <input type="password" name="password"  placeholder="Password" required="" formControlName="password">
-                <button type="submit">Login</button>
-            </form>
-        </div>
-</div></div>
+    <div class="main">
+      <input type="checkbox" id="chk" aria-hidden="true">
+  
+      <div class="signup">
+        <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+          <label for="chk" aria-hidden="true">Sign up</label>
+          <input type="text" name="txt" placeholder="Firstname" required="" formControlName="firstname">
+          <input type="text" name="txt" placeholder="Lastname" required="" formControlName="lastname">
+          <input type="email" name="email" placeholder="Email" required="" formControlName="email">
+          <input type="password" name="pswd" placeholder="Password" required="" formControlName="password">
+          <button type="submit">Sign up</button>
+        </form>
+      </div>
+  
+      <div class="login">
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <label for="chk" aria-hidden="true">Login</label>
+          <input type="email" name="email" placeholder="Email" required="" formControlName="email">
+          <input type="password" name="password" placeholder="Password" required="" formControlName="password">
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Add SuccessDialogComponent here -->
+  <app-success-dialog [(visible)]="successVisible"></app-success-dialog>
+  

@@ -13,6 +13,7 @@ import { ProstorijaEditFormComponent } from './pages/prostorija-edit-form/prosto
 import { ArtiklFormComponent } from './pages/artikl-form/artikl-form.component';
 import { ArtiklCreateFormComponent } from './pages/artikl-create-form/artikl-create-form.component';
 import { ArtiklEditFormComponent } from './pages/artikl-edit-form/artikl-edit-form.component';
+import { InventuraDetailsComponent } from './pages/inventura-details/inventura-details.component';
 const routes: Routes = [
   {
     path: 'login',
@@ -29,7 +30,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'dashboard',
+        path: 'dashboard/:id',
         component: DashboardComponent,
       },
       { path: 'institutions-form', component: InstitutionsFormComponent },
@@ -75,6 +76,10 @@ const routes: Routes = [
       {
         path: 'artikl/edit/:id',
         component: ArtiklEditFormComponent,
+      },
+      {
+        path: 'inventura/edit/:id',
+        component: InventuraDetailsComponent,
       },
     ],
   },

@@ -8,3 +8,8 @@ export interface Prostorija {
   idInstitution: number;
   artikls: Artikl[];
 }
+export interface ProstorijaDetail {
+  idProstorija: number;
+  name: string;
+  artikls: Artikl[];
+}

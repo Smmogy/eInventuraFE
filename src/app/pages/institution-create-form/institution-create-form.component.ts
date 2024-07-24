@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { InstitutionService } from '../../services/institution/institution.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-institution-create-form',
@@ -14,6 +15,7 @@ export class InstitutionCreateFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private location: Location, // Inject Location service
     private institutionService: InstitutionService
   ) {
     this.institutionForm = this.fb.group({
@@ -29,13 +31,11 @@ export class InstitutionCreateFormComponent implements OnInit {
       this.institutionService.createInstitution(institutionData).subscribe(
         (createdInstitution) => {
           console.log('Institution created successfully:', createdInstitution);
-          // Redirect to 'prostorija-form/:id' after successful creation
-          this.router.navigate([
-            'prostorija-form',
-            createdInstitution.idInstitution,
-          ]);
+          // Navigate back to the previous route
+          this.location.back(); // Navigate back to the previous route
         },
         (error) => {
+          console.error('Failed to create institution:', error);
           // Handle error if necessary
         }
       );

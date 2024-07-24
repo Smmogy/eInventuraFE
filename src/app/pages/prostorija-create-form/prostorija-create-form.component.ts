@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { RoomService } from '../../services/room/room.service';
 import { Prostorija } from '../../models/prostorija';
 
@@ -11,12 +12,13 @@ import { Prostorija } from '../../models/prostorija';
 })
 export class ProstorijaCreateFormComponent implements OnInit {
   prostorijaForm: FormGroup;
-  idInstituion!: number;
+  idInstitution!: number;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private location: Location,
     private prostorijaService: RoomService
   ) {
     this.prostorijaForm = this.fb.group({
@@ -29,7 +31,7 @@ export class ProstorijaCreateFormComponent implements OnInit {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id) {
-        this.idInstituion = +id;
+        this.idInstitution = +id;
       } else {
         console.error('Institution ID is missing from route parameters.');
         // Optionally, redirect or handle the missing ID case
@@ -38,23 +40,19 @@ export class ProstorijaCreateFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('' + this.idInstituion);
     if (this.prostorijaForm.valid) {
       const prostorijaData: Prostorija = {
         name: this.prostorijaForm.value.name,
-        idInstitution: this.idInstituion,
+        idInstitution: this.idInstitution,
         idProstorija: 0, // Provide default value if necessary
         artikls: [], // Provide default value if necessary
       };
-      console.log(prostorijaData);
+
       this.prostorijaService.createRoom(prostorijaData).subscribe(
         (createdProstorija) => {
           console.log('Prostorija created successfully:', createdProstorija);
-          // Redirect to the relevant room form or list
-          this.router.navigate([
-            '/artikl-form/',
-            createdProstorija.idProstorija,
-          ]);
+          // Go back to the previous URL in the history stack
+          this.location.back();
         },
         (error) => {
           console.error('Failed to create prostorija:', error);

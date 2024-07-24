@@ -15,6 +15,10 @@ export class ArtiklFormComponent implements OnInit {
   idArtikl!: number;
   selectedProstorija: Prostorija | undefined;
   artikli: Artikl[] = [];
+  filteredArtikli: Artikl[] = []; // Filtered artikli based on search query
+  searchQuery: string = ''; // Search query
+  displayConfirmDialog: boolean = false;
+  artiklToDelete: number | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,6 +48,7 @@ export class ArtiklFormComponent implements OnInit {
     this.artiklService.getArticlesByRoomId(this.idProstorija).subscribe(
       (data: Artikl[]) => {
         this.artikli = data;
+        this.filteredArtikli = data; // Initialize filtered artikli
       },
       (error: any) => {
         console.error('Error fetching artikli:', error);
@@ -51,16 +56,37 @@ export class ArtiklFormComponent implements OnInit {
     );
   }
 
-  deleteArtikl(idArtikl: number): void {
-    this.artiklService.deleteArtikl(idArtikl).subscribe(
-      () => {
-        this.artikli = this.artikli.filter(
-          (artikl) => artikl.idArtikl !== idArtikl
-        );
-      },
-      (error: any) => {
-        console.error('Error deleting artikl:', error);
-      }
+  filterArtikli(): void {
+    this.filteredArtikli = this.artikli.filter((artikl) =>
+      artikl.name.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
+  }
+
+  showConfirmDialog(idArtikl: number): void {
+    this.artiklToDelete = idArtikl;
+    this.displayConfirmDialog = true;
+  }
+
+  closeConfirmDialog(): void {
+    this.displayConfirmDialog = false;
+    this.artiklToDelete = null;
+  }
+
+  confirmDelete(): void {
+    if (this.artiklToDelete !== null) {
+      this.artiklService.deleteArtikl(this.artiklToDelete).subscribe(
+        () => {
+          this.artikli = this.artikli.filter(
+            (artikl) => artikl.idArtikl !== this.artiklToDelete
+          );
+          this.filterArtikli(); // Reapply filter after deletion
+          this.closeConfirmDialog();
+        },
+        (error: any) => {
+          console.error('Error deleting artikl:', error);
+          this.closeConfirmDialog();
+        }
+      );
+    }
   }
 }

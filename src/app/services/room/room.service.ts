@@ -12,8 +12,12 @@ export class RoomService {
 
   constructor(private http: HttpClient) {}
 
-  createRoom(idProstorija: Prostorija): Observable<Prostorija> {
-    return this.http.post<Prostorija>(this.apiUrl, idProstorija);
+  //createRoom(idProstorija: Prostorija): Observable<Prostorija> {
+  //  return this.http.post<Prostorija>(this.apiUrl, idProstorija);
+  //}
+
+  createRoom(prostorija: Prostorija): Observable<Prostorija> {
+    return this.http.post<Prostorija>(`${this.apiUrl}`, prostorija);
   }
 
   deleteRoom(idProstorija: number): Observable<void> {
@@ -22,12 +26,6 @@ export class RoomService {
 
   createArtikl(artikl: Artikl): Observable<Artikl> {
     return this.http.post<Artikl>(`${this.apiUrl}/artikl`, artikl);
-  }
-
-  deleteArtikl(roomId: number, artiklId: number): Observable<void> {
-    return this.http.delete<void>(
-      `${this.apiUrl}/${roomId}/artikl/${artiklId}`
-    );
   }
 
   getRoomsByInstitutionId(idInstitution: number): Observable<Prostorija[]> {

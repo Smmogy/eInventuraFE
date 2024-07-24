@@ -1,0 +1,29 @@
+<div class="container" *ngIf="inventura">
+  <div class="card">
+    <div class="card-header">
+      <h2>{{ inventura.naziv }}</h2>
+      <button pButton label="Skeniraj" (click)="startScanning()" class="p-button-primary"></button>
+    </div>
+
+    <div class="card-body">
+      <h3 *ngIf="inventura.institution">Institution: {{ inventura.institution.name }}</h3>
+      <ng-container *ngIf="inventura.institution && inventura.institution.prostorijas">
+        <div *ngFor="let room of inventura.institution.prostorijas">
+          <h4>Room: {{ room.name }}</h4>
+          <ul>
+            <ng-container *ngIf="room.artikls">
+              <li *ngFor="let artikl of room.artikls">
+                <input type="checkbox" [checked]="artikl.prisutan" />
+                {{ artikl.name }}
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div *ngIf="scanning" class="scanner-container">
+    <zxing-scanner (scanSuccess)="onBarcodeScanned($event)"></zxing-scanner>
+  </div>
+</div>

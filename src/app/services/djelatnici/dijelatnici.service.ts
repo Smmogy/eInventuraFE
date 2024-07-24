@@ -32,4 +32,8 @@ export class DjelatniciService {
   deleteDjelatnik(djelatnikId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${djelatnikId}`);
   }
+
+  getUserIdByEmail(email: string): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/findByEmail/${email}`);
+  }
 }

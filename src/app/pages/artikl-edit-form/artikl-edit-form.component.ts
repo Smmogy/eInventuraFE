@@ -54,6 +54,7 @@ export class ArtiklEditFormComponent implements OnInit {
         idArtikl: this.artikl.idArtikl,
         name: this.artiklForm.value.name,
         idProstorija: this.artikl.idProstorija,
+        prisutan: this.artikl.prisutan,
       };
 
       this.artiklService.updateArticle(updatedArtikl).subscribe({

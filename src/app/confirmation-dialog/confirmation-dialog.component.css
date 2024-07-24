@@ -1,0 +1,90 @@
+/* Dialog container styling */
+.ui-dialog {
+    border-radius: 12px; /* Slightly larger border radius */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25); /* Stronger shadow */
+    overflow: hidden;
+    background: #ffffff; /* White background for the dialog */
+    padding: 0; /* Remove default padding */
+    width: 500px; /* Larger default width */
+    max-width: 95%; /* Responsive maximum width */
+}
+
+/* Dialog header styling */
+.ui-dialog .ui-dialog-titlebar {
+    background-color: #007ad9; /* Primary color */
+    color: #ffffff; /* White text color */
+    font-size: 22px; /* Larger font size */
+    font-weight: bold;
+    padding: 25px; /* Increased padding */
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Dialog content styling */
+.ui-dialog-content {
+    padding: 35px; /* Increased padding */
+    font-size: 20px; /* Larger font size */
+    color: #333333; /* Dark text color for readability */
+    line-height: 1.7; /* Increased line height for better readability */
+}
+
+/* Dialog footer styling */
+.ui-dialog-footer {
+    background-color: #f9f9f9; /* Light gray background */
+    border-top: 1px solid #e0e0e0;
+    padding: 25px; /* Increased padding */
+    text-align: right;
+}
+
+/* Button styling */
+.ui-button {
+    border: none;
+    border-radius: 6px; /* Larger border radius */
+    padding: 14px 28px; /* Larger padding */
+    font-size: 18px; /* Larger font size */
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin-left: 12px; /* Space between buttons */
+}
+
+.ui-button:hover {
+    opacity: 0.8;
+}
+
+.ui-button-primary {
+    background-color: #007ad9; /* Primary color */
+    color: #ffffff; /* White text color */
+    border: 1px solid #007ad9; /* Border to match background */
+}
+
+.ui-button-primary:hover {
+    background-color: #005bb5; /* Darker blue on hover */
+}
+
+.ui-button-secondary {
+    background-color: #f5f5f5; /* Light gray background */
+    color: #333333; /* Dark text color */
+    border: 1px solid #dcdcdc; /* Light gray border */
+}
+
+.ui-button-secondary:hover {
+    background-color: #e0e0e0; /* Darker gray on hover */
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .ui-dialog {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .ui-dialog-content,
+    .ui-dialog-footer {
+        padding: 20px; /* Adjusted padding for smaller screens */
+    }
+
+    .ui-button {
+        padding: 12px 24px; /* Adjusted padding for smaller screens */
+        font-size: 16px; /* Adjusted font size for smaller screens */
+        margin-left: 8px; /* Space between buttons */
+    }
+}

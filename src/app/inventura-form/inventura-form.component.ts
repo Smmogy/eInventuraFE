@@ -8,6 +8,7 @@ import { Institution } from '../models/institution';
 import { Djelatnici } from '../models/djelatnici';
 import { Inventura } from '../models/inventura';
 import { CreateInventuraDTO } from '../models/create-inventura-dto';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-inventura-form',
@@ -25,7 +26,8 @@ export class InventuraFormComponent implements OnInit {
     private router: Router,
     private inventuraService: InventuraService,
     private institutionService: InstitutionService,
-    private userService: DjelatniciService
+    private userService: DjelatniciService,
+    private location: Location
   ) {
     this.inventuraForm = this.fb.group({
       naziv: ['', Validators.required],
@@ -87,7 +89,7 @@ export class InventuraFormComponent implements OnInit {
         (createdInventura) => {
           console.log('Inventura created successfully:', createdInventura);
           // Redirect to the relevant form or list
-          this.router.navigate(['/inventura-list']);
+          this.location.back();
         },
         (error) => {
           console.error('Failed to create inventura:', error);

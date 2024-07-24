@@ -36,6 +36,11 @@ import { ProstorijaEditFormComponent } from './pages/prostorija-edit-form/prosto
 import { ArtiklFormComponent } from './pages/artikl-form/artikl-form.component';
 import { ArtiklCreateFormComponent } from './pages/artikl-create-form/artikl-create-form.component';
 import { ArtiklEditFormComponent } from './pages/artikl-edit-form/artikl-edit-form.component';
+import { InventuraDetailsComponent } from './pages/inventura-details/inventura-details.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { DialogModule } from 'primeng/dialog';
+import { SuccessDialogComponent } from './success-dialog/success-dialog.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +60,9 @@ import { ArtiklEditFormComponent } from './pages/artikl-edit-form/artikl-edit-fo
     ArtiklFormComponent,
     ArtiklCreateFormComponent,
     ArtiklEditFormComponent,
+    InventuraDetailsComponent,
+    ConfirmationDialogComponent,
+    SuccessDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,6 +83,8 @@ import { ArtiklEditFormComponent } from './pages/artikl-edit-form/artikl-edit-fo
     TableModule,
     DropdownModule,
     MultiSelectModule,
+    ZXingScannerModule,
+    DialogModule,
   ],
   providers: [
     {

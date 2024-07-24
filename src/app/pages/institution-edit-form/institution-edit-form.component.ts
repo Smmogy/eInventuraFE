@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { Institution } from '../../models/institution';
 import { InstitutionService } from '../../services/institution/institution.service';
 
@@ -18,6 +19,7 @@ export class InstitutionEditFormComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private location: Location, // Inject Location service
     private institutionService: InstitutionService
   ) {
     this.institutionForm = this.fb.group({
@@ -52,18 +54,15 @@ export class InstitutionEditFormComponent implements OnInit {
       const updatedInstitution: Institution = {
         idInstitution: this.institution.idInstitution,
         name: this.institutionForm.value.name,
-        inventura: this.institution.inventura, // Ensure to include all required properties
-        // Assign other form control values to updatedInstitution
+        // Ensure to include all required properties
+        inventura: this.institution.inventura, // Assign other form control values to updatedInstitution
       };
 
       this.institutionService.updateInstitution(updatedInstitution).subscribe({
         next: () => {
           console.log('Institution updated successfully');
-          // Navigate to prostorija-form/:id after successful update
-          this.router.navigate([
-            '/prostorija-form',
-            this.institution?.idInstitution,
-          ]);
+          // Navigate back to the previous page
+          this.location.back();
         },
         error: (error) => {
           console.error('Error updating institution:', error);

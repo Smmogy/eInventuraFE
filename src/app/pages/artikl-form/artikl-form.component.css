@@ -1,92 +1,117 @@
-/* artikl-form.component.css */
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
 
-/* General card styling */
-.artikl-form.card {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    margin: 16px auto;
-    max-width: 800px;
-  }
-  
-  /* Header styling */
-  .header {
-    font-size: 1.5rem;
-    margin-bottom: 16px;
-    color: #333;
-  }
-  
-  /* Button styling */
-  .create-btn {
-    display: block;
-    margin-bottom: 20px;
-  }
-  
-  .p-button-success {
-    background-color: #28a745;
-    border-color: #28a745;
-  }
-  
-  .p-button-success:hover {
-    background-color: #218838;
-    border-color: #1e7e34;
-  }
-  
-  /* Artikl list styling */
-  .artikl-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .artikl-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px;
-    margin-bottom: 8px;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
-    transition: background-color 0.3s, box-shadow 0.3s;
-  }
-  
-  .artikl-item:hover {
-    background-color: #f1f1f1;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Artikl name link styling */
-  .artikl-name {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-  }
-  
-  .artikl-name:hover {
-    text-decoration: underline;
-  }
-  
-  /* Action buttons styling */
-  .action-buttons {
-    display: flex;
-    gap: 8px;
-  }
-  
-  .edit-btn, .delete-btn {
-    border: none;
-    cursor: pointer;
-  }
-  
-  /* Edit button color */
-  .edit-btn {
-    background-color: #ffc107;
-    color: #ffffff;
-  }
-  
-  .edit-btn:hover {
-    background-color: #e0a800;
-  }
-  
-  
+/* Card Styles */
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.artikl-form {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+/* Header Styles */
+.artikl-form h2 {
+  color: #007bff;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Button Styles */
+.create-btn {
+  margin-bottom: 1rem;
+  display: block;
+  width: fit-content;
+}
+
+/* Search Bar Styles */
+.search-container {
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  width: 25%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+}
+
+/* Artikl List Styles */
+.artikl-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.artikl-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.artikl-item:hover {
+  background-color: #f1f1f1;
+}
+
+.artikl-name {
+  font-size: 1.25rem;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.artikl-name:hover {
+  text-decoration: underline;
+}
+
+/* Action Buttons Styles */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-btn, .delete-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.edit-btn:hover {
+  background-color: #ffca2c;
+  border-color: #ffc107;
+}
+
+.delete-btn:hover {
+  background-color: #f44336;
+  border-color: #f44336;
+}
+
+/* Empty State Styles */
+.no-artikli-message {
+  color: #6c757d;
+  font-size: 1rem;
+}

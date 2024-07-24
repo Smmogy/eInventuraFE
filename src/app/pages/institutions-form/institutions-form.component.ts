@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InstitutionService } from '../../services/institution/institution.service';
 import { Institution } from '../../models/institution';
 
@@ -10,17 +9,12 @@ import { Institution } from '../../models/institution';
 })
 export class InstitutionsFormComponent implements OnInit {
   institutions: Institution[] = [];
-  institutionForm: FormGroup;
-  selectedInstitution: Institution | null = null;
+  filteredInstitutions: Institution[] = [];
+  searchQuery: string = '';
+  display: boolean = false;
+  institutionIdToDelete: number | null = null;
 
-  constructor(
-    private fb: FormBuilder,
-    private institutionService: InstitutionService
-  ) {
-    this.institutionForm = this.fb.group({
-      name: ['', Validators.required],
-    });
-  }
+  constructor(private institutionService: InstitutionService) {}
 
   ngOnInit(): void {
     this.loadInstitutions();
@@ -31,14 +25,48 @@ export class InstitutionsFormComponent implements OnInit {
       .getInstitutions()
       .subscribe((data: Institution[]) => {
         this.institutions = data;
+        this.filteredInstitutions = data; // Initialize filteredInstitutions with all institutions
       });
   }
 
-  deleteInstitution(id: number): void {
-    this.institutionService.deleteInstitution(id).subscribe(() => {
-      this.institutions = this.institutions.filter(
-        (institution) => institution.idInstitution !== id
+  filterInstitutions(): void {
+    if (this.searchQuery) {
+      this.filteredInstitutions = this.institutions.filter((institution) =>
+        institution.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
-    });
+    } else {
+      this.filteredInstitutions = this.institutions; // Show all if search query is empty
+    }
+  }
+
+  deleteInstitution(id: number): void {
+    this.institutionIdToDelete = id;
+    this.display = true; // Show the dialog
+  }
+
+  closeDialog(): void {
+    this.display = false; // Hide the dialog
+    this.institutionIdToDelete = null; // Clear the ID
+  }
+
+  confirmDelete(): void {
+    if (this.institutionIdToDelete !== null) {
+      this.institutionService
+        .deleteInstitution(this.institutionIdToDelete)
+        .subscribe(
+          () => {
+            this.institutions = this.institutions.filter(
+              (institution) =>
+                institution.idInstitution !== this.institutionIdToDelete
+            );
+            this.filterInstitutions(); // Re-filter institutions after deletion
+            this.closeDialog();
+          },
+          (error) => {
+            console.error('Failed to delete institution:', error);
+            this.closeDialog();
+          }
+        );
+    }
   }
 }

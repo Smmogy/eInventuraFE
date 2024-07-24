@@ -12,9 +12,12 @@ import { Institution } from '../../models/institution';
 })
 export class ProstorijaFormComponent implements OnInit {
   idInstitution!: number;
-  idProstorija!: number;
+  idProstorijaToDelete!: number;
   selectedInstitution: Institution | undefined;
   rooms: Prostorija[] = [];
+  filteredRooms: Prostorija[] = [];
+  searchQuery: string = '';
+  displayDialog: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,6 +47,7 @@ export class ProstorijaFormComponent implements OnInit {
     this.roomService.getRoomsByInstitutionId(this.idInstitution).subscribe(
       (data: Prostorija[]) => {
         this.rooms = data;
+        this.filteredRooms = data; // Initialize filteredRooms with all rooms
       },
       (error: any) => {
         console.error('Error fetching rooms:', error);
@@ -51,16 +55,40 @@ export class ProstorijaFormComponent implements OnInit {
     );
   }
 
-  deleteRoom(idProstorija: number): void {
-    this.roomService.deleteRoom(idProstorija).subscribe(
-      () => {
-        this.rooms = this.rooms.filter(
-          (room) => room.idProstorija !== idProstorija
-        );
-      },
-      (error: any) => {
-        console.error('Error deleting room:', error);
-      }
+  filterRooms(): void {
+    const query = this.searchQuery.toLowerCase();
+    this.filteredRooms = this.rooms.filter((room) =>
+      room.name.toLowerCase().includes(query)
     );
+  }
+
+  prepareDeleteRoom(idProstorija: number): void {
+    this.idProstorijaToDelete = idProstorija;
+    this.displayDialog = true; // Show confirmation dialog
+  }
+
+  closeDialog(): void {
+    this.displayDialog = false; // Hide confirmation dialog
+    this.idProstorijaToDelete = 0; // Clear the ID
+  }
+
+  confirmDelete(): void {
+    if (this.idProstorijaToDelete) {
+      this.roomService.deleteRoom(this.idProstorijaToDelete).subscribe(
+        () => {
+          this.rooms = this.rooms.filter(
+            (room) => room.idProstorija !== this.idProstorijaToDelete
+          );
+          this.filteredRooms = this.filteredRooms.filter(
+            (room) => room.idProstorija !== this.idProstorijaToDelete
+          );
+          this.closeDialog();
+        },
+        (error: any) => {
+          console.error('Error deleting room:', error);
+          this.closeDialog();
+        }
+      );
+    }
   }
 }
