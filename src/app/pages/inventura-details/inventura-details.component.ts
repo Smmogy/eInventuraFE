@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common'; // Import Location
 import { InventuraService } from '../../services/inventura/inventura.service';
 import { RoomService } from '../../services/room/room.service';
 import { ArticleService } from '../../services/article/article.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { Inventura, InventuraDetail } from '../../models/inventura';
 import { Prostorija, ProstorijaDetail } from '../../models/prostorija';
 import { Artikl, ArtiklPrisutan } from '../../models/artikl';
@@ -15,12 +17,17 @@ import { Artikl, ArtiklPrisutan } from '../../models/artikl';
 export class InventuraDetailsComponent implements OnInit {
   inventura!: InventuraDetail;
   scanning = false;
+  isAdmin: boolean = false;
+  displayConfirmDialog: boolean = false; // Control dialog visibility
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
+    private location: Location, // Inject Location
     private inventuraService: InventuraService,
     private roomService: RoomService,
-    private articleService: ArticleService
+    private articleService: ArticleService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +39,10 @@ export class InventuraDetailsComponent implements OnInit {
           this.inventura = data;
         });
     }
+
+    this.authService.hasAdminRole().subscribe((isAdmin) => {
+      this.isAdmin = isAdmin;
+    });
   }
 
   startScanning() {
@@ -40,7 +51,7 @@ export class InventuraDetailsComponent implements OnInit {
 
   onBarcodeScanned(result: string) {
     console.log(result);
-    this.scanning = false; // Stop scanning after a successful scan
+    this.scanning = false;
 
     const idArtikl = +result;
     if (!isNaN(idArtikl)) {
@@ -71,9 +82,31 @@ export class InventuraDetailsComponent implements OnInit {
     this.inventura.institution.prostorijas.forEach((room) => {
       room.artikls.forEach((artikl) => {
         if (artikl.idArtikl === idArtikl) {
-          artikl.prisutan = true; // Update the article's presence status
+          artikl.prisutan = true;
         }
       });
     });
+  }
+
+  showConfirmDialog() {
+    this.displayConfirmDialog = true;
+  }
+
+  finishInventura() {
+    this.inventuraService
+      .zavrsiInventuru(this.inventura.idInventura)
+      .subscribe({
+        next: () => {
+          console.log('Inventura finished successfully.');
+          this.displayConfirmDialog = false; // Close dialog on success
+        },
+        error: (err) => {
+          console.error('Error finishing inventura:', err);
+        },
+      });
+  }
+
+  goBack() {
+    this.location.back(); // Use Angular Location service to go back
   }
 }

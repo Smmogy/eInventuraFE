@@ -7,6 +7,13 @@
 
     <div class="card-body">
       <h3 *ngIf="inventura.institution">Institution: {{ inventura.institution.name }}</h3>
+      
+      <!-- Button Wrapper for positioning -->
+      <div *ngIf="isAdmin" class="button-wrapper">
+        <button pButton label="Back" (click)="goBack()" class="p-button-secondary back-btn"></button>
+        <button pButton label="Zavrsi" (click)="showConfirmDialog()" class="p-button-success finish-btn"></button>
+      </div>
+
       <ng-container *ngIf="inventura.institution && inventura.institution.prostorijas">
         <div *ngFor="let room of inventura.institution.prostorijas" class="room">
           <h4>Room: {{ room.name }}</h4>
@@ -26,4 +33,11 @@
   <div *ngIf="scanning" class="scanner-container">
     <zxing-scanner [formats]="[4]" (scanSuccess)="onBarcodeScanned($event)"></zxing-scanner>
   </div>
+
+  <!-- Confirmation Dialog -->
+  <app-confrimation-dialog-zavrsi
+    [display]="displayConfirmDialog"
+    (displayChange)="displayConfirmDialog = $event"
+    (confirmAction)="finishInventura()">
+  </app-confrimation-dialog-zavrsi>
 </div>

@@ -2,71 +2,113 @@
     max-width: 900px;
     margin: 0 auto;
     padding: 20px;
-  }
-  
-  .card {
+    position: relative; /* For positioning the buttons */
+}
+
+.card {
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     background-color: #fff;
-  }
-  
-  .card-header {
+}
+
+.card-header {
     background-color: #007ad9;
     color: #fff;
     padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  
-  .card-header h2 {
+}
+
+.card-header h2 {
     margin: 0;
     font-size: 24px;
-  }
-  
-  .card-body {
+}
+
+.card-body {
     padding: 20px;
-  }
-  
-  .card-body h3 {
+}
+
+.card-body h3 {
     margin-top: 0;
-  }
-  
-  .room {
+}
+
+.room {
     margin-bottom: 20px;
-  }
-  
-  .room h4 {
+}
+
+.room h4 {
     margin: 0 0 10px;
     font-size: 20px;
     color: #007ad9;
-  }
-  
-  .room ul {
+}
+
+.room ul {
     list-style: none;
     padding: 0;
-    margin: 0;
-  }
-  
-  .room ul li {
+}
+
+.room ul li {
     padding: 5px 0;
     display: flex;
     align-items: center;
-  }
-  
-  .room ul li input {
+}
+
+.room ul li input {
     margin-right: 10px;
-  }
-  
-  .scanner-container {
+}
+
+.scanner-container {
     margin-top: 20px;
     text-align: center;
-  }
-  
-  .scanner-container zxing-scanner {
+}
+
+.scanner-container zxing-scanner {
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
-  }
+}
+
+/* Button Wrapper for positioning */
+.button-wrapper {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between buttons */
+}
+
+/* Back Button Style */
+.back-btn {
+    background-color: #6c757d;
+    border: 1px solid #6c757d;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.back-btn:hover {
+    background-color: #5a6268;
+    border-color: #4e555b;
+}
+
+/* Finish Button Style */
+.finish-btn {
+    background-color: #28a745;
+    border: 1px solid #28a745;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.finish-btn:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}

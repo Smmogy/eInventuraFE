@@ -42,6 +42,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { DialogModule } from 'primeng/dialog';
 import { SuccessDialogComponent } from './success-dialog/success-dialog.component';
 import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component';
+import { ConfrimationDialogZavrsiComponent } from './confrimation-dialog-zavrsi/confrimation-dialog-zavrsi.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin
     ConfirmationDialogComponent,
     SuccessDialogComponent,
     DashboardAdminComponent,
+    ConfrimationDialogZavrsiComponent,
   ],
   imports: [
     BrowserModule,

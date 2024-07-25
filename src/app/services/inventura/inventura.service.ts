@@ -44,4 +44,7 @@ export class InventuraService {
   deleteInventura(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+  zavrsiInventuru(idInventura: number): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/zavrsi/${idInventura}`, {});
+  }
 }
