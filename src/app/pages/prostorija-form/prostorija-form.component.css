@@ -34,7 +34,9 @@ body {
   margin-bottom: 1rem;
   display: block;
   width: fit-content;
-  margin-left: 0; /* Align button to the left */
+  margin-left: 0; 
+  padding: 0.5rem;
+  border-radius: 4px;
 }
 
 /* Search Bar Styles */

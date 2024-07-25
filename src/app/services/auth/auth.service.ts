@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -52,5 +51,10 @@ export class AuthService {
       'http://localhost:8080/api/v1/auth/register',
       registerInfo
     );
+  }
+
+  // Add the logout method
+  public logout(): void {
+    this.clearToken();
   }
 }

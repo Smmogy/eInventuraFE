@@ -1,23 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css',
 })
-export class LayoutComponent {
-  constructor(private router: Router, private authService: AuthService) {}
+export class LayoutComponent implements OnInit {
+  isAdmin: boolean = false;
 
-  navigateTo(route: string) {
-    this.router.navigate([route]);
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.authService.hasAdminRole().subscribe((isAdmin) => {
+      this.isAdmin = isAdmin;
+    });
   }
 
-  navigateToDashboard() {}
+  navigateTo(path: string) {
+    this.router.navigate([path]);
+  }
 
-  hasAdminRole(): Observable<boolean> {
-    return this.authService.hasAdminRole();
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']); // Adjust this path if your login route is different
   }
 }
