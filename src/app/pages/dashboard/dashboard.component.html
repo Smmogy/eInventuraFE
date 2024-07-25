@@ -1,12 +1,19 @@
+<!-- Updated HTML Template -->
 <div class="container">
   <div class="card">
     <div class="card-header">
-      <button pButton label="Kreiraj Inventuru" [routerLink]="'/inventura-form'" class="p-button-success"></button>
-      <button pButton label="Institucije" [routerLink]="'/institutions-form'" class="p-button-primary"></button>
+      <!-- Remove button-group for Kreiraj Inventuru and Institucije -->
     </div>
 
     <div class="card-body">
-      <p-table [value]="inventuraList" class="mt-5">
+      <!-- Heading for Inventura List -->
+      <h2 class="list-heading">Liste Inventura</h2>
+
+      <!-- Conditional message for empty inventura list -->
+      <p *ngIf="inventuraList.length === 0" class="no-data-message">No Inventuras Available</p>
+
+      <!-- Table displaying inventura list -->
+      <p-table [value]="inventuraList" class="mt-5 table-custom" *ngIf="inventuraList.length > 0">
         <ng-template pTemplate="header">
           <tr>
             <th>Naziv</th>
@@ -25,11 +32,12 @@
             <td>{{ inventura.akademskaGod }}</td>
             <td>{{ inventura.institutionName }}</td>
             <td>
-              <button pButton label="Prikaz" (click)="viewInventuraDetails(inventura.idInventura)"></button>
+              <button pButton label="Prikaz" (click)="viewInventuraDetails(inventura.idInventura)" class="btn-action"></button>
             </td>
           </tr>
         </ng-template>
       </p-table>
     </div>
   </div>
-</div>
+  
+

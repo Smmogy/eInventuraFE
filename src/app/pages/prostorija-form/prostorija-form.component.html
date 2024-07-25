@@ -8,8 +8,8 @@
 </p-dialog>
 
 <div class="prostorija-form card">
-  <!-- Display the selected institution's name -->
-  <h2>{{ selectedInstitution?.name }}</h2>
+  <!-- Display the selected institution's name with label -->
+  <h2>Institution: {{ selectedInstitution?.name }}</h2>
 
   <!-- Button to create a new room, aligned to the left -->
   <button pButton label="Create New Room" [routerLink]="['/prostorija/create', idInstitution]" class="p-button-success create-btn"></button>
@@ -33,13 +33,15 @@
   <div *ngIf="filteredRooms.length; else noRoomsTemplate">
     <ul class="room-list">
       <li *ngFor="let room of filteredRooms" class="room-item card">
-        <!-- Link to view room details -->
-        <a class="room-name" [routerLink]="['/artikl-form', room.idProstorija]">{{ room.name }}</a>
-        <div class="action-buttons">
-          <!-- Button to edit the room -->
-          <button pButton icon="pi pi-pencil" class="edit-btn" [routerLink]="['/prostorija/edit', room.idProstorija]"></button>
-          <!-- Button to delete the room -->
-          <button pButton icon="pi pi-trash" class="delete-btn" (click)="prepareDeleteRoom(room.idProstorija)"></button>
+        <div class="room-content">
+          <!-- Link to view room details -->
+          <a class="room-name" [routerLink]="['/artikl-form', room.idProstorija]">{{ room.name }}</a>
+          <div class="action-buttons">
+            <!-- Button to edit the room -->
+            <button pButton icon="pi pi-pencil" class="edit-btn" [routerLink]="['/prostorija/edit', room.idProstorija]"></button>
+            <!-- Button to delete the room -->
+            <button pButton icon="pi pi-trash" class="delete-btn" (click)="prepareDeleteRoom(room.idProstorija)"></button>
+          </div>
         </div>
       </li>
     </ul>

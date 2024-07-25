@@ -1,65 +1,67 @@
 .form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f4;
-  }
-  
-  .form-padding {
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-  }
-  
-  .p-field {
-    margin-bottom: 16px;
-  }
-  
-  .p-field label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-  }
-  
-  .p-field input, .p-field p-calendar, .p-field p-inputNumber, .p-field p-dropdown, .field p-multiSelect {
-    width: 100%;
-  }
-  
-  .p-error {
-    color: #ff4d4f;
-    font-size: 12px;
-    margin-top: 4px;
-  }
-  
-  .submitButton {
-    display: block;
-    width: 100%;
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    margin-top: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .submitButton[disabled] {
-    background-color: #9E9E9E;
-    cursor: not-allowed;
-  }
-  
-  .submitButton:not([disabled]):hover {
-    background-color: #45a049;
-  }
-  
-  .submitButton:not([disabled]):active {
-    background-color: #388E3C;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items to the top */
+  height: 100vh;
+  background-color: #f4f4f4;
+  padding: 0; /* Remove all padding */
+  margin: 0; /* Remove all margin */
+}
+
+.form-padding {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  margin-top: 20px; /* Add a small gap at the top */
+}
+
+.p-field {
+  margin-bottom: 16px;
+}
+
+.p-field label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.p-field input, .p-field p-calendar, .p-field p-inputNumber, .p-field p-dropdown, .field p-multiSelect {
+  width: 100%;
+}
+
+.p-error {
+  color: #ff4d4f;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.submitButton {
+  display: block;
+  width: 100%;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton[disabled] {
+  background-color: #9E9E9E;
+  cursor: not-allowed;
+}
+
+.submitButton:not([disabled]):hover {
+  background-color: #45a049;
+}
+
+.submitButton:not([disabled]):active {
+  background-color: #388E3C;
+}

@@ -76,10 +76,18 @@ body {
   background-color: #f1f1f1;
 }
 
+.room-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 .room-name {
   font-size: 1.25rem;
   color: #007bff;
   text-decoration: none;
+  flex-grow: 1; /* Allows name to take up available space */
 }
 
 .room-name:hover {

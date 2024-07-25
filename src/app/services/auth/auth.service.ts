@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtPayload, jwtDecode } from 'jwt-decode';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -28,23 +29,15 @@ export class AuthService {
     else return null;
   }
 
-  getRoles() {
-    if (this.getUserData()) {
+  // Modify this method to return an Observable<boolean>
+  hasAdminRole(): Observable<boolean> {
+    const userData = this.getUserData();
+    if (userData) {
+      const isAdmin =
+        userData.roles?.some((role) => role.authority === 'ADMIN') ?? false;
+      return of(isAdmin);
     }
-  }
-
-  hasAdminRole(): boolean {
-    if (this.getUserData()) {
-      const role: boolean = this.getUserData()?.roles?.find(
-        (role) => role.authority === 'ADMIN'
-      )
-        ? true
-        : false;
-      console.log(this.getUserData()?.roles);
-      console.log(role);
-      return role;
-    }
-    return false;
+    return of(false);
   }
 
   public login(loginInfo: any): Observable<any> {

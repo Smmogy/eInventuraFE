@@ -1,0 +1,72 @@
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-color: #fff;
+  }
+  
+  .card-header {
+    background-color: #007ad9;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .card-header h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .card-body h3 {
+    margin-top: 0;
+  }
+  
+  .room {
+    margin-bottom: 20px;
+  }
+  
+  .room h4 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    color: #007ad9;
+  }
+  
+  .room ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .room ul li {
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .room ul li input {
+    margin-right: 10px;
+  }
+  
+  .scanner-container {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .scanner-container zxing-scanner {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }

@@ -41,6 +41,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { DialogModule } from 'primeng/dialog';
 import { SuccessDialogComponent } from './success-dialog/success-dialog.component';
+import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { SuccessDialogComponent } from './success-dialog/success-dialog.componen
     InventuraDetailsComponent,
     ConfirmationDialogComponent,
     SuccessDialogComponent,
+    DashboardAdminComponent,
   ],
   imports: [
     BrowserModule,

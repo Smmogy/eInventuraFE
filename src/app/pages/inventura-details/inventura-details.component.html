@@ -8,11 +8,11 @@
     <div class="card-body">
       <h3 *ngIf="inventura.institution">Institution: {{ inventura.institution.name }}</h3>
       <ng-container *ngIf="inventura.institution && inventura.institution.prostorijas">
-        <div *ngFor="let room of inventura.institution.prostorijas">
+        <div *ngFor="let room of inventura.institution.prostorijas" class="room">
           <h4>Room: {{ room.name }}</h4>
           <ul>
             <ng-container *ngIf="room.artikls">
-              <li *ngFor="let artikl of room.artikls">
+              <li *ngFor="let artikl of room.artikls" class="artikl">
                 <input type="checkbox" [checked]="artikl.prisutan" />
                 {{ artikl.name }}
               </li>

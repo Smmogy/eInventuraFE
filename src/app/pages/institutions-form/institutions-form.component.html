@@ -1,11 +1,3 @@
-<p-dialog header="Confirm" [(visible)]="display" modal="modal" [style]="{width: '300px'}" [baseZIndex]="10000">
-  <p>Are you sure you want to delete this item?</p>
-  <p-footer>
-    <button pButton label="Cancel" icon="pi pi-times" (click)="closeDialog()" class="p-button-text"></button>
-    <button pButton label="Confirm" icon="pi pi-check" (click)="confirmDelete()" class="p-button-text"></button>
-  </p-footer>
-</p-dialog>
-
 <div class="institutions-form card">
   <h2>Institutions</h2>
   <button pButton label="Create New Institution" [routerLink]="'/institutions/create'" class="p-button-success create-btn"></button>
@@ -27,10 +19,12 @@
   <div *ngIf="filteredInstitutions.length">
     <ul class="institution-list">
       <li *ngFor="let institution of filteredInstitutions" class="institution-item card">
-        <a class="institution-name" [routerLink]="['/prostorija-form', institution.idInstitution]">{{ institution.name }}</a>
-        <div class="action-buttons">
-          <button pButton icon="pi pi-pencil" class="p-button-warning edit-btn" [routerLink]="['/institutions/edit', institution.idInstitution]"></button>
-          <button pButton icon="pi pi-trash" class="p-button-danger delete-btn" (click)="deleteInstitution(institution.idInstitution)"></button>
+        <div class="institution-content">
+          <a class="institution-name" [routerLink]="['/prostorija-form', institution.idInstitution]">{{ institution.name }}</a>
+          <div class="action-buttons">
+            <button pButton icon="pi pi-pencil" class="p-button-warning edit-btn" [routerLink]="['/institutions/edit', institution.idInstitution]"></button>
+            <button pButton icon="pi pi-trash" class="p-button-danger delete-btn" (click)="deleteInstitution(institution.idInstitution)"></button>
+          </div>
         </div>
       </li>
     </ul>

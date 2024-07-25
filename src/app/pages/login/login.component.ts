@@ -1,10 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { jwtDecode } from 'jwt-decode';
-import { Observable } from 'rxjs';
 import { DjelatniciService } from '../../services/djelatnici/dijelatnici.service';
 
 @Component({
@@ -43,7 +41,19 @@ export class LoginComponent {
           if (email) {
             this.userService.getUserIdByEmail(email).subscribe({
               next: (userId: number) => {
-                this.router.navigateByUrl(`/dashboard/${userId}`);
+                this.authService.hasAdminRole().subscribe({
+                  next: (isAdmin: boolean) => {
+                    if (isAdmin) {
+                      this.router.navigateByUrl(`/dashboard/list/admin`);
+                    } else {
+                      this.router.navigateByUrl(`/dashboard/${userId}`);
+                    }
+                  },
+                  error: (err) => {
+                    console.error('Failed to check admin role:', err);
+                    alert('Failed to verify user role');
+                  },
+                });
               },
               error: (err) => {
                 console.error('Failed to get user ID by email:', err);

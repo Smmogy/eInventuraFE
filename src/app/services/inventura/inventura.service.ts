@@ -21,8 +21,8 @@ export class InventuraService {
     return this.http.post<Inventura>(`${this.apiUrl}`, inventura);
   }
 
-  getAllInventura(): Observable<Inventura[]> {
-    return this.http.get<Inventura[]>(this.apiUrl);
+  getAllInventura(): Observable<InventuraList[]> {
+    return this.http.get<InventuraList[]>(this.apiUrl);
   }
 
   getInventuraById(id: number): Observable<Inventura> {
@@ -40,5 +40,8 @@ export class InventuraService {
       `${this.apiUrl}/update-article-presence`,
       artikl
     );
+  }
+  deleteInventura(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

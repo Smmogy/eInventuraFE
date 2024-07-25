@@ -1,96 +1,110 @@
-/* General Styles */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  /* Container Styles */
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    padding: 2rem;
-  }
-  
-  /* Card Styles */
-  .card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    width: 100%;
-  }
-  
-  /* Card Header Styles */
-  .card-header {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-  
-  /* Button Styles */
-  button[pButton] {
-    width: auto;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-  }
-  
-  button[pButton].p-button-success {
-    background-color: #28a745;
-    border-color: #28a745;
-  }
-  
-  button[pButton].p-button-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-  }
-  
-  /* Table Styles */
-  p-table {
-    width: 100%;
-  }
-  
-  p-table .p-datatable-header {
-    background-color: #007bff;
-    color: #fff;
-    font-weight: bold;
-    text-align: left;
-  }
-  
-  p-table .p-datatable-tbody tr:nth-child(odd) {
-    background-color: #f8f9fa;
-  }
-  
-  p-table .p-datatable-tbody tr:nth-child(even) {
-    background-color: #ffffff;
-  }
-  
-  p-table th,
-  p-table td {
-    padding: 0.75rem;
-    text-align: left;
-  }
-  
-  p-table th {
-    background-color: #007bff;
-    color: #fff;
-    font-weight: bold;
-  }
-  
-  p-table td {
-    border-bottom: 1px solid #dee2e6;
-  }
-  
-  p-table tr:hover {
-    background-color: #f1f1f1;
-  }
-  
+/* Add to your component's CSS file or global stylesheet */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.card {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.card-header {
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.list-heading {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.5rem;
+}
+
+.table-custom {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-custom th, .table-custom td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-custom th {
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+.table-custom tr:hover {
+  background-color: #f1f1f1;
+}
+
+.btn-action {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-delete {
+  background-color: #dc3545; /* Bootstrap red */
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 0.5rem; /* Space between buttons */
+}
+
+.btn-delete:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+.no-data-message {
+  font-size: 1.25rem;
+  color: #6c757d;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Styles for dialog footer */
+.ui-dialog-footer {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 1rem; /* Adds space between buttons */
+}
+
+.ui-dialog-footer .ui-button {
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+}
+
+.ui-button-secondary {
+  background-color: #6c757d; /* Bootstrap grey */
+  border-color: #6c757d;
+}
+
+.ui-button-primary {
+  background-color: #007bff; /* Bootstrap blue */
+  border-color: #007bff;
+}
+
+.ui-button-secondary:hover {
+  background-color: #5a6268; /* Darker grey on hover */
+}
+
+.ui-button-primary:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}

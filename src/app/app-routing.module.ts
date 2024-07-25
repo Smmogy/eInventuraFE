@@ -14,6 +14,8 @@ import { ArtiklFormComponent } from './pages/artikl-form/artikl-form.component';
 import { ArtiklCreateFormComponent } from './pages/artikl-create-form/artikl-create-form.component';
 import { ArtiklEditFormComponent } from './pages/artikl-edit-form/artikl-edit-form.component';
 import { InventuraDetailsComponent } from './pages/inventura-details/inventura-details.component';
+import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component';
+import { AdminGuard } from './directives/guards/admin.guard';
 const routes: Routes = [
   {
     path: 'login',
@@ -80,6 +82,11 @@ const routes: Routes = [
       {
         path: 'inventura/edit/:id',
         component: InventuraDetailsComponent,
+      },
+      {
+        path: 'dashboard/list/admin',
+        component: DashboardAdminComponent,
+        canActivate: [AdminGuard],
       },
     ],
   },
