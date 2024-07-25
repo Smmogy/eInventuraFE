@@ -97,7 +97,7 @@ export class InventuraDetailsComponent implements OnInit {
         next: () => {
           console.log('Inventura finished successfully.');
           this.displayConfirmDialog = false;
-          this.location.back(); // Go back to the previous page
+          this.location.back();
         },
         error: (err) => {
           console.error('Error finishing inventura:', err);

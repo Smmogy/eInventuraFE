@@ -1,4 +1,4 @@
-/* Container styling for the form */
+
 .prostorija-create-form {
   max-width: 500px;
   margin: 2rem auto;
@@ -9,7 +9,6 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Header styling */
 .prostorija-create-form h2 {
   text-align: center;
   margin-bottom: 1.5rem;
@@ -18,7 +17,6 @@
   font-weight: 600;
 }
 
-/* Styling for form fields */
 .field {
   margin-bottom: 1.5rem;
 }
@@ -47,14 +45,12 @@
   box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
 }
 
-/* Error message styling */
 .error {
   color: #d9534f;
   font-size: 0.875rem;
   margin-top: 0.25rem;
 }
 
-/* Button styling */
 button.p-button-success {
   display: block;
   width: 100%;

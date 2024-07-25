@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Prostorija } from '../../models/prostorija'; // Update model import
-import { RoomService } from '../../services/room/room.service'; // Update service import
+import { Prostorija } from '../../models/prostorija';
+import { RoomService } from '../../services/room/room.service';
 import { Location } from '@angular/common';
 
 @Component({
@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./prostorija-edit-form.component.css'],
 })
 export class ProstorijaEditFormComponent implements OnInit {
-  prostorijaForm: FormGroup; // Rename form group
+  prostorijaForm: FormGroup;
   idProstorija!: number;
   prostorija: Prostorija | undefined;
 
@@ -19,18 +19,17 @@ export class ProstorijaEditFormComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private prostorijaService: RoomService, // Use RoomService instead of InstitutionService
+    private prostorijaService: RoomService,
     private location: Location
   ) {
     this.prostorijaForm = this.fb.group({
       name: ['', Validators.required],
-      // Add other fields as needed
     });
   }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.idProstorija = +params['id']; // Get the id parameter from the route
+      this.idProstorija = +params['id'];
       this.loadProstorija(this.idProstorija);
     });
   }
@@ -41,7 +40,6 @@ export class ProstorijaEditFormComponent implements OnInit {
         this.prostorija = data;
         this.prostorijaForm.patchValue({
           name: this.prostorija.name,
-          // Patch other form controls with prostorija data
         });
       },
       error: (error) => {
@@ -53,11 +51,10 @@ export class ProstorijaEditFormComponent implements OnInit {
   onSubmit(): void {
     if (this.prostorijaForm.valid && this.prostorija) {
       const updatedProstorija: Prostorija = {
-        idProstorija: this.prostorija.idProstorija, // Use the correct ID field
+        idProstorija: this.prostorija.idProstorija,
         name: this.prostorijaForm.value.name,
-        idInstitution: this.prostorija.idInstitution, // Ensure to include all required properties
-        artikls: this.prostorija.artikls, // Include other necessary fields
-        // Assign other form control values to updatedProstorija
+        idInstitution: this.prostorija.idInstitution,
+        artikls: this.prostorija.artikls,
       };
 
       this.prostorijaService.updateProstorija(updatedProstorija).subscribe({

@@ -1,4 +1,3 @@
-// institution-edit-form.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,7 +19,7 @@ export class InstitutionEditFormComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location, // Inject Location service
+    private location: Location,
     private institutionService: InstitutionService
   ) {
     this.institutionForm = this.fb.group({
@@ -30,7 +29,7 @@ export class InstitutionEditFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.id = +params['id']; // Get the id parameter from the route
+      this.id = +params['id'];
       this.loadInstitution(this.id);
     });
   }
@@ -41,7 +40,6 @@ export class InstitutionEditFormComponent implements OnInit {
         this.institution = data;
         this.institutionForm.patchValue({
           name: this.institution.name,
-          // Patch other form controls with institution data
         });
       },
       error: (error) => {
@@ -55,14 +53,12 @@ export class InstitutionEditFormComponent implements OnInit {
       const updatedInstitution: Institution = {
         idInstitution: this.institution.idInstitution,
         name: this.institutionForm.value.name,
-        // Ensure to include all required properties
-        inventura: this.institution.inventura, // Assign other form control values to updatedInstitution
+        inventura: this.institution.inventura,
       };
 
       this.institutionService.updateInstitution(updatedInstitution).subscribe({
         next: () => {
           console.log('Institution updated successfully');
-          // Navigate back to the previous page
           this.location.back();
         },
         error: (error) => {

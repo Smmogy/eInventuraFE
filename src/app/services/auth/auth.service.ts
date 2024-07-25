@@ -28,7 +28,6 @@ export class AuthService {
     else return null;
   }
 
-  // Modify this method to return an Observable<boolean>
   hasAdminRole(): boolean {
     const userData = this.getUserData();
     if (userData) {
@@ -53,8 +52,11 @@ export class AuthService {
     );
   }
 
-  // Add the logout method
   public logout(): void {
     this.clearToken();
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.getToken();
   }
 }

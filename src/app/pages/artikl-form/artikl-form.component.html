@@ -1,4 +1,3 @@
-<!-- Confirmation Dialog -->
 <p-dialog header="Confirm" [(visible)]="displayConfirmDialog" modal="modal" [style]="{width: '300px'}" [baseZIndex]="10000">
   <p>Are you sure you want to delete this artikl?</p>
   <p-footer>
@@ -8,16 +7,11 @@
 </p-dialog>
 
 <div class="artikl-form card">
-  <!-- Display the selected prostorija's name with label -->
   <h2>Prostorija: {{ selectedProstorija?.name }}</h2>
-
-  <!-- Button to create a new artikl, placed under the prostorija name -->
   <button pButton label="Create New Artikl" [routerLink]="['/artikl/create', idProstorija]" class="p-button-success create-btn"></button>
 
-  <!-- Heading for the artikli section -->
   <h2>All Artikli</h2>
 
-  <!-- Search Bar -->
   <div class="search-container">
     <input 
       type="text" 
@@ -29,19 +23,13 @@
     />
   </div>
 
-  <!-- Display list of artikli if available -->
   <div *ngIf="artikli.length; else noArtikliTemplate">
     <ul class="artikl-list">
       <li *ngFor="let artikl of filteredArtikli" class="artikl-item card">
-        <!-- Container for artikl name and action buttons -->
         <div class="artikl-content">
-          <!-- Link to view artikl details -->
           <a class="artikl-name" [routerLink]="['/artikl-form', artikl.idArtikl]">{{ artikl.name }}</a>
-          <!-- Container for action buttons -->
           <div class="action-buttons">
-            <!-- Button to edit the artikl -->
             <button pButton icon="pi pi-pencil" class="p-button-warning edit-btn" [routerLink]="['/artikl/edit', artikl.idArtikl]"></button>
-            <!-- Button to delete the artikl -->
             <button pButton icon="pi pi-trash" class="p-button-danger delete-btn" (click)="showConfirmDialog(artikl.idArtikl)"></button>
           </div>
         </div>
@@ -49,7 +37,6 @@
     </ul>
   </div>
 
-  <!-- Template for when no artikli are available -->
   <ng-template #noArtikliTemplate>
     <p class="no-artikli-message">No artikli available. Please create a new artikl.</p>
   </ng-template>

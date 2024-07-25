@@ -15,7 +15,7 @@ export class InstitutionCreateFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private location: Location, // Inject Location service
+    private location: Location,
     private institutionService: InstitutionService
   ) {
     this.institutionForm = this.fb.group({
@@ -31,16 +31,13 @@ export class InstitutionCreateFormComponent implements OnInit {
       this.institutionService.createInstitution(institutionData).subscribe(
         (createdInstitution) => {
           console.log('Institution created successfully:', createdInstitution);
-          // Navigate back to the previous route
-          this.location.back(); // Navigate back to the previous route
+          this.location.back();
         },
         (error) => {
           console.error('Failed to create institution:', error);
-          // Handle error if necessary
         }
       );
     } else {
-      // Mark form controls as touched to display validation errors
       this.institutionForm.markAllAsTouched();
     }
   }

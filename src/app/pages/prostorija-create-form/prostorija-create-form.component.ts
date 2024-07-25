@@ -27,14 +27,12 @@ export class ProstorijaCreateFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Extract the institutionId from route parameters
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id) {
         this.idInstitution = +id;
       } else {
         console.error('Institution ID is missing from route parameters.');
-        // Optionally, redirect or handle the missing ID case
       }
     });
   }
@@ -44,19 +42,17 @@ export class ProstorijaCreateFormComponent implements OnInit {
       const prostorijaData: Prostorija = {
         name: this.prostorijaForm.value.name,
         idInstitution: this.idInstitution,
-        idProstorija: 0, // Provide default value if necessary
-        artikls: [], // Provide default value if necessary
+        idProstorija: 0,
+        artikls: [],
       };
 
       this.prostorijaService.createRoom(prostorijaData).subscribe(
         (createdProstorija) => {
           console.log('Prostorija created successfully:', createdProstorija);
-          // Go back to the previous URL in the history stack
           this.location.back();
         },
         (error) => {
           console.error('Failed to create prostorija:', error);
-          // Handle error if necessary
         }
       );
     } else {

@@ -47,7 +47,7 @@ export class ProstorijaFormComponent implements OnInit {
     this.roomService.getRoomsByInstitutionId(this.idInstitution).subscribe(
       (data: Prostorija[]) => {
         this.rooms = data;
-        this.filteredRooms = data; // Initialize filteredRooms with all rooms
+        this.filteredRooms = data;
       },
       (error: any) => {
         console.error('Error fetching rooms:', error);
@@ -64,12 +64,12 @@ export class ProstorijaFormComponent implements OnInit {
 
   prepareDeleteRoom(idProstorija: number): void {
     this.idProstorijaToDelete = idProstorija;
-    this.displayDialog = true; // Show confirmation dialog
+    this.displayDialog = true;
   }
 
   closeDialog(): void {
-    this.displayDialog = false; // Hide confirmation dialog
-    this.idProstorijaToDelete = 0; // Clear the ID
+    this.displayDialog = false;
+    this.idProstorijaToDelete = 0;
   }
 
   confirmDelete(): void {

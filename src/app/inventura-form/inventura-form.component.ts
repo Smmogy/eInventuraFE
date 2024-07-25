@@ -68,7 +68,6 @@ export class InventuraFormComponent implements OnInit {
 
   onInstitutionChange(event: any): void {
     console.log('Institution changed:', event.value);
-    // Handle any additional logic when institution changes
   }
 
   onSubmit(): void {
@@ -88,12 +87,10 @@ export class InventuraFormComponent implements OnInit {
       this.inventuraService.createInventura(inventuraData).subscribe(
         (createdInventura) => {
           console.log('Inventura created successfully:', createdInventura);
-          // Redirect to the relevant form or list
           this.location.back();
         },
         (error) => {
           console.error('Failed to create inventura:', error);
-          // Handle error if necessary
         }
       );
     } else {

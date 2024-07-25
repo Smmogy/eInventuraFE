@@ -22,6 +22,6 @@ export class LayoutComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/login']); // Adjust this path if your login route is different
+    this.router.navigate(['/login']);
   }
 }

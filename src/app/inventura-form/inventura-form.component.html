@@ -33,7 +33,6 @@
       </div>
     </div>
 
-    <!-- Select Institution dropdown -->
     <div class="p-field">
       <label for="institution">Institution:</label>
       <p-dropdown [options]="institutions" optionLabel="name" formControlName="institution" placeholder="Select Institution" (onChange)="onInstitutionChange($event)"></p-dropdown>
@@ -55,7 +54,6 @@
       ></p-multiSelect>
     </div>
 
-    <!-- Submit button -->
     <button type="submit" pButton label="Submit" icon="pi pi-check" [disabled]="inventuraForm.invalid" class="submitButton"></button>
   </form>
 </div>

@@ -1,11 +1,11 @@
 .form-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Align items to the top */
+  align-items: flex-start; 
   height: 100vh;
   background-color: #f4f4f4;
-  padding: 0; /* Remove all padding */
-  margin: 0; /* Remove all margin */
+  padding: 0; 
+  margin: 0; 
 }
 
 .form-padding {
@@ -15,7 +15,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 500px;
-  margin-top: 20px; /* Add a small gap at the top */
+  margin-top: 20px; 
 }
 
 .p-field {

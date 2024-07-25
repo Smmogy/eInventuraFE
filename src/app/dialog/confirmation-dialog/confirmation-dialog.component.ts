@@ -8,7 +8,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class ConfirmationDialogComponent {
   @Input() display: boolean = false;
   @Output() displayChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() confirmAction: EventEmitter<void> = new EventEmitter<void>(); // Emit when confirm is clicked
+  @Output() confirmAction: EventEmitter<void> = new EventEmitter<void>();
 
   close() {
     this.display = false;
@@ -16,7 +16,7 @@ export class ConfirmationDialogComponent {
   }
 
   confirm() {
-    this.confirmAction.emit(); // Emit confirmation event
-    this.close(); // Close the dialog
+    this.confirmAction.emit();
+    this.close();
   }
 }

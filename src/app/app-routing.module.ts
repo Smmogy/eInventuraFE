@@ -17,6 +17,7 @@ import { InventuraDetailsComponent } from './pages/inventura-details/inventura-d
 import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component';
 import { AdminGuard } from './directives/guards/admin.guard';
 import { DashboardAdminAllComponent } from './pages/dashboard-admin-all/dashboard-admin-all.component';
+import { LoggedInGuard } from './directives/guards/logged-in.guard';
 const routes: Routes = [
   {
     path: 'login',
@@ -35,50 +36,68 @@ const routes: Routes = [
       {
         path: 'dashboard/:id',
         component: DashboardComponent,
+        canActivate: [LoggedInGuard],
       },
-      { path: 'institutions-form', component: InstitutionsFormComponent },
+      {
+        path: 'institutions-form',
+        component: InstitutionsFormComponent,
+        canActivate: [LoggedInGuard],
+      },
 
       {
         path: 'institutions/create',
         component: InstitutionCreateFormComponent,
+        canActivate: [LoggedInGuard],
       },
       {
         path: 'institutions/edit/:id',
         component: InstitutionEditFormComponent,
+        canActivate: [LoggedInGuard],
       },
 
       {
         path: 'inventura-form',
         component: InventuraFormComponent,
+        canActivate: [LoggedInGuard],
       },
 
-      { path: 'prostorija-form/:id', component: ProstorijaFormComponent },
+      {
+        path: 'prostorija-form/:id',
+        component: ProstorijaFormComponent,
+        canActivate: [LoggedInGuard],
+      },
 
       {
         path: 'prostorija/create/:id',
         component: ProstorijaCreateFormComponent,
+        canActivate: [LoggedInGuard],
       },
 
       {
         path: 'prostorija/edit/:id',
         component: ProstorijaEditFormComponent,
+        canActivate: [LoggedInGuard],
       },
       {
         path: 'artikl-form/:id',
         component: ArtiklFormComponent,
+        canActivate: [LoggedInGuard],
       },
       {
         path: 'artikl/create/:id',
         component: ArtiklCreateFormComponent,
+        canActivate: [LoggedInGuard],
       },
 
       {
         path: 'artikl/edit/:id',
         component: ArtiklEditFormComponent,
+        canActivate: [LoggedInGuard],
       },
       {
         path: 'inventura/edit/:id',
         component: InventuraDetailsComponent,
+        canActivate: [LoggedInGuard],
       },
       {
         path: 'dashboard/list/admin',

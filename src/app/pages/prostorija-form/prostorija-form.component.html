@@ -1,4 +1,4 @@
-<!-- Confirmation Dialog -->
+
 <p-dialog header="Confirm Deletion" [(visible)]="displayDialog" modal="modal" [style]="{width: '300px'}" [baseZIndex]="10000">
   <p>Are you sure you want to delete this room?</p>
   <p-footer>
@@ -8,16 +8,12 @@
 </p-dialog>
 
 <div class="prostorija-form card">
-  <!-- Display the selected institution's name with label -->
   <h2>Institution: {{ selectedInstitution?.name }}</h2>
 
-  <!-- Button to create a new room, aligned to the left -->
   <button pButton label="Create New Room" [routerLink]="['/prostorija/create', idInstitution]" class="p-button-success create-btn"></button>
 
-  <!-- Heading for the rooms section -->
   <h2>All Rooms</h2>
 
-  <!-- Search Bar for rooms, placed between heading and room list -->
   <div class="search-container">
     <input 
       type="text" 
@@ -29,17 +25,13 @@
     />
   </div>
 
-  <!-- Display list of rooms if available -->
   <div *ngIf="filteredRooms.length; else noRoomsTemplate">
     <ul class="room-list">
       <li *ngFor="let room of filteredRooms" class="room-item card">
         <div class="room-content">
-          <!-- Link to view room details -->
           <a class="room-name" [routerLink]="['/artikl-form', room.idProstorija]">{{ room.name }}</a>
           <div class="action-buttons">
-            <!-- Button to edit the room -->
             <button pButton icon="pi pi-pencil" class="edit-btn" [routerLink]="['/prostorija/edit', room.idProstorija]"></button>
-            <!-- Button to delete the room -->
             <button pButton icon="pi pi-trash" class="delete-btn" (click)="prepareDeleteRoom(room.idProstorija)"></button>
           </div>
         </div>
@@ -47,7 +39,6 @@
     </ul>
   </div>
 
-  <!-- Template for when no rooms are available -->
   <ng-template #noRoomsTemplate>
     <p class="no-rooms-message">No rooms available. Please create a new room.</p>
   </ng-template>

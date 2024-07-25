@@ -1,4 +1,4 @@
-/* General Styles */
+
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f8f9fa;
@@ -6,7 +6,6 @@ body {
   padding: 0;
 }
 
-/* Card Styles */
 .card {
   background-color: #fff;
   border-radius: 8px;
@@ -15,21 +14,18 @@ body {
   margin: 1rem 0;
 }
 
-/* Centered Form Container */
 .prostorija-form {
   max-width: 800px;
   margin: 2rem auto;
   padding: 2rem;
 }
 
-/* Header Styles */
 .prostorija-form h2 {
   color: #007bff;
   font-size: 1.5rem;
-  margin-bottom: 0.5rem; /* Reduced space below the heading */
+  margin-bottom: 0.5rem; 
 }
 
-/* Button Styles */
 .create-btn {
   margin-bottom: 1rem;
   display: block;
@@ -39,16 +35,15 @@ body {
   border-radius: 4px;
 }
 
-/* Search Bar Styles */
 .search-container {
-  margin: 0.5rem 0; /* Space above and below the search bar */
+  margin: 0.5rem 0;
   display: flex;
-  justify-content: flex-start; /* Aligns search bar to the left */
+  justify-content: flex-start; 
 }
 
 .search-input {
   width: 25%;
-  max-width: 250px; /* Reduced width for the search bar */
+  max-width: 250px; 
   padding: 0.5rem;
   border: 1px solid #e0e0e0;
   border-radius: 4px;
@@ -56,7 +51,6 @@ body {
   box-sizing: border-box;
 }
 
-/* Room List Styles */
 .room-list {
   list-style-type: none;
   padding: 0;
@@ -89,14 +83,13 @@ body {
   font-size: 1.25rem;
   color: #007bff;
   text-decoration: none;
-  flex-grow: 1; /* Allows name to take up available space */
+  flex-grow: 1; 
 }
 
 .room-name:hover {
   text-decoration: underline;
 }
 
-/* Action Buttons Styles */
 .action-buttons {
   display: flex;
   gap: 0.5rem;
@@ -133,9 +126,8 @@ body {
   border-color: #d32f2f;
 }
 
-/* Empty State Styles */
 .no-rooms-message {
   color: #6c757d;
   font-size: 1rem;
-  text-align: center; /* Center text */
+  text-align: center; 
 }

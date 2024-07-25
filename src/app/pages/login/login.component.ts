@@ -23,9 +23,9 @@ export class LoginComponent {
     password: new FormControl('', Validators.required),
   });
 
-  successVisible: boolean = false; // Controls the visibility of the success dialog
-  loginErrorVisible: boolean = false; // Controls the visibility of the login error dialog
-  loginErrorMessage: string = ''; // Message for login error dialog
+  successVisible: boolean = false;
+  loginErrorVisible: boolean = false;
+  loginErrorMessage: string = '';
 
   constructor(
     private authService: AuthService,
@@ -70,7 +70,7 @@ export class LoginComponent {
     if (this.registerForm.valid) {
       this.authService.register(this.registerForm.getRawValue()).subscribe({
         next: () => {
-          this.successVisible = true; // Show success dialog
+          this.successVisible = true;
         },
         error: (err: any) => {
           console.error('Registration failed:', err);
@@ -80,28 +80,24 @@ export class LoginComponent {
     }
   }
 
-  // Show login error dialog with a specific message
   private showLoginErrorDialog(message: string) {
     this.loginErrorMessage = message;
     this.loginErrorVisible = true;
   }
 
-  // Close the login error dialog
   closeLoginErrorDialog() {
     this.loginErrorVisible = false;
   }
 
-  // Close the success dialog and navigate to the login page
   closeSuccessDialog() {
     this.successVisible = false;
-    this.router.navigateByUrl('/login'); // Redirect to login page after showing success message
+    this.router.navigateByUrl('/login');
   }
 
-  // Method to extract email from JWT token
   private getEmailFromToken(token: string): string | null {
     try {
-      const decodedToken = jwtDecode<any>(token); // Decode token
-      return decodedToken.sub || null; // Adjust this if your token structure is different
+      const decodedToken = jwtDecode<any>(token);
+      return decodedToken.sub || null;
     } catch (error) {
       console.error('Failed to decode token:', error);
       return null;

@@ -25,7 +25,7 @@ export class InstitutionsFormComponent implements OnInit {
       .getInstitutions()
       .subscribe((data: Institution[]) => {
         this.institutions = data;
-        this.filteredInstitutions = data; // Initialize filteredInstitutions with all institutions
+        this.filteredInstitutions = data;
       });
   }
 
@@ -35,18 +35,18 @@ export class InstitutionsFormComponent implements OnInit {
         institution.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     } else {
-      this.filteredInstitutions = this.institutions; // Show all if search query is empty
+      this.filteredInstitutions = this.institutions;
     }
   }
 
   deleteInstitution(id: number): void {
     this.institutionIdToDelete = id;
-    this.display = true; // Show the dialog
+    this.display = true;
   }
 
   closeDialog(): void {
-    this.display = false; // Hide the dialog
-    this.institutionIdToDelete = null; // Clear the ID
+    this.display = false;
+    this.institutionIdToDelete = null;
   }
 
   confirmDelete(): void {
@@ -59,7 +59,7 @@ export class InstitutionsFormComponent implements OnInit {
               (institution) =>
                 institution.idInstitution !== this.institutionIdToDelete
             );
-            this.filterInstitutions(); // Re-filter institutions after deletion
+            this.filterInstitutions();
             this.closeDialog();
           },
           (error) => {

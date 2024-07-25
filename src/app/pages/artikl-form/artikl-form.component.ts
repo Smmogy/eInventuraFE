@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from '../../services/article/article.service';
 import { RoomService } from '../../services/room/room.service';
-import { Artikl } from '../../models/artikl'; // Import the Artikl model
-import { Prostorija } from '../../models/prostorija'; // Import the Prostorija model
+import { Artikl } from '../../models/artikl';
+import { Prostorija } from '../../models/prostorija';
 
 @Component({
   selector: 'app-artikl-form',
@@ -15,8 +15,8 @@ export class ArtiklFormComponent implements OnInit {
   idArtikl!: number;
   selectedProstorija: Prostorija | undefined;
   artikli: Artikl[] = [];
-  filteredArtikli: Artikl[] = []; // Filtered artikli based on search query
-  searchQuery: string = ''; // Search query
+  filteredArtikli: Artikl[] = [];
+  searchQuery: string = '';
   displayConfirmDialog: boolean = false;
   artiklToDelete: number | null = null;
 
@@ -48,7 +48,7 @@ export class ArtiklFormComponent implements OnInit {
     this.artiklService.getArticlesByRoomId(this.idProstorija).subscribe(
       (data: Artikl[]) => {
         this.artikli = data;
-        this.filteredArtikli = data; // Initialize filtered artikli
+        this.filteredArtikli = data;
       },
       (error: any) => {
         console.error('Error fetching artikli:', error);
@@ -79,7 +79,7 @@ export class ArtiklFormComponent implements OnInit {
           this.artikli = this.artikli.filter(
             (artikl) => artikl.idArtikl !== this.artiklToDelete
           );
-          this.filterArtikli(); // Reapply filter after deletion
+          this.filterArtikli();
           this.closeConfirmDialog();
         },
         (error: any) => {

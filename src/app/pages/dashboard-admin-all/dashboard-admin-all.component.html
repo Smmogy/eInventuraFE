@@ -2,18 +2,14 @@
     <div class="card">
       <div class="card-header">
         <div class="button-group">
-          <!-- Buttons grouped together on the left -->
           <div class="left-buttons">
             <button pButton label="Kreiraj Inventuru" [routerLink]="'/inventura-form'" class="p-button-success btn-custom"></button>
           </div>
-          
-          <!-- Button on the right -->
           <button pButton label="Aktivne Inventure" [routerLink]="'/dashboard/list/admin'" class="p-button-primary btn-custom btn-right"></button>
         </div>
       </div>
   
       <div class="card-body">
-        <!-- Heading for Inventura List -->
         <h2 class="list-heading">Liste Inventura</h2>
   
         <p-table [value]="inventuraList" class="mt-5 table-custom">
@@ -43,8 +39,7 @@
         </p-table>
       </div>
     </div>
-  
-    <!-- Confirmation Dialog -->
+
     <p-dialog 
       header="Confirm" 
       [(visible)]="displayDialog" 

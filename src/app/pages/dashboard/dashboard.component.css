@@ -1,4 +1,3 @@
-/* Add to your component's CSS file or global stylesheet */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -59,17 +58,17 @@
 }
 
 .btn-delete {
-  background-color: #dc3545; /* Bootstrap red */
+  background-color: #dc3545; 
   border: none;
   color: #fff;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
-  margin-left: 0.5rem; /* Space between buttons */
+  margin-left: 0.5rem; 
 }
 
 .btn-delete:hover {
-  background-color: #c82333; /* Darker red on hover */
+  background-color: #c82333; 
 }
 
 .no-data-message {
@@ -79,11 +78,10 @@
   margin-top: 2rem;
 }
 
-/* Styles for dialog footer */
 .ui-dialog-footer {
   display: flex;
-  justify-content: flex-end; /* Align buttons to the right */
-  gap: 1rem; /* Adds space between buttons */
+  justify-content: flex-end; 
+  gap: 1rem; 
 }
 
 .ui-dialog-footer .ui-button {
@@ -92,19 +90,19 @@
 }
 
 .ui-button-secondary {
-  background-color: #6c757d; /* Bootstrap grey */
+  background-color: #6c757d; 
   border-color: #6c757d;
 }
 
 .ui-button-primary {
-  background-color: #007bff; /* Bootstrap blue */
+  background-color: #007bff; 
   border-color: #007bff;
 }
 
 .ui-button-secondary:hover {
-  background-color: #5a6268; /* Darker grey on hover */
+  background-color: #5a6268; 
 }
 
 .ui-button-primary:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3; 
 }

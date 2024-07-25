@@ -46,7 +46,6 @@ export class DashboardAdminComponent implements OnInit {
     if (this.itemToDeleteId !== null) {
       this.inventuraService.deleteInventura(this.itemToDeleteId).subscribe(
         () => {
-          // Refresh the list after deletion
           this.getListOfInventuras();
           this.closeDialog();
         },

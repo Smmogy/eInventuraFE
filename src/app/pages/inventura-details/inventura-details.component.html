@@ -35,7 +35,6 @@
     <zxing-scanner [formats]="[4]" (scanSuccess)="onBarcodeScanned($event)"></zxing-scanner>
   </div>
 
-  <!-- Confirmation Dialog -->
   <app-confrimation-dialog-zavrsi
     [display]="displayConfirmDialog"
     (displayChange)="displayConfirmDialog = $event"
