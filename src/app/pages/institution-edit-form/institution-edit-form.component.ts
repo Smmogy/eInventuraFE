@@ -1,3 +1,4 @@
+// institution-edit-form.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -69,5 +70,9 @@ export class InstitutionEditFormComponent implements OnInit {
         },
       });
     }
+  }
+
+  cancel(): void {
+    this.location.back();
   }
 }

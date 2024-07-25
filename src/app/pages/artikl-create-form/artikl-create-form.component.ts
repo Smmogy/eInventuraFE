@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from '../../services/article/article.service';
-import { RoomService } from '../../services/room/room.service';
 import { Artikl } from '../../models/artikl'; // Import the Artikl model
-import { Prostorija } from '../../models/prostorija'; // Import the Prostorija model
 
 @Component({
   selector: 'app-artikl-create-form',
@@ -17,10 +16,9 @@ export class ArtiklCreateFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
+    private location: Location,
     private route: ActivatedRoute,
-    private artiklService: ArticleService,
-    private prostorijaService: RoomService
+    private artiklService: ArticleService
   ) {
     this.artiklForm = this.fb.group({
       name: ['', Validators.required],
@@ -52,8 +50,8 @@ export class ArtiklCreateFormComponent implements OnInit {
       this.artiklService.createArticle(artiklData).subscribe(
         (createdArtikl) => {
           console.log('Artikl created successfully:', createdArtikl);
-          // Redirect to the relevant artikl form or list
-          this.router.navigate(['/artikl-form', this.idProstorija]);
+          // Redirect to the previous page
+          this.location.back();
         },
         (error) => {
           console.error('Failed to create artikl:', error);

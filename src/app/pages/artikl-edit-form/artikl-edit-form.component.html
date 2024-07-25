@@ -1,5 +1,5 @@
-<div class="card artikl-card">
-    <div class="card-header artikl-card-header">
+<div class="card institution-card">
+  <div class="card-header institution-card-header">
       Edit Artikl
     </div>
     <div class="card-body">
@@ -12,7 +12,7 @@
   
         <div class="form-buttons">
           <button type="submit" [disabled]="!artiklForm.valid" class="btn btn-primary">Update Artikl</button>
-          <a routerLink="/artikl-list" class="btn btn-secondary">Cancel</a>
+          <button type="button" (click)="cancel()" class="btn btn-secondary">Cancel</button>
         </div>
       </form>
     </div>

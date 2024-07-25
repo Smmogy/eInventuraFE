@@ -1,3 +1,4 @@
+<!-- institution-edit-form.component.html -->
 <div class="card institution-card">
   <div class="card-header institution-card-header">
     Edit Institution
@@ -12,7 +13,7 @@
 
       <div class="form-buttons">
         <button type="submit" [disabled]="!institutionForm.valid" class="btn btn-primary">Update Institution</button>
-        <a routerLink="/institutions-form" class="btn btn-secondary">Cancel</a>
+        <button type="button" (click)="cancel()" class="btn btn-secondary">Cancel</button>
       </div>
     </form>
   </div>

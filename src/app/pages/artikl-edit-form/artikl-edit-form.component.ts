@@ -68,4 +68,7 @@ export class ArtiklEditFormComponent implements OnInit {
       });
     }
   }
+  cancel(): void {
+    this.location.back();
+  }
 }

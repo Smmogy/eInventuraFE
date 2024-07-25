@@ -71,4 +71,8 @@ export class ProstorijaEditFormComponent implements OnInit {
       });
     }
   }
+
+  cancel(): void {
+    this.location.back();
+  }
 }
