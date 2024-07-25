@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="card">
+      <div class="card-header">
+        <div class="button-group">
+          <!-- Buttons grouped together on the left -->
+          <div class="left-buttons">
+            <button pButton label="Kreiraj Inventuru" [routerLink]="'/inventura-form'" class="p-button-success btn-custom"></button>
+          </div>
+          
+          <!-- Button on the right -->
+          <button pButton label="Aktivne Inventure" [routerLink]="'/dashboard/list/admin'" class="p-button-primary btn-custom btn-right"></button>
+        </div>
+      </div>
+  
+      <div class="card-body">
+        <!-- Heading for Inventura List -->
+        <h2 class="list-heading">Liste Inventura</h2>
+  
+        <p-table [value]="inventuraList" class="mt-5 table-custom">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Naziv</th>
+              <th>Datum Pocetka</th>
+              <th>Datum Zavrsetka</th>
+              <th>Akademska Godina</th>
+              <th>Institucija</th>
+              <th>Actions</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-inventura>
+            <tr>
+              <td>{{ inventura.naziv }}</td>
+              <td>{{ inventura.datumPocetka | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ inventura.datumZavrsetka | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ inventura.akademskaGod }}</td>
+              <td>{{ inventura.institutionName }}</td>
+              <td>
+                <button pButton label="Prikaz" (click)="viewInventuraDetails(inventura.idInventura)" class="btn-action"></button>
+                <button pButton label="Delete" (click)="openDeleteDialog(inventura.idInventura)" class="btn-delete"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  
+    <!-- Confirmation Dialog -->
+    <p-dialog 
+      header="Confirm" 
+      [(visible)]="displayDialog" 
+      modal="modal" 
+      [style]="{width: '300px'}" 
+      [baseZIndex]="10000"
+    >
+      <div class="ui-dialog-content">
+        <p>Are you sure you want to delete this item?</p>
+      </div>
+      <p-footer class="ui-dialog-footer">
+        <button pButton label="Cancel" icon="pi pi-times" (click)="closeDialog()" class="ui-button ui-button-secondary"></button>
+        <button pButton label="Confirm" icon="pi pi-check" (click)="confirmDelete()" class="ui-button ui-button-primary"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+  

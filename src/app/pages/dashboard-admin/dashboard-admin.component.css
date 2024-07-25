@@ -1,95 +1,109 @@
 /* Add to your component's CSS file or global stylesheet */
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-  }
-  
-  .card {
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-  }
-  
-  .card-header {
-    padding: 1rem;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .button-group {
-    display: flex;
-    gap: 1rem; /* Adds space between buttons */
-  }
-  
-  .btn-custom {
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-  }
-  
-  .btn-custom.p-button-success {
-    background-color: #28a745;
-    border-color: #28a745;
-  }
-  
-  .btn-custom.p-button-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-  }
-  
-  .card-body {
-    padding: 1rem;
-  }
-  
-  .list-heading {
-    font-size: 1.75rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 0.5rem;
-  }
-  
-  .table-custom {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .table-custom th, .table-custom td {
-    padding: 0.75rem;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .table-custom th {
-    background-color: #f8f9fa;
-    color: #495057;
-  }
-  
-  .table-custom tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .btn-action {
-    background-color: #007bff;
-    border: none;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .btn-delete {
-    background-color: #dc3545; /* Bootstrap red */
-    border: none;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 0.5rem;
-  }
-  
-  .btn-delete:hover {
-    background-color: #c82333; /* Darker red on hover */
-  }
-  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.card {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.card-header {
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between; /* Ensures left and right alignment */
+  align-items: center;
+}
+
+.left-buttons {
+  display: flex;
+  gap: 0.5rem; /* Adjust the gap between Kreiraj Inventuru and Institucije */
+}
+
+.btn-custom {
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
+.btn-custom.p-button-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-custom.p-button-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-custom:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-right {
+  margin-left: auto; /* Pushes this button to the far right */
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.list-heading {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.5rem;
+}
+
+.table-custom {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-custom th, .table-custom td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-custom th {
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+.table-custom tr:hover {
+  background-color: #f1f1f1;
+}
+
+.btn-action {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-delete {
+  background-color: #dc3545; /* Bootstrap red */
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.btn-delete:hover {
+  background-color: #c82333; /* Darker red on hover */
+}

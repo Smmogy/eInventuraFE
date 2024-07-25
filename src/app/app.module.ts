@@ -44,6 +44,7 @@ import { SuccessDialogComponent } from './dialog/success-dialog/success-dialog.c
 import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component';
 import { ConfrimationDialogZavrsiComponent } from './dialog/confrimation-dialog-zavrsi/confrimation-dialog-zavrsi.component';
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
+import { DashboardAdminAllComponent } from './pages/dashboard-admin-all/dashboard-admin-all.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.compone
     DashboardAdminComponent,
     ConfrimationDialogZavrsiComponent,
     ErrorDialogComponent,
+    DashboardAdminAllComponent,
   ],
   imports: [
     BrowserModule,

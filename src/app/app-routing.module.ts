@@ -16,6 +16,7 @@ import { ArtiklEditFormComponent } from './pages/artikl-edit-form/artikl-edit-fo
 import { InventuraDetailsComponent } from './pages/inventura-details/inventura-details.component';
 import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component';
 import { AdminGuard } from './directives/guards/admin.guard';
+import { DashboardAdminAllComponent } from './pages/dashboard-admin-all/dashboard-admin-all.component';
 const routes: Routes = [
   {
     path: 'login',
@@ -86,6 +87,11 @@ const routes: Routes = [
       {
         path: 'dashboard/list/admin',
         component: DashboardAdminComponent,
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'dashboard/list/admin/all',
+        component: DashboardAdminAllComponent,
         canActivate: [AdminGuard],
       },
     ],

@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { InventuraService } from '../../services/inventura/inventura.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { InventuraList } from '../../models/inventura';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-dashboard-admin',
-  templateUrl: './dashboard-admin.component.html',
-  styleUrl: './dashboard-admin.component.css',
+  selector: 'app-dashboard-admin-all',
+  templateUrl: './dashboard-admin-all.component.html',
+  styleUrl: './dashboard-admin-all.component.css',
 })
-export class DashboardAdminComponent implements OnInit {
+export class DashboardAdminAllComponent {
   inventuraList: InventuraList[] = [];
   institution?: String;
   displayDialog: boolean = false;
@@ -23,7 +23,7 @@ export class DashboardAdminComponent implements OnInit {
   }
 
   getListOfInventuras() {
-    this.inventuraService.getAllInventuraByStanje().subscribe({
+    this.inventuraService.getAllInventura().subscribe({
       next: (inventuras) => {
         this.inventuraList = inventuras;
       },

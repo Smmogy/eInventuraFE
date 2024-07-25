@@ -32,14 +32,16 @@ export class DashboardComponent implements OnInit {
 
   getListOfInventuras() {
     if (this.userId) {
-      this.inventuraService.getInventurasByUserId(this.userId).subscribe({
-        next: (inventuras) => {
-          this.inventuraList = inventuras;
-        },
-        error: (err) => {
-          console.error('Error fetching inventuras:', err);
-        },
-      });
+      this.inventuraService
+        .getInventurasByUserIdByStanje(this.userId)
+        .subscribe({
+          next: (inventuras) => {
+            this.inventuraList = inventuras;
+          },
+          error: (err) => {
+            console.error('Error fetching inventuras:', err);
+          },
+        });
     } else {
       console.error('User ID is not defined');
     }

@@ -25,6 +25,10 @@ export class InventuraService {
     return this.http.get<InventuraList[]>(this.apiUrl);
   }
 
+  getAllInventuraByStanje(): Observable<InventuraList[]> {
+    return this.http.get<InventuraList[]>(`${this.apiUrl}/stanje`);
+  }
+
   getInventuraById(id: number): Observable<Inventura> {
     return this.http.get<Inventura>(`${this.apiUrl}/${id}`);
   }
@@ -34,6 +38,12 @@ export class InventuraService {
 
   getInventurasByUserId(userId: number): Observable<InventuraList[]> {
     return this.http.get<InventuraList[]>(`${this.apiUrl}/user/${userId}`);
+  }
+
+  getInventurasByUserIdByStanje(userId: number): Observable<InventuraList[]> {
+    return this.http.get<InventuraList[]>(
+      `${this.apiUrl}/stanje/user/${userId}`
+    );
   }
   updateArticlePresence(artikl: ArtiklPrisutan): Observable<ArtiklPrisutan> {
     return this.http.post<ArtiklPrisutan>(
