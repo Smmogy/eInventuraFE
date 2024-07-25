@@ -29,14 +29,14 @@ export class AuthService {
   }
 
   // Modify this method to return an Observable<boolean>
-  hasAdminRole(): Observable<boolean> {
+  hasAdminRole(): boolean {
     const userData = this.getUserData();
     if (userData) {
       const isAdmin =
         userData.roles?.some((role) => role.authority === 'ADMIN') ?? false;
-      return of(isAdmin);
+      return isAdmin;
     }
-    return of(false);
+    return false;
   }
 
   public login(loginInfo: any): Observable<any> {

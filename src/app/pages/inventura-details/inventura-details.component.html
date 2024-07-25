@@ -11,7 +11,7 @@
       <!-- Button Wrapper for positioning -->
       <div *ngIf="isAdmin" class="button-wrapper">
         <button pButton label="Back" (click)="goBack()" class="p-button-secondary back-btn"></button>
-        <button pButton label="Zavrsi" (click)="showConfirmDialog()" class="p-button-success finish-btn"></button>
+        <button *ngIf="inventura.stanje" pButton label="Zavrsi" (click)="showConfirmDialog()" class="p-button-success finish-btn"></button>
       </div>
 
       <ng-container *ngIf="inventura.institution && inventura.institution.prostorijas">
@@ -22,7 +22,7 @@
               <li *ngFor="let artikl of room.artikls" class="artikl">
                 <span class="artikl-id">Id Artikla: {{ artikl.idArtikl }}</span>
                 <span class="artikl-name">Ime: {{ artikl.name }}</span>
-                <input type="checkbox" [checked]="artikl.prisutan" />
+                <input type="checkbox" [checked]="artikl.prisutan" (change)="onPrisutanChanged(artikl.idArtikl, $event)"/>
               </li>
             </ng-container>
           </ul>

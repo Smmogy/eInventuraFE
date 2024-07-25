@@ -39,9 +39,7 @@ export class InventuraDetailsComponent implements OnInit {
         });
     }
 
-    this.authService.hasAdminRole().subscribe((isAdmin) => {
-      this.isAdmin = isAdmin;
-    });
+    this.isAdmin = this.authService.hasAdminRole();
   }
 
   startScanning() {
@@ -54,22 +52,23 @@ export class InventuraDetailsComponent implements OnInit {
 
     const idArtikl = +result;
     if (!isNaN(idArtikl)) {
-      this.updateArticlePresence(idArtikl);
+      this.updateArticlePresence(idArtikl, true);
     } else {
       console.error('Invalid barcode scanned:', result);
     }
   }
 
-  private updateArticlePresence(idArtikl: number) {
+  private updateArticlePresence(idArtikl: number, prisutan: boolean) {
     const artiklPrisutan: ArtiklPrisutan = {
       idArtikl: idArtikl,
       idInventura: this.inventura.idInventura,
+      prisutan: prisutan,
     };
 
     this.inventuraService.updateArticlePresence(artiklPrisutan).subscribe({
       next: () => {
         console.log('Article presence updated successfully.');
-        this.updateArticleStatusInUI(idArtikl);
+        this.updateArticleStatusInUI(idArtikl, prisutan);
       },
       error: (err) => {
         console.error('Error updating article presence:', err);
@@ -77,11 +76,11 @@ export class InventuraDetailsComponent implements OnInit {
     });
   }
 
-  private updateArticleStatusInUI(idArtikl: number) {
+  private updateArticleStatusInUI(idArtikl: number, prisutan: boolean) {
     this.inventura.institution.prostorijas.forEach((room) => {
       room.artikls.forEach((artikl) => {
         if (artikl.idArtikl === idArtikl) {
-          artikl.prisutan = true;
+          artikl.prisutan = prisutan;
         }
       });
     });
@@ -104,6 +103,10 @@ export class InventuraDetailsComponent implements OnInit {
           console.error('Error finishing inventura:', err);
         },
       });
+  }
+
+  public onPrisutanChanged(artiklId: number, event: any) {
+    this.updateArticlePresence(artiklId, event.target.checked);
   }
 
   goBack() {

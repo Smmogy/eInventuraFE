@@ -13,9 +13,7 @@ export class LayoutComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.authService.hasAdminRole().subscribe((isAdmin) => {
-      this.isAdmin = isAdmin;
-    });
+    this.isAdmin = this.authService.hasAdminRole();
   }
 
   navigateTo(path: string) {

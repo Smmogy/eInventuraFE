@@ -43,19 +43,11 @@ export class LoginComponent {
           if (email) {
             this.userService.getUserIdByEmail(email).subscribe({
               next: (userId: number) => {
-                this.authService.hasAdminRole().subscribe({
-                  next: (isAdmin: boolean) => {
-                    if (isAdmin) {
-                      this.router.navigateByUrl(`/dashboard/list/admin`);
-                    } else {
-                      this.router.navigateByUrl(`/dashboard/${userId}`);
-                    }
-                  },
-                  error: (err) => {
-                    console.error('Failed to check admin role:', err);
-                    this.showLoginErrorDialog('Failed to verify user role');
-                  },
-                });
+                if (this.authService.hasAdminRole()) {
+                  this.router.navigateByUrl(`/dashboard/list/admin`);
+                } else {
+                  this.router.navigateByUrl(`/dashboard/${userId}`);
+                }
               },
               error: (err) => {
                 console.error('Failed to get user ID by email:', err);

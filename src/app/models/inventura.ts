@@ -28,4 +28,5 @@ export interface InventuraDetail {
   datumZavrsetka: String;
   akademskaGod: number;
   institution: InstitutionDetail;
+  stanje: boolean;
 }

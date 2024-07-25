@@ -43,10 +43,6 @@ const routes: Routes = [
         component: InstitutionCreateFormComponent,
       },
       {
-        path: 'institutions/edit',
-        component: InstitutionEditFormComponent,
-      },
-      {
         path: 'institutions/edit/:id',
         component: InstitutionEditFormComponent,
       },

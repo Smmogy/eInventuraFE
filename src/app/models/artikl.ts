@@ -10,4 +10,5 @@ export interface Artikl {
 export interface ArtiklPrisutan {
   idArtikl: number;
   idInventura: number;
+  prisutan: boolean;
 }
