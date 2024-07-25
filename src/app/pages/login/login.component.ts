@@ -11,13 +11,6 @@ import { DjelatniciService } from '../../services/djelatnici/dijelatnici.service
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private fb: FormBuilder,
-    private userService: DjelatniciService // Inject UserService to fetch user ID
-  ) {}
-
   loginForm = this.fb.group({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
@@ -31,6 +24,15 @@ export class LoginComponent {
   });
 
   successVisible: boolean = false; // Controls the visibility of the success dialog
+  loginErrorVisible: boolean = false; // Controls the visibility of the login error dialog
+  loginErrorMessage: string = ''; // Message for login error dialog
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private fb: FormBuilder,
+    private userService: DjelatniciService
+  ) {}
 
   onLogin() {
     if (this.loginForm.valid) {
@@ -51,22 +53,22 @@ export class LoginComponent {
                   },
                   error: (err) => {
                     console.error('Failed to check admin role:', err);
-                    alert('Failed to verify user role');
+                    this.showLoginErrorDialog('Failed to verify user role');
                   },
                 });
               },
               error: (err) => {
                 console.error('Failed to get user ID by email:', err);
-                alert('Failed to get user details');
+                this.showLoginErrorDialog('Failed to get user details');
               },
             });
           } else {
             console.error('Email could not be extracted from token');
-            alert('Failed to extract email from token');
+            this.showLoginErrorDialog('Failed to extract email from token');
           }
         },
         error: (res: any) => {
-          alert('Login failed');
+          this.showLoginErrorDialog('Login failed');
         },
       });
     }
@@ -77,17 +79,30 @@ export class LoginComponent {
       this.authService.register(this.registerForm.getRawValue()).subscribe({
         next: () => {
           this.successVisible = true; // Show success dialog
-          setTimeout(() => {
-            this.successVisible = false; // Hide dialog after some time
-            this.router.navigateByUrl('/login'); // Redirect to login page after showing success message
-          }, 3000); // Adjust the delay as needed
         },
         error: (err: any) => {
           console.error('Registration failed:', err);
-          alert('Email already exists');
+          this.showLoginErrorDialog('Email already exists');
         },
       });
     }
+  }
+
+  // Show login error dialog with a specific message
+  private showLoginErrorDialog(message: string) {
+    this.loginErrorMessage = message;
+    this.loginErrorVisible = true;
+  }
+
+  // Close the login error dialog
+  closeLoginErrorDialog() {
+    this.loginErrorVisible = false;
+  }
+
+  // Close the success dialog and navigate to the login page
+  closeSuccessDialog() {
+    this.successVisible = false;
+    this.router.navigateByUrl('/login'); // Redirect to login page after showing success message
   }
 
   // Method to extract email from JWT token

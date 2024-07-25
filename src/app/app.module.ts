@@ -38,11 +38,12 @@ import { ArtiklCreateFormComponent } from './pages/artikl-create-form/artikl-cre
 import { ArtiklEditFormComponent } from './pages/artikl-edit-form/artikl-edit-form.component';
 import { InventuraDetailsComponent } from './pages/inventura-details/inventura-details.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from './dialog/confirmation-dialog/confirmation-dialog.component';
 import { DialogModule } from 'primeng/dialog';
-import { SuccessDialogComponent } from './success-dialog/success-dialog.component';
+import { SuccessDialogComponent } from './dialog/success-dialog/success-dialog.component';
 import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin.component';
-import { ConfrimationDialogZavrsiComponent } from './confrimation-dialog-zavrsi/confrimation-dialog-zavrsi.component';
+import { ConfrimationDialogZavrsiComponent } from './dialog/confrimation-dialog-zavrsi/confrimation-dialog-zavrsi.component';
+import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { ConfrimationDialogZavrsiComponent } from './confrimation-dialog-zavrsi/
     SuccessDialogComponent,
     DashboardAdminComponent,
     ConfrimationDialogZavrsiComponent,
+    ErrorDialogComponent,
   ],
   imports: [
     BrowserModule,

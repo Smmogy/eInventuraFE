@@ -1,0 +1,8 @@
+<p-dialog header="Error" [(visible)]="display" modal="modal" [style]="{width: '300px'}" [baseZIndex]="10000">
+    <div class="ui-dialog-content">
+        <p>{{ message }}</p>
+    </div>
+    <p-footer class="ui-dialog-footer">
+        <button pButton label="OK" icon="pi pi-check" (click)="close()" class="ui-button ui-button-primary"></button>
+    </p-footer>
+</p-dialog>

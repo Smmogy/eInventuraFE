@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Location } from '@angular/common'; // Import Location
+import { Location } from '@angular/common';
 import { InventuraService } from '../../services/inventura/inventura.service';
 import { RoomService } from '../../services/room/room.service';
 import { ArticleService } from '../../services/article/article.service';
 import { AuthService } from '../../services/auth/auth.service';
-import { Inventura, InventuraDetail } from '../../models/inventura';
-import { Prostorija, ProstorijaDetail } from '../../models/prostorija';
-import { Artikl, ArtiklPrisutan } from '../../models/artikl';
+import { InventuraDetail } from '../../models/inventura';
+import { ArtiklPrisutan } from '../../models/artikl';
 
 @Component({
   selector: 'app-inventura-details',
@@ -18,12 +17,12 @@ export class InventuraDetailsComponent implements OnInit {
   inventura!: InventuraDetail;
   scanning = false;
   isAdmin: boolean = false;
-  displayConfirmDialog: boolean = false; // Control dialog visibility
+  displayConfirmDialog: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location, // Inject Location
+    private location: Location,
     private inventuraService: InventuraService,
     private roomService: RoomService,
     private articleService: ArticleService,
@@ -98,7 +97,7 @@ export class InventuraDetailsComponent implements OnInit {
       .subscribe({
         next: () => {
           console.log('Inventura finished successfully.');
-          this.displayConfirmDialog = false; // Close dialog on success
+          this.displayConfirmDialog = false;
         },
         error: (err) => {
           console.error('Error finishing inventura:', err);
@@ -107,6 +106,6 @@ export class InventuraDetailsComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back(); // Use Angular Location service to go back
+    this.location.back();
   }
 }
