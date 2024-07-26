@@ -3,24 +3,24 @@
       <div class="card-header">
         <div class="button-group">
           <div class="left-buttons">
-            <button pButton label="Kreiraj Inventuru" [routerLink]="'/inventura-form'" class="p-button-success btn-custom"></button>
+            <button pButton label="Create Inventory" [routerLink]="'/inventura-form'" class="p-button-success btn-custom"></button>
           </div>
-          <button pButton label="Aktivne Inventure" [routerLink]="'/dashboard/list/admin'" class="p-button-primary btn-custom btn-right"></button>
+          <button pButton label="Active Inventory" [routerLink]="'/dashboard/list/admin'" class="p-button-primary btn-custom btn-right"></button>
         </div>
       </div>
   
       <div class="card-body">
-        <h2 class="list-heading">Liste Inventura</h2>
+        <h2 class="list-heading">All Inventory List</h2>
   
         <p-table [value]="inventuraList" class="mt-5 table-custom">
           <ng-template pTemplate="header">
             <tr>
-              <th>Naziv</th>
-              <th>Datum Pocetka</th>
-              <th>Datum Zavrsetka</th>
-              <th>Akademska Godina</th>
-              <th>Institucija</th>
-              <th>Actions</th>
+              <th>Name</th>
+            <th>Beginning date</th>
+            <th>End date</th>
+            <th>Academic year</th>
+            <th>Institution</th>
+            <th>Actions</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-inventura>
@@ -31,7 +31,7 @@
               <td>{{ inventura.akademskaGod }}</td>
               <td>{{ inventura.institutionName }}</td>
               <td>
-                <button pButton label="Prikaz" (click)="viewInventuraDetails(inventura.idInventura)" class="btn-action"></button>
+                <button pButton label="Details" (click)="viewInventuraDetails(inventura.idInventura)" class="btn-action"></button>
                 <button pButton label="Delete" (click)="openDeleteDialog(inventura.idInventura)" class="btn-delete"></button>
               </td>
             </tr>

@@ -7,16 +7,16 @@
 </p-dialog>
 
 <div class="artikl-form card">
-  <h2>Prostorija: {{ selectedProstorija?.name }}</h2>
-  <button pButton label="Create New Artikl" [routerLink]="['/artikl/create', idProstorija]" class="p-button-success create-btn"></button>
+  <h2>Room: {{ selectedProstorija?.name }}</h2>
+  <button pButton label="Create New Article" [routerLink]="['/artikl/create', idProstorija]" class="p-button-success create-btn"></button>
 
-  <h2>All Artikli</h2>
+  <h2>All Articles</h2>
 
   <div class="search-container">
     <input 
       type="text" 
       pInputText 
-      placeholder="Search Artikli..." 
+      placeholder="Search Articles..." 
       [(ngModel)]="searchQuery" 
       (ngModelChange)="filterArtikli()" 
       class="search-input"
@@ -38,6 +38,6 @@
   </div>
 
   <ng-template #noArtikliTemplate>
-    <p class="no-artikli-message">No artikli available. Please create a new artikl.</p>
+    <p class="no-artikli-message">No article available. Please create a new article.</p>
   </ng-template>
 </div>

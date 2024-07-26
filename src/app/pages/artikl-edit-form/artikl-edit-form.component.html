@@ -1,6 +1,6 @@
 <div class="card institution-card">
   <div class="card-header institution-card-header">
-      Edit Artikl
+      Edit Article
     </div>
     <div class="card-body">
       <form [formGroup]="artiklForm" (ngSubmit)="onSubmit()">
@@ -10,7 +10,7 @@
         </div>
        
         <div class="form-buttons">
-          <button type="submit" [disabled]="!artiklForm.valid" class="btn btn-primary">Update Artikl</button>
+          <button type="submit" [disabled]="!artiklForm.valid" class="btn btn-primary">Update Article</button>
           <button type="button" (click)="cancel()" class="btn btn-secondary">Cancel</button>
         </div>
       </form>

@@ -2,15 +2,15 @@
   <form [formGroup]="inventuraForm" (ngSubmit)="onSubmit()" class="p-fluid form-padding">
 
     <div class="p-field">
-      <label for="naziv">Naziv:</label>
+      <label for="naziv">Name:</label>
       <input id="naziv" type="text" pInputText formControlName="naziv" />
       <div *ngIf="inventuraForm.get('naziv')?.invalid && inventuraForm.get('naziv')?.touched" class="p-error">
-        Naziv is required.
+        Name is required.
       </div>
     </div>
 
     <div class="p-field">
-      <label for="datumPocetka">Datum Pocetka:</label>
+      <label for="datumPocetka">Beginning date:</label>
       <p-calendar id="datumPocetka" formControlName="datumPocetka" dateFormat="yy-mm-dd" showIcon="true"></p-calendar>
       <div *ngIf="inventuraForm.get('datumPocetka')?.invalid && inventuraForm.get('datumPocetka')?.touched" class="p-error">
         Datum Pocetka is required.
@@ -18,7 +18,7 @@
     </div>
 
     <div class="p-field">
-      <label for="datumZavrsetka">Datum Zavrsetka:</label>
+      <label for="datumZavrsetka">End date:</label>
       <p-calendar id="datumZavrsetka" formControlName="datumZavrsetka" dateFormat="yy-mm-dd" showIcon="true"></p-calendar>
       <div *ngIf="inventuraForm.get('datumZavrsetka')?.invalid && inventuraForm.get('datumZavrsetka')?.touched" class="p-error">
         Datum Zavrsetka is required.
@@ -29,7 +29,7 @@
     </div>
 
     <div class="p-field">
-      <label for="akademskaGod">Akademska Godina:</label>
+      <label for="akademskaGod">Academic year:</label>
       <input id="akademskaGod" formControlName="akademskaGod" type="number" pInputText />
       <div *ngIf="inventuraForm.get('akademskaGod')?.invalid && inventuraForm.get('akademskaGod')?.touched" class="p-error">
         Akademska Godina is required 

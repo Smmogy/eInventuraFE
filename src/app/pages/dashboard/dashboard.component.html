@@ -3,18 +3,18 @@
     <div class="card-header">
     </div>
     <div class="card-body">
-      <h2 class="list-heading">Liste Inventura</h2>
+      <h2 class="list-heading">Inventory List</h2>
 
-      <p *ngIf="inventuraList.length === 0" class="no-data-message">No Inventuras Available</p>
+      <p *ngIf="inventuraList.length === 0" class="no-data-message">No Inventory Available</p>
 
       <p-table [value]="inventuraList" class="mt-5 table-custom" *ngIf="inventuraList.length > 0">
         <ng-template pTemplate="header">
           <tr>
-            <th>Naziv</th>
-            <th>Datum Pocetka</th>
-            <th>Datum Zavrsetka</th>
-            <th>Akademska Godina</th>
-            <th>Institucija</th>
+            <th>Name</th>
+            <th>Beginning date</th>
+            <th>End date</th>
+            <th>Academic year</th>
+            <th>Institution</th>
             <th>Actions</th>
           </tr>
         </ng-template>
@@ -26,7 +26,7 @@
             <td>{{ inventura.akademskaGod }}</td>
             <td>{{ inventura.institutionName }}</td>
             <td>
-              <button pButton label="Prikaz" (click)="viewInventuraDetails(inventura.idInventura)" class="btn-action"></button>
+              <button pButton label="Details" (click)="viewInventuraDetails(inventura.idInventura)" class="btn-action"></button>
             </td>
           </tr>
         </ng-template>

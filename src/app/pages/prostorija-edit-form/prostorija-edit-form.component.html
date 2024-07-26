@@ -1,6 +1,6 @@
 <div class="card institution-card">
   <div class="card-header institution-card-header">
-    Edit Prostorija
+    Edit Room
   </div>
   <div class="card-body">
     <form [formGroup]="prostorijaForm" (ngSubmit)="onSubmit()">
@@ -10,7 +10,7 @@
       </div>
 
       <div class="form-buttons">
-        <button type="submit" [disabled]="!prostorijaForm.valid" class="btn btn-primary">Update Prostorija</button>
+        <button type="submit" [disabled]="!prostorijaForm.valid" class="btn btn-primary">Update Room</button>
         <button type="button" (click)="cancel()" class="btn btn-secondary">Cancel</button>
       </div>
     </form>
