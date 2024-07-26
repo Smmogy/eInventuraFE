@@ -33,7 +33,7 @@ export class DjelatniciService {
     return this.http.delete<void>(`${this.apiUrl}/${djelatnikId}`);
   }
 
-  getUserIdByEmail(email: string): Observable<number> {
+  getUserIdByEmail(email: string | null): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/findByEmail/${email}`);
   }
 }

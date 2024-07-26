@@ -27,6 +27,14 @@ export class AuthService {
     if (this.getToken()) return jwtDecode(this.getToken() as string);
     else return null;
   }
+  getEmailFromToken(): string | null {
+    const token = this.getToken();
+    if (token) {
+      const decodedToken = jwtDecode<any>(token);
+      return decodedToken.sub || null;
+    }
+    return null;
+  }
 
   hasAdminRole(): boolean {
     const userData = this.getUserData();
@@ -58,5 +66,9 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return !!this.getToken();
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('authToken');
   }
 }

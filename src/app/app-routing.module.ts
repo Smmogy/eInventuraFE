@@ -18,10 +18,12 @@ import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin
 import { AdminGuard } from './directives/guards/admin.guard';
 import { DashboardAdminAllComponent } from './pages/dashboard-admin-all/dashboard-admin-all.component';
 import { LoggedInGuard } from './directives/guards/logged-in.guard';
+import { NotLoggedInGuard } from './directives/guards/not-logged-in.guard';
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [NotLoggedInGuard],
   },
 
   {
