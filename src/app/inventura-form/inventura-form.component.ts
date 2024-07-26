@@ -6,9 +6,12 @@ import { InstitutionService } from '../services/institution/institution.service'
 import { DjelatniciService } from '../services/djelatnici/dijelatnici.service';
 import { Institution } from '../models/institution';
 import { Djelatnici } from '../models/djelatnici';
-import { Inventura } from '../models/inventura';
 import { CreateInventuraDTO } from '../models/create-inventura-dto';
 import { Location } from '@angular/common';
+import {
+  dateValidator,
+  academicYearValidator,
+} from '../customValidators/date-range.validator';
 
 @Component({
   selector: 'app-inventura-form',
@@ -29,14 +32,21 @@ export class InventuraFormComponent implements OnInit {
     private userService: DjelatniciService,
     private location: Location
   ) {
-    this.inventuraForm = this.fb.group({
-      naziv: ['', Validators.required],
-      datumPocetka: ['', Validators.required],
-      datumZavrsetka: ['', Validators.required],
-      akademskaGod: ['', Validators.required],
-      institution: [null, Validators.required],
-      loadUsers: [[], Validators.required],
-    });
+    const currentYear = new Date().getFullYear();
+    this.inventuraForm = this.fb.group(
+      {
+        naziv: ['', Validators.required],
+        datumPocetka: ['', Validators.required],
+        datumZavrsetka: ['', Validators.required],
+        akademskaGod: [
+          '',
+          [Validators.required, academicYearValidator(currentYear)],
+        ],
+        institution: [null, Validators.required],
+        loadUsers: [[], Validators.required],
+      },
+      { validators: dateValidator() }
+    );
   }
 
   ngOnInit(): void {

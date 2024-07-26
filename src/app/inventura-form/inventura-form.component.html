@@ -23,13 +23,16 @@
       <div *ngIf="inventuraForm.get('datumZavrsetka')?.invalid && inventuraForm.get('datumZavrsetka')?.touched" class="p-error">
         Datum Zavrsetka is required.
       </div>
+      <div *ngIf="inventuraForm.hasError('dateInvalid') && inventuraForm.get('datumZavrsetka')?.touched" class="p-error">
+        Unesite točne datume
+      </div>
     </div>
 
     <div class="p-field">
       <label for="akademskaGod">Akademska Godina:</label>
-      <p-inputNumber id="akademskaGod" formControlName="akademskaGod" [useGrouping]="false"></p-inputNumber>
+      <input id="akademskaGod" formControlName="akademskaGod" type="number" pInputText />
       <div *ngIf="inventuraForm.get('akademskaGod')?.invalid && inventuraForm.get('akademskaGod')?.touched" class="p-error">
-        Akademska Godina is required.
+        Akademska Godina is required 
       </div>
     </div>
 

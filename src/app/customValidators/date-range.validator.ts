@@ -1,20 +1,23 @@
-import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-export function dateRangeValidator(
-  startDateField: string,
-  endDateField: string
-): ValidatorFn {
-  return (formGroup: AbstractControl): { [key: string]: boolean } | null => {
-    const startDate = formGroup.get(startDateField)?.value;
-    const endDate = formGroup.get(endDateField)?.value;
-
-    if (!startDate || !endDate) {
-      return null;
+export function dateValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const startDate = control.get('datumPocetka')?.value;
+    const endDate = control.get('datumZavrsetka')?.value;
+    if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
+      return { dateInvalid: true };
     }
+    return null;
+  };
+}
 
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-
-    return start <= end ? null : { dateRangeInvalid: true };
+export function academicYearValidator(currentYear: number): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const year = control.value;
+    const minYear = currentYear - 1;
+    if (!Number.isInteger(year) || year < minYear) {
+      return { yearInvalid: true };
+    }
+    return null;
   };
 }
