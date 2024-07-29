@@ -1,3 +1,4 @@
+
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f8f9fa;
@@ -85,7 +86,7 @@ body {
 }
 
 .artikl-name:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .action-buttons {

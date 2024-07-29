@@ -2,13 +2,12 @@
   <div class="card">
     <div class="card-header">
       <h2>{{ inventura.naziv }}</h2>
-      <button pButton label="Scan" (click)="startScanning()" class="p-button-primary"></button>
+      <button *ngIf="inventura.stanje" pButton label="Scan" (click)="startScanning()" class="p-button-primary"></button>
     </div>
 
     <div class="card-body">
       <h3 *ngIf="inventura.institution">Institution: {{ inventura.institution.name }}</h3>
       
-      <!-- Button Wrapper for positioning -->
       <div *ngIf="isAdmin" class="button-wrapper">
         <button pButton label="Back" (click)="goBack()" class="p-button-secondary back-btn"></button>
         <button *ngIf="inventura.stanje" pButton label="Finish" (click)="showConfirmDialog()" class="p-button-success finish-btn"></button>
@@ -22,7 +21,7 @@
               <li *ngFor="let artikl of room.artikls" class="artikl">
                 <span class="artikl-id">Article Id: {{ artikl.idArtikl }}</span>
                 <span class="artikl-name">Name: {{ artikl.name }}</span>
-                <input type="checkbox" [checked]="artikl.prisutan" (change)="onPrisutanChanged(artikl.idArtikl, $event)"/>
+                <input type="checkbox" [attr.disabled]="inventura.stanje == false ? true : null" [checked]="artikl.prisutan" (change)="onPrisutanChanged(artikl.idArtikl, $event)"/>
               </li>
             </ng-container>
           </ul>

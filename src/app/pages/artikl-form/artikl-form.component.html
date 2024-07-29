@@ -27,7 +27,7 @@
     <ul class="artikl-list">
       <li *ngFor="let artikl of filteredArtikli" class="artikl-item card">
         <div class="artikl-content">
-          <a class="artikl-name" [routerLink]="['/artikl-form', artikl.idArtikl]">{{ artikl.name }}</a>
+          <span class="artikl-name">{{ artikl.name }}</span>
           <div class="action-buttons">
             <button pButton icon="pi pi-pencil" class="p-button-warning edit-btn" [routerLink]="['/artikl/edit', artikl.idArtikl]"></button>
             <button pButton icon="pi pi-trash" class="p-button-danger delete-btn" (click)="showConfirmDialog(artikl.idArtikl)"></button>
