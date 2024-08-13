@@ -106,3 +106,10 @@
 .btn-delete:hover {
   background-color: #c82333; 
 }
+
+.no-data-message {
+  font-size: 1.25rem;
+  color: #6c757d;
+  text-align: center;
+  margin-top: 2rem;
+}

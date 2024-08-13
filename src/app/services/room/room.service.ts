@@ -8,7 +8,8 @@ import { Artikl } from '../../models/artikl';
   providedIn: 'root',
 })
 export class RoomService {
-  private apiUrl = 'http://localhost:8080/api/rooms';
+  private apiUrl =
+    'http://ec2-13-60-82-45.eu-north-1.compute.amazonaws.com:8080/api/rooms';
 
   constructor(private http: HttpClient) {}
 

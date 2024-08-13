@@ -7,7 +7,8 @@ import { Artikl, ArtiklPrisutan } from '../../models/artikl';
   providedIn: 'root',
 })
 export class ArticleService {
-  private apiUrl = 'http://localhost:8080/api/rooms/artikl';
+  private apiUrl =
+    'http://ec2-13-60-82-45.eu-north-1.compute.amazonaws.com:8080/api/rooms/artikl';
 
   constructor(private http: HttpClient) {}
 

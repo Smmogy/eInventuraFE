@@ -48,14 +48,14 @@ export class AuthService {
 
   public login(loginInfo: any): Observable<any> {
     return this.http.post(
-      'http://localhost:8080/api/v1/auth/authenticate',
+      'http://ec2-13-60-82-45.eu-north-1.compute.amazonaws.com:8080/api/v1/auth/authenticate',
       loginInfo
     );
   }
 
   public register(registerInfo: any): Observable<any> {
     return this.http.post(
-      'http://localhost:8080/api/v1/auth/register',
+      'http://ec2-13-60-82-45.eu-north-1.compute.amazonaws.com:8080/api/v1/auth/register',
       registerInfo
     );
   }

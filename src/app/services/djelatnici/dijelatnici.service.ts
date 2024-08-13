@@ -8,7 +8,8 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class DjelatniciService {
-  private apiUrl = 'http://localhost:8080/api/users';
+  private apiUrl =
+    'http://ec2-13-60-82-45.eu-north-1.compute.amazonaws.com:8080/api/users';
 
   constructor(private http: HttpClient) {}
 
