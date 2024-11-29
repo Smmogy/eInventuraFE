@@ -1,17 +1,17 @@
 <div class="card institution-card">
   <div class="card-header institution-card-header">
-      Edit Article
+      Uredi artikl
     </div>
     <div class="card-body">
       <form [formGroup]="artiklForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="name">Name:</label>
+          <label for="name">Naziv:</label>
           <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter name" required>
         </div>
        
         <div class="form-buttons">
-          <button type="submit" [disabled]="!artiklForm.valid" class="btn btn-primary">Update Article</button>
-          <button type="button" (click)="cancel()" class="btn btn-secondary">Cancel</button>
+          <button type="submit" [disabled]="!artiklForm.valid" class="btn btn-primary">Ažuriraj artikl</button>
+          <button type="button" (click)="cancel()" class="btn btn-secondary">Otkazaži</button>
         </div>
       </form>
     </div>

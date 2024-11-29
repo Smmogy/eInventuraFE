@@ -1,26 +1,26 @@
 <div class="container" *ngIf="inventura">
   <div class="card">
     <div class="card-header">
-      <h2>{{ inventura.naziv }}</h2>
-      <button *ngIf="inventura.stanje" pButton label="Scan" (click)="startScanning()" class="p-button-primary"></button>
+      <h2>Inventura: {{ inventura.naziv }}</h2>
+      <button *ngIf="inventura.stanje" pButton label="Skeniranje" (click)="startScanning()" class="p-button-primary"></button>
     </div>
 
     <div class="card-body">
-      <h3 *ngIf="inventura.institution">Institution: {{ inventura.institution.name }}</h3>
+      <h3 *ngIf="inventura.institution">Institucija: {{ inventura.institution.name }}</h3>
       
       <div *ngIf="isAdmin" class="button-wrapper">
-        <button pButton label="Back" (click)="goBack()" class="p-button-secondary back-btn"></button>
-        <button *ngIf="inventura.stanje" pButton label="Finish" (click)="showConfirmDialog()" class="p-button-success finish-btn"></button>
+        <button pButton label="Nazad" (click)="goBack()" class="p-button-secondary back-btn"></button>
+        <button *ngIf="inventura.stanje" pButton label="Zaključi" (click)="showConfirmDialog()" class="p-button-success finish-btn"></button>
       </div>
 
       <ng-container *ngIf="inventura.institution && inventura.institution.prostorijas">
         <div *ngFor="let room of inventura.institution.prostorijas" class="room">
-          <h4>Room: {{ room.name }}</h4>
+          <h4>Prostorija: {{ room.name }}</h4>
           <ul>
             <ng-container *ngIf="room.artikls">
               <li *ngFor="let artikl of room.artikls" class="artikl">
-                <span class="artikl-id">Article Id: {{ artikl.idArtikl }}</span>
-                <span class="artikl-name">Name: {{ artikl.name }}</span>
+                <span class="artikl-id">Artikl Id: {{ artikl.idArtikl }}</span>
+                <span class="artikl-name">Naziv: {{ artikl.name }}</span>
                 <input type="checkbox" [attr.disabled]="inventura.stanje == false ? true : null" [checked]="artikl.prisutan" (change)="onPrisutanChanged(artikl.idArtikl, $event)"/>
               </li>
             </ng-container>

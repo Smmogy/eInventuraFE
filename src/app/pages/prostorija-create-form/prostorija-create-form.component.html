@@ -1,13 +1,13 @@
 <div class="prostorija-create-form">
-  <h2>Create New Prostorija</h2>
+  <h2>Kreirajte novu prostroriju</h2>
   <form [formGroup]="prostorijaForm" (ngSubmit)="onSubmit()">
     <div class="field">
-      <label for="name">Prostorija Name</label>
+      <label for="name">Naziv prostorije</label>
       <input id="name" type="text" formControlName="name" pInputText />
       <div *ngIf="prostorijaForm.get('name')?.invalid && (prostorijaForm.get('name')?.dirty || prostorijaForm.get('name')?.touched)" class="error">
-        <small *ngIf="prostorijaForm.get('name')?.errors?.['required']">Prostorija name is required.</small>
+        <small *ngIf="prostorijaForm.get('name')?.errors?.['required']">Naziv prostorije je obavezan.</small>
       </div>
     </div>
-    <button pButton label="Create Prostorija" type="submit" class="p-button-success" [disabled]="prostorijaForm.invalid"></button>
+    <button pButton label="Kreiraj prostoriju" type="submit" class="p-button-success" [disabled]="prostorijaForm.invalid"></button>
   </form>
 </div>

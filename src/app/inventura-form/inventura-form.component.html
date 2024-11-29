@@ -2,26 +2,26 @@
   <form [formGroup]="inventuraForm" (ngSubmit)="onSubmit()" class="p-fluid form-padding">
 
     <div class="p-field">
-      <label for="naziv">Name:</label>
+      <label for="naziv">Naziv:</label>
       <input id="naziv" type="text" pInputText formControlName="naziv" />
       <div *ngIf="inventuraForm.get('naziv')?.invalid && inventuraForm.get('naziv')?.touched" class="p-error">
-        Name is required.
+        Naziv je obavezan.
       </div>
     </div>
 
     <div class="p-field">
-      <label for="datumPocetka">Beginning date:</label>
+      <label for="datumPocetka">Datum početka:</label>
       <p-calendar id="datumPocetka" formControlName="datumPocetka" dateFormat="yy-mm-dd" showIcon="true"></p-calendar>
       <div *ngIf="inventuraForm.get('datumPocetka')?.invalid && inventuraForm.get('datumPocetka')?.touched" class="p-error">
-        Datum Pocetka is required.
+        Datum pocetka je obavezan.
       </div>
     </div>
 
     <div class="p-field">
-      <label for="datumZavrsetka">End date:</label>
+      <label for="datumZavrsetka"> Datum završetka:</label>
       <p-calendar id="datumZavrsetka" formControlName="datumZavrsetka" dateFormat="yy-mm-dd" showIcon="true"></p-calendar>
       <div *ngIf="inventuraForm.get('datumZavrsetka')?.invalid && inventuraForm.get('datumZavrsetka')?.touched" class="p-error">
-        Datum Zavrsetka is required.
+        Datum završetka je obaveazan.
       </div>
       <div *ngIf="inventuraForm.hasError('dateInvalid') && inventuraForm.get('datumZavrsetka')?.touched" class="p-error">
         Unesite točne datume
@@ -29,27 +29,27 @@
     </div>
 
     <div class="p-field">
-      <label for="akademskaGod">Academic year:</label>
+      <label for="akademskaGod">Akademska godina:</label>
       <input id="akademskaGod" formControlName="akademskaGod" type="number" pInputText />
       <div *ngIf="inventuraForm.get('akademskaGod')?.invalid && inventuraForm.get('akademskaGod')?.touched" class="p-error">
-        Akademska Godina is required 
+        Akademska Godina je obavezna
       </div>
     </div>
 
     <div class="p-field">
-      <label for="institution">Institution:</label>
-      <p-dropdown [options]="institutions" optionLabel="name" formControlName="institution" placeholder="Select Institution" (onChange)="onInstitutionChange($event)"></p-dropdown>
+      <label for="institution">Institucija:</label>
+      <p-dropdown [options]="institutions" optionLabel="name" formControlName="institution" placeholder="Odaberite instituciju" (onChange)="onInstitutionChange($event)"></p-dropdown>
     </div>
 
     <div class="field">
-      <label for="loadUsers">Users</label>
+      <label for="loadUsers">Korisnik</label>
       <p-multiSelect
         formControlName="loadUsers"
         [options]="users"
         [(ngModel)]="selectedUsers"
-        [defaultLabel]="'Select Users'"
+        [defaultLabel]="'Odaberite korisnika'"
         optionLabel="name"
-        [selectedItemsLabel]="'{0} users selected'"
+        [selectedItemsLabel]="'{0} korisnika je odabrano'"
         [maxSelectedLabels]="3"
         [showHeader]="true"
         [showToggleAll]="true"
@@ -57,6 +57,6 @@
       ></p-multiSelect>
     </div>
 
-    <button type="submit" pButton label="Submit" icon="pi pi-check" [disabled]="inventuraForm.invalid" class="submitButton"></button>
+    <button type="submit" pButton label="Kreiraj inventuru" icon="pi pi-check" [disabled]="inventuraForm.invalid" class="submitButton"></button>
   </form>
 </div>

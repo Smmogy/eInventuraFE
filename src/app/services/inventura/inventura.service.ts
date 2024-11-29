@@ -13,8 +13,7 @@ import { ArtiklPrisutan } from '../../models/artikl';
   providedIn: 'root',
 })
 export class InventuraService {
-  private apiUrl =
-    'http://ec2-13-60-82-45.eu-north-1.compute.amazonaws.com:8080/api/inventura';
+  private apiUrl = 'http://localhost:8080/api/inventura';
 
   constructor(private http: HttpClient) {}
 

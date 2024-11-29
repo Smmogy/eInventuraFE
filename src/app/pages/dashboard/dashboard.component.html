@@ -3,19 +3,19 @@
     <div class="card-header">
     </div>
     <div class="card-body">
-      <h2 class="list-heading">Inventory List</h2>
+      <h2 class="list-heading">Lista inventura</h2>
 
-      <p *ngIf="inventuraList.length === 0" class="no-data-message">No Inventory Available</p>
+      <p *ngIf="inventuraList.length === 0" class="no-data-message">Nema dostupnih inventura</p>
 
       <p-table [value]="inventuraList" class="mt-5 table-custom" *ngIf="inventuraList.length > 0">
         <ng-template pTemplate="header">
           <tr>
-            <th>Name</th>
-            <th>Beginning date</th>
-            <th>End date</th>
-            <th>Academic year</th>
-            <th>Institution</th>
-            <th>Actions</th>
+            <th>Naziv</th>
+            <th>Datum početka</th>
+            <th>datum završetka</th>
+            <th>Akademska godina</th>
+            <th>Institucija</th>
+            <th>Radnje</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-inventura>

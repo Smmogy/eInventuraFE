@@ -1,13 +1,13 @@
 <div class="artikl-create-form">
-  <h2>Create New Article</h2>
+  <h2>Napravi novi artikl</h2>
   <form [formGroup]="artiklForm" (ngSubmit)="onSubmit()">
     <div class="field">
-      <label for="name">Article Name</label>
+      <label for="name">Ime artikla</label>
       <input id="name" type="text" formControlName="name" pInputText />
       <div *ngIf="artiklForm.get('name')?.invalid && (artiklForm.get('name')?.dirty || artiklForm.get('name')?.touched)" class="error">
-        <small *ngIf="artiklForm.get('name')?.errors?.['required']">Article name is required.</small>
+        <small *ngIf="artiklForm.get('name')?.errors?.['required']">Naziv artikla je obavezan.</small>
       </div>
     </div>
-    <button pButton label="Create Article" type="submit" class="p-button-success" [disabled]="artiklForm.invalid"></button>
+    <button pButton label="Kreiraj artikl" type="submit" class="p-button-success" [disabled]="artiklForm.invalid"></button>
   </form>
 </div>

@@ -1,17 +1,17 @@
 <div class="card institution-card">
   <div class="card-header institution-card-header">
-    Edit Room
+    Uredi prostoriju
   </div>
   <div class="card-body">
     <form [formGroup]="prostorijaForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="name">Name:</label>
+        <label for="name">Naziv:</label>
         <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter name" required>
       </div>
 
       <div class="form-buttons">
-        <button type="submit" [disabled]="!prostorijaForm.valid" class="btn btn-primary">Update Room</button>
-        <button type="button" (click)="cancel()" class="btn btn-secondary">Cancel</button>
+        <button type="submit" [disabled]="!prostorijaForm.valid" class="btn btn-primary">Ažuriranje prostorije</button>
+        <button type="button" (click)="cancel()" class="btn btn-secondary">Otkaži</button>
       </div>
     </form>
   </div>

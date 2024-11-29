@@ -60,7 +60,7 @@ export class LoginComponent {
           }
         },
         error: (res: any) => {
-          this.showLoginErrorDialog('Login failed');
+          this.showLoginErrorDialog('Prijava nije uspjela');
         },
       });
     }
@@ -73,8 +73,8 @@ export class LoginComponent {
           this.successVisible = true;
         },
         error: (err: any) => {
-          console.error('Registration failed:', err);
-          this.showLoginErrorDialog('Email already exists');
+          console.error('Registracija neuspijela:', err);
+          this.showLoginErrorDialog('Email se već koristi');
         },
       });
     }
