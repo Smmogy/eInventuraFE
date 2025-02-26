@@ -21,7 +21,7 @@
     "@zxing/ngx-scanner": "^18.0.1",
     "jsbarcode": "^3.11.6",
     "jsonwebtoken": "^9.0.2",
-    "jwt-decode": "^4.0.0",
+    "jwt-decode": "^3.1.2",
     "ngx-barcode-scanner": "^14.0.1",
     "primeflex": "^3.3.1",
     "primeicons": "^7.0.0",

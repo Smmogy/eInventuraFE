@@ -24,6 +24,7 @@
             <th>datum završetka</th>
             <th>Akademska godina</th>
             <th>Institucija</th>
+            <th>Status</th>
             <th>Radnje</th>
           </tr>
         </ng-template>
@@ -34,6 +35,9 @@
             <td>{{ inventura.datumZavrsetka | date: 'dd/MM/yyyy' }}</td>
             <td>{{ inventura.akademskaGod }}</td>
             <td>{{ inventura.institutionName }}</td>
+            <td>
+              {{ inventura.stanje ? 'Inventura u provođenju' : 'Završena inventura' }}
+            </td>
             <td>
               <button pButton label="Detalji" (click)="viewInventuraDetails(inventura.idInventura)" class="btn-action"></button>
               <button pButton label="Obriši" (click)="openDeleteDialog(inventura.idInventura)" class="btn-delete"></button>

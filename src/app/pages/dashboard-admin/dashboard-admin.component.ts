@@ -25,7 +25,9 @@ export class DashboardAdminComponent implements OnInit {
   getListOfInventuras() {
     this.inventuraService.getAllInventuraByStanje().subscribe({
       next: (inventuras) => {
-        this.inventuraList = inventuras;
+        this.inventuraList = inventuras.sort((a, b) => 
+          new Date(a.datumPocetka).getTime() - new Date(b.datumPocetka).getTime()
+        );
       },
       error: (err) => {
         console.error('Error fetching inventuras:', err);
