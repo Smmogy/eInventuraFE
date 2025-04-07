@@ -74,3 +74,18 @@
 .ml-2 {
   margin-left: 0.5rem;
 }
+
+.custom-dropdown {
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 16px;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  transition: border-color 0.3s ease;
+}
+
+.custom-dropdown:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

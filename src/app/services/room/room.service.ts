@@ -37,6 +37,10 @@ export class RoomService {
   getProstorijaById(idProstorija: number): Observable<Prostorija> {
     return this.http.get<Prostorija>(`${this.apiUrl}/${idProstorija}`);
   }
+
+  getInstitutionByRoomId(idProstorija: number): Observable<Prostorija>{
+    return this.http.get<Prostorija>(`${this.apiUrl}/institution-by-room/${idProstorija}`);
+  }
   updateProstorija(prostorija: Prostorija): Observable<void> {
     return this.http.put<void>(
       `${this.apiUrl}/${prostorija.idProstorija}`,
