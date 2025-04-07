@@ -3,7 +3,7 @@
     Uredi artikl
   </div>
   <div class="card-body">
-    <form [formGroup]="artiklForm" (ngSubmit)="onSubmit()">
+    <form *ngIf = "artikl != null" [formGroup]="artiklForm" (ngSubmit)="onSubmit()">
       
       <div class="form-group">
         <label for="name">Naziv:</label>
@@ -20,6 +20,7 @@
       <div class="form-group mt-3">
         <label for="idProstorija">Odaberi prostoriju:</label>
         <select
+          [(ngModel)]="artikl.idProstorija"
           class="form-control custom-dropdown"
           formControlName="idProstorija"
           id="idProstorija"
