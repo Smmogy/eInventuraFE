@@ -8,10 +8,12 @@ import { Institution } from '../models/institution';
 import { Djelatnici } from '../models/djelatnici';
 import { CreateInventuraDTO } from '../models/create-inventura-dto';
 import { Location } from '@angular/common';
+import { RoomService } from '../services/room/room.service';
 import {
   dateValidator,
   academicYearValidator,
 } from '../customValidators/date-range.validator';
+import { Prostorija, ProstorijaUser } from '../models/prostorija';
 
 @Component({
   selector: 'app-inventura-form',
@@ -23,6 +25,8 @@ export class InventuraFormComponent implements OnInit {
   institutions: Institution[] = [];
   users: Djelatnici[] = [];
   selectedUsers: Djelatnici[] = [];
+  rooms: any[] = [];
+  roomUserMap: { [key: number]: Djelatnici[] } = {};
 
   constructor(
     private fb: FormBuilder,
@@ -30,6 +34,7 @@ export class InventuraFormComponent implements OnInit {
     private inventuraService: InventuraService,
     private institutionService: InstitutionService,
     private userService: DjelatniciService,
+    private roomService: RoomService,
     private location: Location
   ) {
     const currentYear = new Date().getFullYear();
@@ -77,13 +82,36 @@ export class InventuraFormComponent implements OnInit {
   }
 
   onInstitutionChange(event: any): void {
-    console.log('Institution changed:', event.value);
+    const institutionId = event.value.idInstitution;
+    this.roomService.getRoomsByInstitutionId(institutionId).subscribe(
+      (data) => {
+        this.rooms = data;
+        // Inicijaliziraj prazne liste za korisnike po prostorijama
+        this.roomUserMap = {};
+        for (let room of this.rooms) {
+          this.roomUserMap[room.idProstorija] = [];
+        }
+      },
+      (error) => {
+        console.error('Greška pri dohvaćanju prostorija:', error);
+      }
+    );
+  }
+
+  onUserChange(): void {
+    // Ovdje možeš dodati kod za filtriranje korisnika
+    for (let roomId in this.roomUserMap) {
+      this.roomUserMap[+roomId] = this.roomUserMap[+roomId].filter(user =>
+        this.selectedUsers.some(u => u.id === user.id)
+      );
+    }
   }
 
   onSubmit(): void {
     if (this.inventuraForm.valid) {
-      let users: Djelatnici[] = this.inventuraForm.value.loadUsers;
-      let institution: Institution = this.inventuraForm.value.institution;
+      const users: Djelatnici[] = this.inventuraForm.value.loadUsers;
+      const institution: Institution = this.inventuraForm.value.institution;
+
       const inventuraData: CreateInventuraDTO = {
         idInventura: 0,
         naziv: this.inventuraForm.value.naziv,
@@ -97,14 +125,29 @@ export class InventuraFormComponent implements OnInit {
       this.inventuraService.createInventura(inventuraData).subscribe(
         (createdInventura) => {
           console.log('Inventura created successfully:', createdInventura);
+
+          // Iteriramo po mapiranim prostorijama i dodijeljenim korisnicima
+          Object.entries(this.roomUserMap).forEach(([roomId, usersInRoom]) => {
+            if (usersInRoom.length === 0) return;
+
+            const dto: ProstorijaUser = {
+              idProstorija: Number(roomId),
+              name: this.rooms.find(r => r.idProstorija == Number(roomId))?.name || '',
+              usersIds: usersInRoom.map(u => u.id)
+            };
+
+            this.roomService.createRoomWithUsers(dto).subscribe({
+              next: () => console.log(`Dodani korisnici u prostoriju ${dto.name}`),
+              error: (err) => console.error('Greška kod dodavanja korisnika u prostoriju:', err),
+            });
+          });
+
           this.location.back();
         },
         (error) => {
-          console.error('Failed to create inventura:', error);
+          console.error('Greška kod kreiranja inventure:', error);
         }
       );
-    } else {
-      this.inventuraForm.markAllAsTouched();
     }
   }
-}
+  }

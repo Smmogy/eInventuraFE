@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Prostorija } from '../../models/prostorija';
+import { Prostorija, ProstorijaUser } from '../../models/prostorija';
 import { Artikl } from '../../models/artikl';
 
 @Injectable({
@@ -46,5 +46,9 @@ export class RoomService {
       `${this.apiUrl}/${prostorija.idProstorija}`,
       prostorija
     );
+  }
+
+  createRoomWithUsers(prostorijaUser: ProstorijaUser): Observable<ProstorijaUser> {
+    return this.http.post<ProstorijaUser>(`${this.apiUrl}/saveWithUsers`, prostorijaUser);
   }
 }
