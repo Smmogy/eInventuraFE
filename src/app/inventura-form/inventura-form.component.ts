@@ -21,6 +21,7 @@ import { Prostorija, ProstorijaUser } from '../models/prostorija';
   styleUrls: ['./inventura-form.component.css'],
 })
 export class InventuraFormComponent implements OnInit {
+  test: Djelatnici[] = [];
   inventuraForm: FormGroup;
   institutions: Institution[] = [];
   users: Djelatnici[] = [];
@@ -49,11 +50,14 @@ export class InventuraFormComponent implements OnInit {
         ],
         institution: [null, Validators.required],
         loadUsers: [[], Validators.required],
+        roomUserMap: [[], Validators.required]
       },
       { validators: dateValidator() }
     );
   }
-
+  onRoomUserChange(selectedUsers: any, roomId: number): void {
+    this.roomUserMap[roomId] = selectedUsers;
+  }
   ngOnInit(): void {
     this.loadInstitutions();
     this.loadUsers();
@@ -86,7 +90,6 @@ export class InventuraFormComponent implements OnInit {
     this.roomService.getRoomsByInstitutionId(institutionId).subscribe(
       (data) => {
         this.rooms = data;
-        // Inicijaliziraj prazne liste za korisnike po prostorijama
         this.roomUserMap = {};
         for (let room of this.rooms) {
           this.roomUserMap[room.idProstorija] = [];
@@ -96,15 +99,6 @@ export class InventuraFormComponent implements OnInit {
         console.error('Greška pri dohvaćanju prostorija:', error);
       }
     );
-  }
-
-  onUserChange(): void {
-    // Ovdje možeš dodati kod za filtriranje korisnika
-    for (let roomId in this.roomUserMap) {
-      this.roomUserMap[+roomId] = this.roomUserMap[+roomId].filter(user =>
-        this.selectedUsers.some(u => u.id === user.id)
-      );
-    }
   }
 
   onSubmit(): void {
@@ -120,34 +114,18 @@ export class InventuraFormComponent implements OnInit {
         akademskaGod: this.inventuraForm.value.akademskaGod,
         institutionId: institution.idInstitution,
         usersIds: users.map((user) => user.id),
+        roomUserMap: this.roomUserMap
       };
 
-      this.inventuraService.createInventura(inventuraData).subscribe(
-        (createdInventura) => {
-          console.log('Inventura created successfully:', createdInventura);
-
-          // Iteriramo po mapiranim prostorijama i dodijeljenim korisnicima
-          Object.entries(this.roomUserMap).forEach(([roomId, usersInRoom]) => {
-            if (usersInRoom.length === 0) return;
-
-            const dto: ProstorijaUser = {
-              idProstorija: Number(roomId),
-              name: this.rooms.find(r => r.idProstorija == Number(roomId))?.name || '',
-              usersIds: usersInRoom.map(u => u.id)
-            };
-
-            this.roomService.createRoomWithUsers(dto).subscribe({
-              next: () => console.log(`Dodani korisnici u prostoriju ${dto.name}`),
-              error: (err) => console.error('Greška kod dodavanja korisnika u prostoriju:', err),
-            });
-          });
-
+      this.inventuraService.createInventura(inventuraData).subscribe({
+        next: (createdInventura) => {
+          console.log('Inventura i prostorije s korisnicima su uspješno spremljeni:', createdInventura);
           this.location.back();
         },
-        (error) => {
+        error: (error) => {
           console.error('Greška kod kreiranja inventure:', error);
         }
-      );
+      });
     }
   }
-  }
+}

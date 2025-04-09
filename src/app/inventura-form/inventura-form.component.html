@@ -42,7 +42,6 @@
         formControlName="loadUsers"
         [options]="users"
         [(ngModel)]="selectedUsers"
-        (onChange)="onUserChange()"
         [defaultLabel]="'Odaberite korisnika'"
         optionLabel="name"
         [selectedItemsLabel]="'{0} korisnika je odabrano'"
@@ -61,14 +60,14 @@
     <div *ngIf="rooms.length > 0" class="p-mt-4">
       <div *ngFor="let room of rooms" class="p-field">
         <label>{{ room.name }}</label>
-        <p-multiSelect
-          [options]="selectedUsers"
-          [(ngModel)]="roomUserMap[room.idProstorija]"
-          optionLabel="name"
-          display="chip"
-          [defaultLabel]="'Odaberite korisnike'"
-          [filter]="true"
-        ></p-multiSelect>
+        <p-multiSelect formControlName="roomUserMap"
+        [options]="selectedUsers"
+        [(ngModel)]="roomUserMap[room.idProstorija]"
+        optionLabel="name"
+        display="chip"
+        [defaultLabel]="'Odaberite korisnike'"
+        [filter]="true"
+      />
       </div>
     </div>
 

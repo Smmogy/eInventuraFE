@@ -48,12 +48,10 @@ export class ArtiklEditFormComponent implements OnInit {
           idProstorija: this.artikl.idProstorija
         });
   
-        // 👇 Dohvati prostoriju preko njenog ID-a
         this.roomService.getInstitutionByRoomId(this.artikl.idProstorija).subscribe({
           next: (prostorija) => {
             const idInstitution = prostorija.idInstitution;
   
-            // 👇 Sada dohvati sve prostorije te institucije
             this.loadProstorije(idInstitution);
           },
           error: (err) => {
