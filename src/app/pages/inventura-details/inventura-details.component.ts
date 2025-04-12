@@ -75,6 +75,9 @@ export class InventuraDetailsComponent implements OnInit {
       },
     });
   }
+  navigateToRoomDetails(roomId: number) {
+    this.router.navigate(['/room-details', roomId]); // Replace '/room-details' with your actual route path
+  }
 
   private updateArticleStatusInUI(idArtikl: number, prisutan: boolean) {
     this.inventura.institution.prostorijas.forEach((room) => {

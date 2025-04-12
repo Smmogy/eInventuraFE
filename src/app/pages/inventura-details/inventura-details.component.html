@@ -1,39 +1,30 @@
 <div class="container" *ngIf="inventura">
   <div class="card">
     <div class="card-header">
-      <h2>Inventura: {{ inventura.naziv }}</h2>
+      <h2>{{ inventura.naziv }}</h2>  <!-- Inventura name -->
       <button *ngIf="inventura.stanje" pButton label="Skeniranje" (click)="startScanning()" class="p-button-primary"></button>
     </div>
 
     <div class="card-body">
-      <h3 *ngIf="inventura.institution">Institucija: {{ inventura.institution.name }}</h3>
-      
+      <h3 class="institution-name">Institucija: {{ inventura.institution.name }}</h3> <!-- Institution name -->
+
+      <!-- Room List -->
+      <div *ngIf="inventura.institution?.prostorijas && inventura.institution.prostorijas.length > 0" class="room-list">
+        <div *ngFor="let room of inventura.institution.prostorijas" class="room-card" (click)="navigateToRoomDetails(room.idProstorija)">
+          <h4 class="room-name">{{ room.name }}</h4>
+          <p class="room-description">Kliknite za detalje o prostoriji</p>
+        </div>
+      </div>
+
+      <!-- Buttons at the bottom -->
       <div *ngIf="isAdmin" class="button-wrapper">
         <button pButton label="Nazad" (click)="goBack()" class="p-button-secondary back-btn"></button>
         <button *ngIf="inventura.stanje" pButton label="Zaključi" (click)="showConfirmDialog()" class="p-button-success finish-btn"></button>
       </div>
-
-      <ng-container *ngIf="inventura.institution && inventura.institution.prostorijas">
-        <div *ngFor="let room of inventura.institution.prostorijas" class="room">
-          <h4>Prostorija: {{ room.name }}</h4>
-          <ul>
-            <ng-container *ngIf="room.artikls">
-              <li *ngFor="let artikl of room.artikls" class="artikl">
-                <span class="artikl-id">Artikl Id: {{ artikl.idArtikl }}</span>
-                <span class="artikl-name">Naziv: {{ artikl.name }}</span>
-                <input type="checkbox" [attr.disabled]="inventura.stanje == false ? true : null" [checked]="artikl.prisutan" (change)="onPrisutanChanged(artikl.idArtikl, $event)"/>
-              </li>
-            </ng-container>
-          </ul>
-        </div>
-      </ng-container>
     </div>
   </div>
 
-  <div *ngIf="scanning" class="scanner-container">
-    <zxing-scanner [formats]="[4]" (scanSuccess)="onBarcodeScanned($event)"></zxing-scanner>
-  </div>
-
+  <!-- Confirmation Dialog Component -->
   <app-confrimation-dialog-zavrsi
     [display]="displayConfirmDialog"
     (displayChange)="displayConfirmDialog = $event"
