@@ -13,7 +13,7 @@ import {
   dateValidator,
   academicYearValidator,
 } from '../customValidators/date-range.validator';
-import { Prostorija, ProstorijaUser } from '../models/prostorija';
+import { Prostorija } from '../models/prostorija';
 
 @Component({
   selector: 'app-inventura-form',
@@ -21,12 +21,11 @@ import { Prostorija, ProstorijaUser } from '../models/prostorija';
   styleUrls: ['./inventura-form.component.css'],
 })
 export class InventuraFormComponent implements OnInit {
-  test: Djelatnici[] = [];
+  selectedUsers: Djelatnici[] = [];
   inventuraForm: FormGroup;
   institutions: Institution[] = [];
   users: Djelatnici[] = [];
-  selectedUsers: Djelatnici[] = [];
-  rooms: any[] = [];
+  rooms: Prostorija[] = [];
   roomUserMap: { [key: number]: Djelatnici[] } = {};
 
   constructor(
@@ -39,25 +38,18 @@ export class InventuraFormComponent implements OnInit {
     private location: Location
   ) {
     const currentYear = new Date().getFullYear();
-    this.inventuraForm = this.fb.group(
-      {
-        naziv: ['', Validators.required],
-        datumPocetka: ['', Validators.required],
-        datumZavrsetka: ['', Validators.required],
-        akademskaGod: [
-          '',
-          [Validators.required, academicYearValidator(currentYear)],
-        ],
-        institution: [null, Validators.required],
-        loadUsers: [[], Validators.required],
-        roomUserMap: [[], Validators.required]
-      },
-      { validators: dateValidator() }
-    );
+    this.inventuraForm = this.fb.group({
+      naziv: ['', Validators.required],
+      datumPocetka: ['', Validators.required],
+      datumZavrsetka: ['', Validators.required],
+      akademskaGod: [
+        '',
+        [Validators.required, academicYearValidator(currentYear)],
+      ],
+      institution: [null, Validators.required],
+    });
   }
-  onRoomUserChange(selectedUsers: any, roomId: number): void {
-    this.roomUserMap[roomId] = selectedUsers;
-  }
+
   ngOnInit(): void {
     this.loadInstitutions();
     this.loadUsers();
@@ -65,23 +57,15 @@ export class InventuraFormComponent implements OnInit {
 
   loadInstitutions(): void {
     this.institutionService.getInstitutions().subscribe(
-      (data: Institution[]) => {
-        this.institutions = data;
-      },
-      (error) => {
-        console.error('Error loading institutions:', error);
-      }
+      (data) => (this.institutions = data),
+      (error) => console.error('Error loading institutions:', error)
     );
   }
 
   loadUsers(): void {
     this.userService.getDjelatnici().subscribe(
-      (data: Djelatnici[]) => {
-        this.users = data;
-      },
-      (error) => {
-        console.error('Error loading users:', error);
-      }
+      (data) => (this.users = data),
+      (error) => console.error('Error loading users:', error)
     );
   }
 
@@ -91,20 +75,26 @@ export class InventuraFormComponent implements OnInit {
       (data) => {
         this.rooms = data;
         this.roomUserMap = {};
-        for (let room of this.rooms) {
+        this.rooms.forEach((room) => {
           this.roomUserMap[room.idProstorija] = [];
-        }
+        });
       },
-      (error) => {
-        console.error('Greška pri dohvaćanju prostorija:', error);
-      }
+      (error) => console.error('Greška pri dohvaćanju prostorija:', error)
     );
+  }
+
+  onRoomUserChange(selectedUsers: any, roomId: number): void {
+    this.roomUserMap[roomId] = selectedUsers;
+  }
+
+  allRoomsValid(): boolean {
+    return Object.values(this.roomUserMap).every((users) => users.length > 0);
   }
 
   onSubmit(): void {
     if (this.inventuraForm.valid) {
-      const users: Djelatnici[] = this.inventuraForm.value.loadUsers;
       const institution: Institution = this.inventuraForm.value.institution;
+      const usersIds = this.selectedUsers.map((user) => user.id);
 
       const inventuraData: CreateInventuraDTO = {
         idInventura: 0,
@@ -113,18 +103,21 @@ export class InventuraFormComponent implements OnInit {
         datumZavrsetka: this.inventuraForm.value.datumZavrsetka,
         akademskaGod: this.inventuraForm.value.akademskaGod,
         institutionId: institution.idInstitution,
-        usersIds: users.map((user) => user.id),
-        roomUserMap: this.roomUserMap
+        usersIds: usersIds,
+        roomUserMap: this.roomUserMap,
       };
 
       this.inventuraService.createInventura(inventuraData).subscribe({
         next: (createdInventura) => {
-          console.log('Inventura i prostorije s korisnicima su uspješno spremljeni:', createdInventura);
+          console.log(
+            'Inventura i prostorije s korisnicima su uspješno spremljeni:',
+            createdInventura
+          );
           this.location.back();
         },
         error: (error) => {
           console.error('Greška kod kreiranja inventure:', error);
-        }
+        },
       });
     }
   }
