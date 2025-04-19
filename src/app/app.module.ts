@@ -22,6 +22,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthVisibilityDirective } from './directives/auth-visibility.directive';
 import { TableModule } from 'primeng/table';
@@ -45,6 +46,7 @@ import { DashboardAdminComponent } from './pages/dashboard-admin/dashboard-admin
 import { ConfrimationDialogZavrsiComponent } from './dialog/confrimation-dialog-zavrsi/confrimation-dialog-zavrsi.component';
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
 import { DashboardAdminAllComponent } from './pages/dashboard-admin-all/dashboard-admin-all.component';
+import { InventuraDetailProstorijaComponent } from './pages/inventura-detail-prostorija/inventura-detail-prostorija.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,7 @@ import { DashboardAdminAllComponent } from './pages/dashboard-admin-all/dashboar
     ConfrimationDialogZavrsiComponent,
     ErrorDialogComponent,
     DashboardAdminAllComponent,
+    InventuraDetailProstorijaComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,6 +96,7 @@ import { DashboardAdminAllComponent } from './pages/dashboard-admin-all/dashboar
     MultiSelectModule,
     ZXingScannerModule,
     DialogModule,
+    ToggleButtonModule,
   ],
   providers: [
     {

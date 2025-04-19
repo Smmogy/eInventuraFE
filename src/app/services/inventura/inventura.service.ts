@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import {
   Inventura,
   InventuraDetail,
+  InventuraDetailProstorija,
   InventuraList,
 } from '../../models/inventura';
 import { CreateInventuraDTO } from '../../models/create-inventura-dto';
@@ -34,6 +35,14 @@ export class InventuraService {
   }
   getInventuraDetailById(id: number): Observable<InventuraDetail> {
     return this.http.get<InventuraDetail>(`${this.apiUrl}/detail/${id}`);
+  }
+  getInventuraDetailProstorijaById(
+    inventuraId: number,
+    prostorijaId: number
+  ): Observable<InventuraDetailProstorija> {
+    return this.http.get<InventuraDetailProstorija>(
+      `${this.apiUrl}/detail/${inventuraId}/prostorija/${prostorijaId}`
+    );
   }
 
   getInventurasByUserId(userId: number): Observable<InventuraList[]> {

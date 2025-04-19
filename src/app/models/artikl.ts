@@ -4,6 +4,11 @@ export interface Artikl {
   idArtikl: number;
   name: string;
   idProstorija: number;
+}
+
+export interface ArtiklInventura {
+  idArtikl: number;
+  name: string;
   prisutan: boolean;
 }
 

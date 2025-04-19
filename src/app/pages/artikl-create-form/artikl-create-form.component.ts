@@ -41,7 +41,6 @@ export class ArtiklCreateFormComponent implements OnInit {
         idArtikl: 0,
         name: this.artiklForm.value.name,
         idProstorija: this.idProstorija,
-        prisutan: false,
       };
 
       this.artiklService.createArticle(artiklData).subscribe(

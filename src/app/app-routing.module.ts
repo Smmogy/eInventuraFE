@@ -19,6 +19,7 @@ import { AdminGuard } from './directives/guards/admin.guard';
 import { DashboardAdminAllComponent } from './pages/dashboard-admin-all/dashboard-admin-all.component';
 import { LoggedInGuard } from './directives/guards/logged-in.guard';
 import { NotLoggedInGuard } from './directives/guards/not-logged-in.guard';
+import { InventuraDetailProstorijaComponent } from './pages/inventura-detail-prostorija/inventura-detail-prostorija.component';
 const routes: Routes = [
   {
     path: 'login',
@@ -99,6 +100,11 @@ const routes: Routes = [
       {
         path: 'inventura/edit/:id',
         component: InventuraDetailsComponent,
+        canActivate: [LoggedInGuard],
+      },
+      {
+        path: 'inventura/edit/:idInventura/prostorija/:idProstorija',
+        component: InventuraDetailProstorijaComponent,
         canActivate: [LoggedInGuard],
       },
       {

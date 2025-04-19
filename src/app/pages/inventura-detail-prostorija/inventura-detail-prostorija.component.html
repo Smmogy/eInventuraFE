@@ -1,0 +1,35 @@
+<div class="container" *ngIf="detailData">
+    <div class="card">
+      <div class="card-header">
+        <h2>Prostorija: {{ detailData.name }}</h2>
+      </div>
+  
+      <div class="card-body">
+        <!-- Users -->
+        <h3 class="institution-name">Djelatnici</h3>
+        <div class="user-list">
+          <span *ngFor="let user of detailData.users" class="user-chip">
+            <i class="pi pi-user"></i> {{ user.firstname }} {{user.lastname}}
+          </span>
+        </div>
+  
+        <!-- Artikli -->
+        <h3 class="institution-name">Artikli</h3>
+        <div class="artikl-list">
+          <div *ngFor="let artikl of detailData.artikls" class="artikl-item">
+            <span class="artikl-name">{{ artikl.name }}</span>
+            <p-toggleButton
+              [ngModel]="artikl.prisutan"
+              [disabled]="!detailData.inventuraStanje"
+              onIcon="pi-check"
+              offIcon="pi pi-times"
+              onLabel="Prisutan"
+              offLabel="Nije"
+              class="artikl-toggle"
+              (onChange)="togglePrisutan(artikl.idArtikl, artikl.prisutan)">
+            </p-toggleButton>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

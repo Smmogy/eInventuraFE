@@ -28,36 +28,38 @@ export class ArtiklEditFormComponent implements OnInit {
   ) {
     this.artiklForm = this.fb.group({
       name: ['', Validators.required],
-      idProstorija: [null, Validators.required]
+      idProstorija: [null, Validators.required],
     });
   }
 
   ngOnInit(): void {
-  this.route.params.subscribe((params) => {
-    this.idArtikl = +params['id'];
-    this.loadArtikl(this.idArtikl);
-  });
-}
- 
+    this.route.params.subscribe((params) => {
+      this.idArtikl = +params['id'];
+      this.loadArtikl(this.idArtikl);
+    });
+  }
+
   loadArtikl(id: number): void {
     this.artiklService.getArticleProstorijaById(id).subscribe({
       next: (data) => {
         this.artikl = data;
         this.artiklForm.patchValue({
           name: this.artikl.name,
-          idProstorija: this.artikl.idProstorija
+          idProstorija: this.artikl.idProstorija,
         });
-  
-        this.roomService.getInstitutionByRoomId(this.artikl.idProstorija).subscribe({
-          next: (prostorija) => {
-            const idInstitution = prostorija.idInstitution;
-  
-            this.loadProstorije(idInstitution);
-          },
-          error: (err) => {
-            console.error('Greška kod dohvaćanja prostorije:', err);
-          }
-        });
+
+        this.roomService
+          .getInstitutionByRoomId(this.artikl.idProstorija)
+          .subscribe({
+            next: (prostorija) => {
+              const idInstitution = prostorija.idInstitution;
+
+              this.loadProstorije(idInstitution);
+            },
+            error: (err) => {
+              console.error('Greška kod dohvaćanja prostorije:', err);
+            },
+          });
       },
       error: (error) => {
         console.error('Error loading artikl:', error);
@@ -72,7 +74,7 @@ export class ArtiklEditFormComponent implements OnInit {
       },
       error: (err) => {
         console.error('Greška kod dohvaćanja prostorija:', err);
-      }
+      },
     });
   }
 
@@ -82,7 +84,6 @@ export class ArtiklEditFormComponent implements OnInit {
         idArtikl: this.artikl.idArtikl,
         name: this.artiklForm.value.name,
         idProstorija: this.artikl.idProstorija,
-        prisutan: this.artikl.prisutan,
       };
 
       this.artiklService.updateArticle(updatedArtikl).subscribe({

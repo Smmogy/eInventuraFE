@@ -43,7 +43,6 @@ export class ProstorijaCreateFormComponent implements OnInit {
         name: this.prostorijaForm.value.name,
         idInstitution: this.idInstitution,
         idProstorija: 0,
-        artikls: [],
       };
 
       this.prostorijaService.createRoom(prostorijaData).subscribe(

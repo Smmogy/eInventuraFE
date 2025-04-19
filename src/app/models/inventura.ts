@@ -1,5 +1,7 @@
+import { Artikl, ArtiklInventura } from './artikl';
 import { Djelatnici } from './djelatnici';
-import { Institution, InstitutionDetail } from './institution';
+import { Institution } from './institution';
+import { Prostorija } from './prostorija';
 
 export interface Inventura {
   idInventura: number;
@@ -27,6 +29,15 @@ export interface InventuraDetail {
   datumPocetka: String;
   datumZavrsetka: String;
   akademskaGod: number;
-  institution: InstitutionDetail;
   stanje: boolean;
+  institution: Institution;
+  prostorije: Prostorija[];
+}
+
+export interface InventuraDetailProstorija {
+  idProstorija: number;
+  name: string;
+  inventuraStanje: boolean;
+  artikls: ArtiklInventura[];
+  users: Djelatnici[];
 }

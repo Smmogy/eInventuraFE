@@ -54,7 +54,6 @@ export class ProstorijaEditFormComponent implements OnInit {
         idProstorija: this.prostorija.idProstorija,
         name: this.prostorijaForm.value.name,
         idInstitution: this.prostorija.idInstitution,
-        artikls: this.prostorija.artikls,
       };
 
       this.prostorijaService.updateProstorija(updatedProstorija).subscribe({
