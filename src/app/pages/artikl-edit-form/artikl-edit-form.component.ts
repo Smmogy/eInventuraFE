@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Artikl } from '../../models/artikl';
 import { ArticleService } from '../../services/article/article.service';
 import { Location } from '@angular/common';
+import { RoomService } from '../../services/room/room.service';
+import { Prostorija } from '../../models/prostorija';
 
 @Component({
   selector: 'app-artikl-edit-form',
@@ -14,37 +16,63 @@ export class ArtiklEditFormComponent implements OnInit {
   artiklForm: FormGroup;
   idArtikl!: number;
   artikl: Artikl | undefined;
+  prostorije: Prostorija[] = [];
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private artiklService: ArticleService,
-    private location: Location
+    private location: Location,
+    private roomService: RoomService
   ) {
     this.artiklForm = this.fb.group({
       name: ['', Validators.required],
+      idProstorija: [null, Validators.required]
     });
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.idArtikl = +params['id'];
-      this.loadArtikl(this.idArtikl);
-    });
-  }
-
+  this.route.params.subscribe((params) => {
+    this.idArtikl = +params['id'];
+    this.loadArtikl(this.idArtikl);
+  });
+}
+ 
   loadArtikl(id: number): void {
-    this.artiklService.getArticleById(id).subscribe({
+    this.artiklService.getArticleProstorijaById(id).subscribe({
       next: (data) => {
         this.artikl = data;
         this.artiklForm.patchValue({
           name: this.artikl.name,
+          idProstorija: this.artikl.idProstorija
+        });
+  
+        this.roomService.getInstitutionByRoomId(this.artikl.idProstorija).subscribe({
+          next: (prostorija) => {
+            const idInstitution = prostorija.idInstitution;
+  
+            this.loadProstorije(idInstitution);
+          },
+          error: (err) => {
+            console.error('Greška kod dohvaćanja prostorije:', err);
+          }
         });
       },
       error: (error) => {
         console.error('Error loading artikl:', error);
       },
+    });
+  }
+
+  loadProstorije(idInstitution: number): void {
+    this.roomService.getRoomsByInstitutionId(idInstitution).subscribe({
+      next: (data) => {
+        this.prostorije = data;
+      },
+      error: (err) => {
+        console.error('Greška kod dohvaćanja prostorija:', err);
+      }
     });
   }
 

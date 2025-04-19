@@ -30,6 +30,10 @@ export class ArticleService {
     return this.http.get<Artikl>(`${this.apiUrl}/${id}`);
   }
 
+  getArticleProstorijaById(id: number): Observable<Artikl> {
+    return this.http.get<Artikl>(`${this.apiUrl}/prostorija-dto/${id}`);
+  }
+
   getArticlesByRoomId(roomId: number): Observable<Artikl[]> {
     return this.http.get<Artikl[]>(`${this.apiUrl}/get/${roomId}`);
   }

@@ -65,6 +65,7 @@ export class InstitutionsFormComponent implements OnInit {
           (error) => {
             console.error('Failed to delete institution:', error);
             this.closeDialog();
+            this.closeDialog();
           }
         );
     }

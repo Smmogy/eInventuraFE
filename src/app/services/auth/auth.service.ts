@@ -1,7 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { JwtPayload, jwtDecode } from 'jwt-decode';
-import { Observable, of } from 'rxjs';
+import jwtDecode from 'jwt-decode'; // Correct default import
+import { Observable } from 'rxjs';
+
+interface CustomJwtPayload {
+  sub?: string;
+  exp?: number;
+  roles?: { authority: string }[];
+}
 
 @Injectable({
   providedIn: 'root',
@@ -23,27 +29,19 @@ export class AuthService {
     localStorage.removeItem(this.tokenKey);
   }
 
-  getUserData(): JwtPayload | null {
-    if (this.getToken()) return jwtDecode(this.getToken() as string);
-    else return null;
-  }
-  getEmailFromToken(): string | null {
+  getUserData(): CustomJwtPayload | null {
     const token = this.getToken();
-    if (token) {
-      const decodedToken = jwtDecode<any>(token);
-      return decodedToken.sub || null;
-    }
-    return null;
+    return token ? jwtDecode<CustomJwtPayload>(token) : null;
+  }
+
+  getEmailFromToken(): string | null {
+    const userData = this.getUserData();
+    return userData?.sub || null;
   }
 
   hasAdminRole(): boolean {
     const userData = this.getUserData();
-    if (userData) {
-      const isAdmin =
-        userData.roles?.some((role) => role.authority === 'ADMIN') ?? false;
-      return isAdmin;
-    }
-    return false;
+    return userData?.roles?.some((role) => role.authority === 'ADMIN') ?? false;
   }
 
   public login(loginInfo: any): Observable<any> {

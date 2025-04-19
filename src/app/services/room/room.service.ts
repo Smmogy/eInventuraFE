@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Prostorija } from '../../models/prostorija';
+import { Prostorija, ProstorijaUser } from '../../models/prostorija';
 import { Artikl } from '../../models/artikl';
 
 @Injectable({
@@ -37,10 +37,18 @@ export class RoomService {
   getProstorijaById(idProstorija: number): Observable<Prostorija> {
     return this.http.get<Prostorija>(`${this.apiUrl}/${idProstorija}`);
   }
+
+  getInstitutionByRoomId(idProstorija: number): Observable<Prostorija>{
+    return this.http.get<Prostorija>(`${this.apiUrl}/institution-by-room/${idProstorija}`);
+  }
   updateProstorija(prostorija: Prostorija): Observable<void> {
     return this.http.put<void>(
       `${this.apiUrl}/${prostorija.idProstorija}`,
       prostorija
     );
+  }
+
+  createRoomWithUsers(prostorijaUser: ProstorijaUser): Observable<ProstorijaUser> {
+    return this.http.post<ProstorijaUser>(`${this.apiUrl}/saveWithUsers`, prostorijaUser);
   }
 }

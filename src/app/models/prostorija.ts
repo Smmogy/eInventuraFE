@@ -13,3 +13,9 @@ export interface ProstorijaDetail {
   name: string;
   artikls: Artikl[];
 }
+
+export interface ProstorijaUser {
+  idProstorija: number;
+  name: string;
+  usersIds: number[];
+}

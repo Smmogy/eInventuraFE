@@ -1,3 +1,4 @@
+import { KeyValue } from '@angular/common';
 import { Djelatnici } from './djelatnici';
 import { Institution } from './institution';
 
@@ -9,4 +10,5 @@ export interface CreateInventuraDTO {
   akademskaGod: number;
   usersIds: number[];
   institutionId: number;
+  roomUserMap: Record<number, Djelatnici[]>;
 }

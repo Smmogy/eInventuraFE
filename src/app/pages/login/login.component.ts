@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
-import { jwtDecode } from 'jwt-decode';
+import jwtDecode from 'jwt-decode'; 
 import { DjelatniciService } from '../../services/djelatnici/dijelatnici.service';
 
 @Component({
