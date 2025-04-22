@@ -96,3 +96,19 @@ button:hover{
 	display: flex;
 	justify-content: center;
   }
+.error-message {
+	color: red;
+	font-size: 0.9em; 
+	margin-top: 5px;
+	width: 60%; 
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center; 
+  }
+  
+  input, .error-message {
+	display: block;
+	margin: 10px auto;
+	width: 60%; 
+  }
+  

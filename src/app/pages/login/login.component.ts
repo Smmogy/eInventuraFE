@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
-import jwtDecode from 'jwt-decode'; 
 import { DjelatniciService } from '../../services/djelatnici/dijelatnici.service';
+import jwtDecode from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -11,32 +11,34 @@ import { DjelatniciService } from '../../services/djelatnici/dijelatnici.service
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  loginForm = this.fb.group({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
-  });
-
-  registerForm = this.fb.group({
-    firstname: new FormControl('', Validators.required),
-    lastname: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
-  });
-
-  successVisible: boolean = false;
-  loginErrorVisible: boolean = false;
-  loginErrorMessage: string = '';
+  loginForm: FormGroup;
+  registerForm: FormGroup;
+  successVisible = false;
+  loginErrorVisible = false;
+  loginErrorMessage = '';
 
   constructor(
+    private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private fb: FormBuilder,
     private userService: DjelatniciService
-  ) {}
+  ) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+    });
+
+    this.registerForm = this.fb.group({
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+    });
+  }
 
   onLogin() {
     if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.getRawValue()).subscribe({
+      this.authService.login(this.loginForm.value).subscribe({
         next: (res: any) => {
           this.authService.setToken(res.token);
           const email = this.getEmailFromToken(res.token);
@@ -49,33 +51,22 @@ export class LoginComponent {
                   this.router.navigateByUrl(`/dashboard/${userId}`);
                 }
               },
-              error: (err) => {
-                console.error('Failed to get user ID by email:', err);
-                this.showLoginErrorDialog('Failed to get user details');
-              },
+              error: () => this.showLoginErrorDialog('Failed to get user details'),
             });
           } else {
-            console.error('Email could not be extracted from token');
             this.showLoginErrorDialog('Failed to extract email from token');
           }
         },
-        error: (res: any) => {
-          this.showLoginErrorDialog('Prijava nije uspjela');
-        },
+        error: () => this.showLoginErrorDialog('Prijava nije uspjela'),
       });
     }
   }
 
   registerUser() {
     if (this.registerForm.valid) {
-      this.authService.register(this.registerForm.getRawValue()).subscribe({
-        next: () => {
-          this.successVisible = true;
-        },
-        error: (err: any) => {
-          console.error('Registracija neuspijela:', err);
-          this.showLoginErrorDialog('Email se već koristi');
-        },
+      this.authService.register(this.registerForm.value).subscribe({
+        next: () => (this.successVisible = true),
+        error: () => this.showLoginErrorDialog('Email se već koristi'),
       });
     }
   }

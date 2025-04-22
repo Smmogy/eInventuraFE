@@ -1,30 +1,50 @@
 <div class="parent">
   <div class="main">
-    <input type="checkbox" id="chk" aria-hidden="true">
+    <input type="checkbox" id="chk" aria-hidden="true" />
 
     <div class="signup">
       <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
         <label for="chk" aria-hidden="true">Registracija</label>
-        <input type="text" name="txt" placeholder="Ime" required="" formControlName="firstname">
-        <input type="text" name="txt" placeholder="Prezime" required="" formControlName="lastname">
-        <input type="email" name="email" placeholder="Email" required="" formControlName="email">
-        <input type="password" name="pswd" placeholder="Lozinka" required="" formControlName="password">
-        <button type="submit">Registrirajte se</button>
+        <input type="text" name="firstname" placeholder="Ime" formControlName="firstname" />
+        <input type="text" name="lastname" placeholder="Prezime" formControlName="lastname" />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          formControlName="email"
+          [ngClass]="{ 'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched }"
+        />
+        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error-message">
+          <small *ngIf="registerForm.get('email')?.errors?.['required']">Email je obavezan.</small>
+          <small *ngIf="registerForm.get('email')?.errors?.['email']">Unesite ispravnu email adresu.</small>
+        </div>
+        <input type="password" name="password" placeholder="Lozinka" formControlName="password" />
+        <button type="submit" [disabled]="registerForm.invalid">Registrirajte se</button>
       </form>
     </div>
 
     <div class="login">
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
         <label for="chk" aria-hidden="true">Prijava</label>
-        <input type="email" name="email" placeholder="Email" required="" formControlName="email">
-        <input type="password" name="password" placeholder="Lozinka" required="" formControlName="password">
-        <button type="submit">Prijava</button>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          formControlName="email"
+          [ngClass]="{ 'is-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.touched }"
+        />
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
+          <small *ngIf="loginForm.get('email')?.errors?.['required']">Email je obavezan.</small>
+          <small *ngIf="loginForm.get('email')?.errors?.['email']">Unesite ispravnu email adresu.</small>
+        </div>
+        <input type="password" name="password" placeholder="Lozinka" formControlName="password" />
+        <button type="submit" [disabled]="loginForm.invalid">Prijava</button>
       </form>
     </div>
   </div>
 </div>
 
-<p-dialog header="Success" [(visible)]="successVisible" modal="modal" [style]="{width: '300px'}" [baseZIndex]="10000">
+<p-dialog header="Success" [(visible)]="successVisible" modal="modal" [style]="{ width: '300px' }" [baseZIndex]="10000">
   <div class="ui-dialog-content">
     <p>Registracija uspjela.</p>
   </div>
@@ -33,8 +53,7 @@
   </p-footer>
 </p-dialog>
 
-<!-- Error Dialog for Login -->
-<p-dialog header="Greška" [(visible)]="loginErrorVisible" modal="modal" [style]="{width: '300px'}" [baseZIndex]="10000">
+<p-dialog header="Greška" [(visible)]="loginErrorVisible" modal="modal" [style]="{ width: '300px' }" [baseZIndex]="10000">
   <div class="ui-dialog-content">
     <p>{{ loginErrorMessage }}</p>
   </div>
