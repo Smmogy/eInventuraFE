@@ -8,6 +8,13 @@
         <small *ngIf="artiklForm.get('name')?.errors?.['required']">Naziv artikla je obavezan.</small>
       </div>
     </div>
-    <button pButton label="Kreiraj artikl" type="submit" class="p-button-success" [disabled]="artiklForm.invalid"></button>
+    <button 
+      pButton 
+      label="Kreiraj artikl" 
+      type="submit" 
+      class="p-button-success" 
+      [disabled]="artiklForm.invalid || loading">
+    </button>
+    <div *ngIf="loading" class="loading-spinner">Učitavanje...</div>
   </form>
 </div>

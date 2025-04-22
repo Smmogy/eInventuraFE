@@ -13,6 +13,7 @@ import { Prostorija } from '../../models/prostorija';
 export class ProstorijaCreateFormComponent implements OnInit {
   prostorijaForm: FormGroup;
   idInstitution!: number;
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -38,22 +39,26 @@ export class ProstorijaCreateFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.prostorijaForm.valid) {
+    if (this.prostorijaForm.valid && !this.isLoading) {
+      this.isLoading = true;
+
       const prostorijaData: Prostorija = {
         name: this.prostorijaForm.value.name,
         idInstitution: this.idInstitution,
         idProstorija: 0,
       };
 
-      this.prostorijaService.createRoom(prostorijaData).subscribe(
-        (createdProstorija) => {
+      this.prostorijaService.createRoom(prostorijaData).subscribe({
+        next: (createdProstorija) => {
           console.log('Prostorija created successfully:', createdProstorija);
+          this.isLoading = false;
           this.location.back();
         },
-        (error) => {
+        error: (error) => {
           console.error('Failed to create prostorija:', error);
+          this.isLoading = false;
         }
-      );
+      });
     } else {
       this.prostorijaForm.markAllAsTouched();
     }

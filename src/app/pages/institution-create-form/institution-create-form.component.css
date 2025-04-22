@@ -76,3 +76,33 @@ button.p-button-success:hover:not(:disabled) {
 button.p-button-success:active:not(:disabled) {
   background-color: #1e7e34;
 }
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #573b8a;
+  font-size: 16px;
+  margin-top: 20px;
+  height: 50px;
+}
+
+.loading-spinner::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 4px solid transparent;
+  border-top: 4px solid #573b8a;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

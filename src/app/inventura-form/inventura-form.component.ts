@@ -9,10 +9,7 @@ import { Djelatnici } from '../models/djelatnici';
 import { CreateInventuraDTO } from '../models/create-inventura-dto';
 import { Location } from '@angular/common';
 import { RoomService } from '../services/room/room.service';
-import {
-  dateValidator,
-  academicYearValidator,
-} from '../customValidators/date-range.validator';
+import { dateValidator, academicYearValidator } from '../customValidators/date-range.validator';
 import { Prostorija } from '../models/prostorija';
 
 @Component({
@@ -27,6 +24,8 @@ export class InventuraFormComponent implements OnInit {
   users: Djelatnici[] = [];
   rooms: Prostorija[] = [];
   roomUserMap: { [key: number]: Djelatnici[] } = {};
+  isLoading: boolean = false;
+  isRoomsLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -42,10 +41,7 @@ export class InventuraFormComponent implements OnInit {
       naziv: ['', Validators.required],
       datumPocetka: ['', Validators.required],
       datumZavrsetka: ['', Validators.required],
-      akademskaGod: [
-        '',
-        [Validators.required, academicYearValidator(currentYear)],
-      ],
+      akademskaGod: ['', [Validators.required, academicYearValidator(currentYear)]],
       institution: [null, Validators.required],
     });
   }
@@ -71,6 +67,8 @@ export class InventuraFormComponent implements OnInit {
 
   onInstitutionChange(event: any): void {
     const institutionId = event.value.idInstitution;
+    this.isRoomsLoading = true;
+
     this.roomService.getRoomsByInstitutionId(institutionId).subscribe(
       (data) => {
         this.rooms = data;
@@ -78,8 +76,12 @@ export class InventuraFormComponent implements OnInit {
         this.rooms.forEach((room) => {
           this.roomUserMap[room.idProstorija] = [];
         });
+        this.isRoomsLoading = false;
       },
-      (error) => console.error('Greška pri dohvaćanju prostorija:', error)
+      (error) => {
+        console.error('Greška pri dohvaćanju prostorija:', error);
+        this.isRoomsLoading = false;
+      }
     );
   }
 
@@ -92,7 +94,9 @@ export class InventuraFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.inventuraForm.valid) {
+    if (this.inventuraForm.valid && this.allRoomsValid() && !this.isLoading && !this.isRoomsLoading) {
+      this.isLoading = true;
+
       const institution: Institution = this.inventuraForm.value.institution;
       const usersIds = this.selectedUsers.map((user) => user.id);
 
@@ -109,16 +113,17 @@ export class InventuraFormComponent implements OnInit {
 
       this.inventuraService.createInventura(inventuraData).subscribe({
         next: (createdInventura) => {
-          console.log(
-            'Inventura i prostorije s korisnicima su uspješno spremljeni:',
-            createdInventura
-          );
+          console.log('Inventura uspješno spremljena:', createdInventura);
+          this.isLoading = false;
           this.location.back();
         },
         error: (error) => {
           console.error('Greška kod kreiranja inventure:', error);
+          this.isLoading = false;
         },
       });
+    } else {
+      this.inventuraForm.markAllAsTouched();
     }
   }
 }

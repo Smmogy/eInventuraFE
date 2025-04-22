@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from '../../services/article/article.service';
 import { Artikl } from '../../models/artikl';
+
 @Component({
   selector: 'app-artikl-create-form',
   templateUrl: './artikl-create-form.component.html',
@@ -12,6 +13,7 @@ import { Artikl } from '../../models/artikl';
 export class ArtiklCreateFormComponent implements OnInit {
   artiklForm: FormGroup;
   idProstorija!: number;
+  loading: boolean = false; 
 
   constructor(
     private fb: FormBuilder,
@@ -37,6 +39,7 @@ export class ArtiklCreateFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.artiklForm.valid) {
+      this.loading = true;  
       const artiklData: Artikl = {
         idArtikl: 0,
         name: this.artiklForm.value.name,
@@ -47,9 +50,11 @@ export class ArtiklCreateFormComponent implements OnInit {
         (createdArtikl) => {
           console.log('Artikl created successfully:', createdArtikl);
           this.location.back();
+          this.loading = false;
         },
         (error) => {
           console.error('Failed to create artikl:', error);
+          this.loading = false; 
         }
       );
     } else {

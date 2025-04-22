@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
 })
 export class InstitutionCreateFormComponent implements OnInit {
   institutionForm: FormGroup;
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -26,17 +27,21 @@ export class InstitutionCreateFormComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(): void {
-    if (this.institutionForm.valid) {
+    if (this.institutionForm.valid && !this.isLoading) {
+      this.isLoading = true;
       const institutionData = this.institutionForm.value;
-      this.institutionService.createInstitution(institutionData).subscribe(
-        (createdInstitution) => {
+
+      this.institutionService.createInstitution(institutionData).subscribe({
+        next: (createdInstitution) => {
           console.log('Institution created successfully:', createdInstitution);
+          this.isLoading = false;
           this.location.back();
         },
-        (error) => {
+        error: (error) => {
           console.error('Failed to create institution:', error);
+          this.isLoading = false;
         }
-      );
+      });
     } else {
       this.institutionForm.markAllAsTouched();
     }
