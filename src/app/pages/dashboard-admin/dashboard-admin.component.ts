@@ -23,7 +23,7 @@ export class DashboardAdminComponent implements OnInit {
   }
 
   getListOfInventuras() {
-    this.inventuraService.getAllInventuraByStanje().subscribe({
+    this.inventuraService.getAllInventura().subscribe({
       next: (inventuras) => {
         this.inventuraList = inventuras.sort((a, b) => 
           new Date(a.datumPocetka).getTime() - new Date(b.datumPocetka).getTime()

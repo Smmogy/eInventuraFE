@@ -5,17 +5,14 @@
         <div class="left-buttons">
           <button pButton label="Kreiraj Inventuru" [routerLink]="'/inventura-form'" class="p-button-success btn-custom"></button>
         </div>
-        <button pButton label="Sve Inventure" [routerLink]="'/dashboard/list/admin/all'" class="p-button-primary btn-custom btn-right"></button>
       </div>
     </div>
 
     <div class="card-body">
-      <h2 class="list-heading">Lista aktivnih inventura</h2>
+      <h2 class="list-heading">Lista inventura</h2>
+
+      <p *ngIf="inventuraList.length === 0" class="no-data-message">Nema dostupnih inventura</p>
       
-      <!-- Add *ngIf directive to check if inventuraList is empty -->
-      <p *ngIf="inventuraList.length === 0" class="no-data-message">Nema dostupnih aktivnih inventura</p>
-      
-      <!-- Table is displayed only if inventuraList has items -->
       <p-table [value]="inventuraList" class="mt-5 table-custom" *ngIf="inventuraList.length > 0">
         <ng-template pTemplate="header">
           <tr>

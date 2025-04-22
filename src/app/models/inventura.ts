@@ -21,6 +21,7 @@ export interface InventuraList {
   datumZavrsetka: Date;
   akademskaGod: number;
   institutionName: string;
+  stanje: boolean;
 }
 
 export interface InventuraDetail {
