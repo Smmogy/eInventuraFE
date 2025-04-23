@@ -1,0 +1,17 @@
+.dialog-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding-top: 10px;
+  }
+  
+  :host ::ng-deep .ui-button {
+    border-radius: 10px !important;
+    padding: 10px 20px;
+    font-size: 15px;
+  }
+  
+  :host ::ng-deep .p-dialog-header-close {
+    display: none !important;
+  }
+  

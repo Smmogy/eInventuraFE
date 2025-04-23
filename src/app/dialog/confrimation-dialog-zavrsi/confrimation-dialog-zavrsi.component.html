@@ -1,10 +1,29 @@
-<p-dialog header="Potvrda" [(visible)]="display" modal="modal" [style]="{width: '300px'}" [baseZIndex]="10000">
-    <div class="ui-dialog-content">
-      <p>Jeste li sigurni da želite završiti Inventuru?</p>
-    </div>
-    <p-footer class="ui-dialog-footer">
-      <button pButton label="Odustani" icon="pi pi-times" (click)="close()" class="ui-button ui-button-secondary"></button>
-      <button pButton label="Potvrdi" icon="pi pi-check" (click)="confirm()" class="ui-button ui-button-primary"></button>
-    </p-footer>
-  </p-dialog>
-  
+<p-dialog 
+  header="Potvrda"
+  [(visible)]="display"
+  [modal]="true"
+  [style]="{ width: '300px' }"
+  [baseZIndex]="10000"
+  [closable]="false"
+>
+  <div class="ui-dialog-content">
+    <p>Jeste li sigurni da želite završiti Inventuru?</p>
+  </div>
+
+  <p-footer class="dialog-footer">
+    <button
+      pButton
+      label="Odustani"
+      icon="pi pi-times"
+      (click)="close()"
+      class="ui-button ui-button-secondary"
+    ></button>
+    <button
+      pButton
+      label="Potvrdi"
+      icon="pi pi-check"
+      (click)="confirm()"
+      class="ui-button ui-button-primary"
+    ></button>
+  </p-footer>
+</p-dialog>

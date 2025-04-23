@@ -1,9 +1,8 @@
 <div class="container" *ngIf="inventura">
   <div class="card">
     <div class="card-body">
-      <h3 class="institution-name">Institucija: {{ inventura.institution.name }}</h3> <!-- Institution name -->
+      <h3 class="institution-name">Institucija: {{ inventura.institution.name }}</h3>
 
-      <!-- Room List -->
       <div *ngIf="inventura.prostorije && inventura.prostorije.length > 0" class="room-list">
         <div *ngFor="let room of inventura.prostorije" class="room-card" (click)="navigateToRoomDetails(room.idProstorija)">
           <h4 class="room-name">{{ room.name }}</h4>
@@ -11,7 +10,6 @@
         </div>
       </div>
 
-      <!-- Buttons at the bottom -->
       <div *ngIf="isAdmin" class="button-wrapper">
         <button pButton label="Nazad" (click)="goBack()" class="p-button-secondary back-btn"></button>
         <button *ngIf="inventura.stanje" pButton label="Zaključi" (click)="showConfirmDialog()" class="p-button-success finish-btn"></button>
@@ -19,7 +17,6 @@
     </div>
   </div>
 
-  <!-- Confirmation Dialog Component -->
   <app-confrimation-dialog-zavrsi
     [display]="displayConfirmDialog"
     (displayChange)="displayConfirmDialog = $event"
