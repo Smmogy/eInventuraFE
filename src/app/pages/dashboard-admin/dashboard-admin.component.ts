@@ -13,6 +13,7 @@ export class DashboardAdminComponent implements OnInit {
   institution?: String;
   displayDialog: boolean = false;
   itemToDeleteId: number | null = null;
+  isLoading: boolean = true;
   constructor(
     private inventuraService: InventuraService,
     private router: Router
@@ -25,12 +26,14 @@ export class DashboardAdminComponent implements OnInit {
   getListOfInventuras() {
     this.inventuraService.getAllInventura().subscribe({
       next: (inventuras) => {
-        this.inventuraList = inventuras.sort((a, b) => 
+        this.inventuraList = inventuras.sort((a, b) =>
           new Date(a.datumPocetka).getTime() - new Date(b.datumPocetka).getTime()
         );
+        this.isLoading = false;
       },
       error: (err) => {
         console.error('Error fetching inventuras:', err);
+        this.isLoading = false;
       },
     });
   }

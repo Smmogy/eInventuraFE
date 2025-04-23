@@ -10,10 +10,12 @@
 
     <div class="card-body">
       <h2 class="list-heading">Lista inventura</h2>
+    
+      <p *ngIf="isLoading" class="loading-message">Učitavanje inventura...</p>
 
-      <p *ngIf="inventuraList.length === 0" class="no-data-message">Nema dostupnih inventura</p>
+      <p *ngIf="!isLoading && inventuraList.length === 0" class="no-data-message">Nema dostupnih inventura</p>
       
-      <p-table [value]="inventuraList" class="mt-5 table-custom" *ngIf="inventuraList.length > 0">
+      <p-table [value]="inventuraList" class="mt-5 table-custom" *ngIf="!isLoading && inventuraList.length > 0">
         <ng-template pTemplate="header">
           <tr>
             <th>Naziv</th>

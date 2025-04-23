@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
   inventuraList: InventuraList[] = [];
   userId!: number;
+  isLoading: boolean = false;
 
   constructor(
     private inventuraService: InventuraService,
@@ -31,15 +32,18 @@ export class DashboardComponent implements OnInit {
   }
 
   getListOfInventuras() {
+    this.isLoading = true; 
     if (this.userId) {
       this.inventuraService
         .getInventurasByUserIdByStanje(this.userId)
         .subscribe({
           next: (inventuras) => {
             this.inventuraList = inventuras;
+            this.isLoading = false; 
           },
           error: (err) => {
             console.error('Error fetching inventuras:', err);
+            this.isLoading = false; 
           },
         });
     } else {

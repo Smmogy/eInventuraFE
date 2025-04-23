@@ -113,40 +113,41 @@
   text-align: center;
   margin-top: 2rem;
 }
-/* Dialog Button Group Styles */
-/* Smooth Button Corners */
 .ui-button {
-  border-radius: 12px;           /* Increase corner radius for smoother buttons */
-  padding: 0.75rem 1.25rem;      /* Keep padding consistent */
-  font-size: 1rem;               /* Ensures readability */
+  border-radius: 12px;           
+  padding: 0.75rem 1.25rem;     
+  font-size: 1rem;              
 }
 
-/* Shorten the Popup Dialog */
 p-dialog {
-  max-width: 300px;              /* Set a fixed max width */
-  height: auto;                  /* Adjust height dynamically */
+  max-width: 300px;              
+  height: auto;                  
 }
 
 .ui-dialog .ui-dialog-content {
-  padding: 1.2rem;               /* Adjust content padding */
-  text-align: center;            /* Center align dialog text */
+  padding: 1.2rem;               
+  text-align: center;           
 }
 
 .ui-dialog-footer {
-  padding: 0.8rem;               /* Reduce footer padding */
+  padding: 0.8rem;              
 }
 
-/* Button Group Footer */
 .button-group-dialog {
   display: flex;
-  justify-content: center;       /* Center buttons horizontally */
-  gap: 1rem;                     /* Space between buttons */
-  padding-top: 0.8rem;           /* Reduce top padding */
+  justify-content: center;       
+  gap: 1rem;                     
+  padding-top: 0.8rem;           
 }
 
-/* Optional: Shadow for Enhanced Appearance */
 .ui-dialog {
-  border-radius: 16px;           /* Smooth corners for the dialog */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);  /* Soft shadow */
+  border-radius: 16px;           
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);  
+}
+
+.loading-message {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
 }
 
