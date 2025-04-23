@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { InventuraDetailProstorija } from '../../models/inventura';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { InventuraService } from '../../services/inventura/inventura.service';
+import { InventuraDetailProstorija } from '../../models/inventura';
 import { ArtiklPrisutan } from '../../models/artikl';
+import { BarcodeFormat } from '@zxing/library';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-inventura-detai-prostorija',
@@ -13,17 +15,25 @@ export class InventuraDetailProstorijaComponent implements OnInit {
   inventuraId!: number;
   prostorijaId!: number;
   detailData?: InventuraDetailProstorija;
-
+  scannerEnabled: boolean = false;
+  allowedFormats: BarcodeFormat[] = [
+    BarcodeFormat.CODE_128,
+    BarcodeFormat.EAN_13,
+    BarcodeFormat.EAN_8,
+    BarcodeFormat.CODE_39,
+    BarcodeFormat.UPC_A
+  ];
+  
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private inventuraService: InventuraService
+    private inventuraService: InventuraService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
     this.inventuraId = +this.route.snapshot.paramMap.get('idInventura')!;
     this.prostorijaId = +this.route.snapshot.paramMap.get('idProstorija')!;
-
+    
     this.loadDetails();
   }
 
@@ -48,5 +58,32 @@ export class InventuraDetailProstorijaComponent implements OnInit {
       );
       if (artikl) artikl.prisutan = !currentValue;
     });
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  startScanner() {
+    this.scannerEnabled = true;
+  }
+
+  onCodeResult(resultString: string) {
+    const artiklId = parseInt(resultString, 10);
+    if (!isNaN(artiklId)) {
+      const payload: ArtiklPrisutan = {
+        idArtikl: artiklId,
+        idInventura: this.inventuraId,
+        prisutan: true,
+      };
+
+      this.inventuraService.updateArticlePresence(payload).subscribe(() => {
+        const artikl = this.detailData?.artikls.find(
+          (a) => a.idArtikl === artiklId
+        );
+        if (artikl) artikl.prisutan = true;
+      });
+    }
+    this.scannerEnabled = false;
   }
 }

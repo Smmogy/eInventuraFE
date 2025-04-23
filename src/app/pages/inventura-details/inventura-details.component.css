@@ -1,4 +1,4 @@
-/* Main Container */
+
 .container {
   max-width: 900px;
   margin: 0 auto;
@@ -6,7 +6,6 @@
   background-color: #f9f9f9;
 }
 
-/* Card Styles */
 .card {
   border: none;
   border-radius: 12px;
@@ -15,7 +14,6 @@
   overflow: hidden;
 }
 
-/* Header Styles */
 .card-header {
   background-color: #007ad9;
   color: white;
@@ -28,7 +26,6 @@
   font-size: 28px;
 }
 
-/* Institution Name */
 .institution-name {
   font-size: 22px;
   margin-bottom: 20px;
@@ -37,7 +34,6 @@
   font-weight: 500;
 }
 
-/* Room List Container */
 .room-list {
   display: flex;
   flex-wrap: wrap;
@@ -45,7 +41,6 @@
   justify-content: center;
 }
 
-/* Room Card */
 .room-card {
   width: 260px;
   background-color: #e9f5ff;
@@ -74,21 +69,18 @@
   margin-top: 8px;
 }
 
-/* Button Wrapper */
 .button-wrapper {
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
 }
 
-/* Smooth Rounded Buttons */
 .p-button-secondary, .p-button-success {
   border-radius: 8px;
   padding: 12px 24px;
   font-size: 16px;
 }
 
-/* Confirmation Dialog Customization */
 app-confrimation-dialog-zavrsi {
   border-radius: 12px;
 }

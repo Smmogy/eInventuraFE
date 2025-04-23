@@ -8,7 +8,7 @@
       <div *ngIf="isLoading" class="loading-spinner">
         Učitavanje inventura...
       </div>
-      <p *ngIf="inventuraList.length === 0 && !isLoading" class="no-data-message">
+<p *ngIf="inventuraList.length === 0 && !isLoading" class="no-data-message">
         Nema dostupnih inventura
       </p>
       <p-table [value]="inventuraList" class="mt-5 table-custom" *ngIf="inventuraList.length > 0 && !isLoading">
