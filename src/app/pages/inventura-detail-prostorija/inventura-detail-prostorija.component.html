@@ -8,7 +8,7 @@
       <h3 class="institution-name">Djelatnici</h3>
       <div class="user-list">
         <span *ngFor="let user of detailData.users" class="user-chip">
-          <i class="pi pi-user"></i> {{ user.firstname }} {{user.lastname}}
+          <i class="pi pi-user"></i> {{ user.firstname }} {{ user.lastname }}
         </span>
       </div>
 
@@ -24,20 +24,29 @@
             onLabel="Prisutan"
             offLabel="Nije"
             class="artikl-toggle"
-            (onChange)="togglePrisutan(artikl.idArtikl, artikl.prisutan)">
+            (onChange)="togglePrisutan(artikl.idArtikl, artikl.prisutan)"
+          >
           </p-toggleButton>
         </div>
       </div>
 
-      <button class="back-button" (click)="goBack()">Nazad</button>
-      <div class="scanner-button">
-        <button pButton type="button" label="Skeniraj" icon="pi pi-camera" (click)="startScanner()"></button>
+      <div class="button-container">
+        <button class="back-button" (click)="goBack()">Nazad</button>
+        <button
+          pButton
+          class="scanner-button"
+          type="button"
+          label="Skeniraj"
+          icon="pi pi-camera"
+          (click)="startScanner()"
+        ></button>
       </div>
 
       <div *ngIf="scannerEnabled" class="scanner-container">
         <zxing-scanner
-        [formats]="allowedFormats"
-        (scanSuccess)="onCodeResult($event)">
+          [formats]="allowedFormats"
+          (scanSuccess)="onCodeResult($event)"
+        >
         </zxing-scanner>
       </div>
     </div>

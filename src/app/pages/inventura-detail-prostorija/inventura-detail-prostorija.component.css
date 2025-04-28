@@ -61,6 +61,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    margin-bottom: 15px;
   }
   
   .artikl-item {
@@ -86,10 +87,13 @@
     display: flex;
     justify-content: center;
   }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
   .back-button {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
     border-radius: 8px;
     padding: 10px 20px;
     background-color: #6c757d; 
@@ -99,11 +103,7 @@
   }
   
   .scanner-button {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
     border-radius: 10px;
-    padding: 10px 20px;
     color: white;
     border: none;
     cursor: pointer;
