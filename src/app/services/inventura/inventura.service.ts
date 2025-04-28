@@ -8,7 +8,7 @@ import {
   InventuraList,
 } from '../../models/inventura';
 import { CreateInventuraDTO } from '../../models/create-inventura-dto';
-import { ArtiklPrisutan } from '../../models/artikl';
+import { Artikl, ArtiklPrisutan } from '../../models/artikl';
 
 @Injectable({
   providedIn: 'root',
@@ -54,8 +54,8 @@ export class InventuraService {
       `${this.apiUrl}/stanje/user/${userId}`
     );
   }
-  updateArticlePresence(artikl: ArtiklPrisutan): Observable<ArtiklPrisutan> {
-    return this.http.post<ArtiklPrisutan>(
+  updateArticlePresence(artikl: ArtiklPrisutan): Observable<Artikl> {
+    return this.http.post<Artikl>(
       `${this.apiUrl}/update-article-presence`,
       artikl
     );

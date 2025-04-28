@@ -33,6 +33,7 @@
       <div class="button-container">
         <button class="back-button" (click)="goBack()">Nazad</button>
         <button
+          *ngIf="detailData.inventuraStanje"
           pButton
           class="scanner-button"
           type="button"
@@ -42,13 +43,48 @@
         ></button>
       </div>
 
-      <div *ngIf="scannerEnabled" class="scanner-container">
-        <zxing-scanner
-          [formats]="allowedFormats"
-          (scanSuccess)="onCodeResult($event)"
-        >
-        </zxing-scanner>
-      </div>
+      <div class="scanner-container"></div>
     </div>
   </div>
 </div>
+
+<p-dialog
+  [(visible)]="scannerEnabled"
+  [modal]="true"
+  header="Skeniranje artikala"
+>
+  <div class="scanner-hint">
+    Skenirajte bar kod artikla da bi ga označili prisutnog u ovoj inventuri.
+  </div>
+  <zxing-scanner
+    *ngIf="scannerEnabled"
+    [formats]="allowedFormats"
+    (scanSuccess)="onCodeResult($event)"
+  >
+  </zxing-scanner>
+
+  <p-dialog
+    [visible]="lastScannedArtikl != null"
+    header="Artikl uspješno skeniran"
+    [closable]="false"
+    [draggable]="false"
+    [modal]="true"
+  >
+    <div class="scan-result">
+      <div>Aritkl je označen prisutan.</div>
+      <div>
+        Aritkl: <b>{{ lastScannedArtikl?.name }}</b>
+      </div>
+      <div>
+        ID: <b>{{ lastScannedArtikl?.idArtikl }}</b>
+      </div>
+    </div>
+    <button
+      pButton
+      class="scan-ok-button"
+      (click)="lastScannedArtikl = undefined"
+    >
+      U redu
+    </button>
+  </p-dialog>
+</p-dialog>
