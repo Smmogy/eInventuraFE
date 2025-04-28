@@ -9,7 +9,10 @@ import { Djelatnici } from '../models/djelatnici';
 import { CreateInventuraDTO } from '../models/create-inventura-dto';
 import { Location } from '@angular/common';
 import { RoomService } from '../services/room/room.service';
-import { dateValidator, academicYearValidator } from '../customValidators/date-range.validator';
+import {
+  dateValidator,
+  academicYearValidator,
+} from '../customValidators/date-range.validator';
 import { Prostorija } from '../models/prostorija';
 
 @Component({
@@ -41,7 +44,10 @@ export class InventuraFormComponent implements OnInit {
       naziv: ['', Validators.required],
       datumPocetka: ['', Validators.required],
       datumZavrsetka: ['', Validators.required],
-      akademskaGod: ['', [Validators.required, academicYearValidator(currentYear)]],
+      akademskaGod: [
+        '',
+        [Validators.required, academicYearValidator(currentYear)],
+      ],
       institution: [null, Validators.required],
     });
   }
@@ -85,16 +91,17 @@ export class InventuraFormComponent implements OnInit {
     );
   }
 
-  onRoomUserChange(selectedUsers: any, roomId: number): void {
-    this.roomUserMap[roomId] = selectedUsers;
-  }
-
   allRoomsValid(): boolean {
     return Object.values(this.roomUserMap).every((users) => users.length > 0);
   }
 
   onSubmit(): void {
-    if (this.inventuraForm.valid && this.allRoomsValid() && !this.isLoading && !this.isRoomsLoading) {
+    if (
+      this.inventuraForm.valid &&
+      this.allRoomsValid() &&
+      !this.isLoading &&
+      !this.isRoomsLoading
+    ) {
       this.isLoading = true;
 
       const institution: Institution = this.inventuraForm.value.institution;
