@@ -23,14 +23,14 @@
 
 .left-buttons {
   display: flex;
-  gap: 0.5rem; 
+  gap: 0.5rem;
 }
 
 .btn-custom {
   border-radius: 4px;
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn-custom.p-button-success {
@@ -48,7 +48,7 @@
 }
 
 .btn-right {
-  margin-left: auto; 
+  margin-left: auto;
 }
 
 .card-body {
@@ -69,7 +69,8 @@
   border-collapse: collapse;
 }
 
-.table-custom th, .table-custom td {
+.table-custom th,
+.table-custom td {
   padding: 0.75rem;
   text-align: left;
   border-bottom: 1px solid #ddd;
@@ -84,6 +85,16 @@
   background-color: #f1f1f1;
 }
 
+.status-td {
+  white-space: nowrap;
+}
+
+.actions-container {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
 .btn-action {
   background-color: #007bff;
   border: none;
@@ -94,17 +105,16 @@
 }
 
 .btn-delete {
-  background-color: #dc3545; 
+  background-color: #dc3545;
   border: none;
   color: #fff;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
-  margin-left: 0.5rem;
 }
 
 .btn-delete:hover {
-  background-color: #c82333; 
+  background-color: #c82333;
 }
 
 .no-data-message {
@@ -114,35 +124,35 @@
   margin-top: 2rem;
 }
 .ui-button {
-  border-radius: 12px;           
-  padding: 0.75rem 1.25rem;     
-  font-size: 1rem;              
+  border-radius: 12px;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
 }
 
 p-dialog {
-  max-width: 300px;              
-  height: auto;                  
+  max-width: 300px;
+  height: auto;
 }
 
 .ui-dialog .ui-dialog-content {
-  padding: 1.2rem;               
-  text-align: center;           
+  padding: 1.2rem;
+  text-align: center;
 }
 
 .ui-dialog-footer {
-  padding: 0.8rem;              
+  padding: 0.8rem;
 }
 
 .button-group-dialog {
   display: flex;
-  justify-content: center;       
-  gap: 1rem;                     
-  padding-top: 0.8rem;           
+  justify-content: center;
+  gap: 1rem;
+  padding-top: 0.8rem;
 }
 
 .ui-dialog {
-  border-radius: 16px;           
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);  
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .loading-message {
@@ -150,4 +160,3 @@ p-dialog {
   font-weight: bold;
   margin-top: 20px;
 }
-

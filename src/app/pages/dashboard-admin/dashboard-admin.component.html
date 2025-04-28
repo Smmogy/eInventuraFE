@@ -3,19 +3,33 @@
     <div class="card-header">
       <div class="button-group">
         <div class="left-buttons">
-          <button pButton label="Kreiraj Inventuru" [routerLink]="'/inventura-form'" class="p-button-success btn-custom"></button>
+          <button
+            pButton
+            label="Kreiraj Inventuru"
+            [routerLink]="'/inventura-form'"
+            class="p-button-success btn-custom"
+          ></button>
         </div>
       </div>
     </div>
 
     <div class="card-body">
       <h2 class="list-heading">Lista inventura</h2>
-    
+
       <p *ngIf="isLoading" class="loading-message">Učitavanje inventura...</p>
 
-      <p *ngIf="!isLoading && inventuraList.length === 0" class="no-data-message">Nema dostupnih inventura</p>
-      
-      <p-table [value]="inventuraList" class="mt-5 table-custom" *ngIf="!isLoading && inventuraList.length > 0">
+      <p
+        *ngIf="!isLoading && inventuraList.length === 0"
+        class="no-data-message"
+      >
+        Nema dostupnih inventura
+      </p>
+
+      <p-table
+        [value]="inventuraList"
+        class="mt-5 table-custom"
+        *ngIf="!isLoading && inventuraList.length > 0"
+      >
         <ng-template pTemplate="header">
           <tr>
             <th>Naziv</th>
@@ -30,16 +44,26 @@
         <ng-template pTemplate="body" let-inventura>
           <tr>
             <td>{{ inventura.naziv }}</td>
-            <td>{{ inventura.datumPocetka | date: 'dd/MM/yyyy' }}</td>
-            <td>{{ inventura.datumZavrsetka | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ inventura.datumPocetka | date : "dd/MM/yyyy" }}</td>
+            <td>{{ inventura.datumZavrsetka | date : "dd/MM/yyyy" }}</td>
             <td>{{ inventura.akademskaGod }}</td>
             <td>{{ inventura.institutionName }}</td>
-            <td>
-              {{ inventura.stanje ? 'Inventura u provođenju' : 'Završena inventura' }}
+            <td class="status-td">
+              {{ inventura.stanje ? "U provođenju" : "Završena" }}
             </td>
-            <td>
-              <button pButton label="Detalji" (click)="viewInventuraDetails(inventura.idInventura)" class="btn-action"></button>
-              <button pButton label="Obriši" (click)="openDeleteDialog(inventura.idInventura)" class="btn-delete"></button>
+            <td class="actions-container">
+              <button
+                pButton
+                label="Detalji"
+                (click)="viewInventuraDetails(inventura.idInventura)"
+                class="btn-action"
+              ></button>
+              <button
+                pButton
+                label="Obriši"
+                (click)="openDeleteDialog(inventura.idInventura)"
+                class="btn-delete"
+              ></button>
             </td>
           </tr>
         </ng-template>
@@ -47,11 +71,11 @@
     </div>
   </div>
 
-  <p-dialog 
-    header="Potvrda brisanja" 
-    [(visible)]="displayDialog" 
-    modal="modal" 
-    [style]="{width: '300px'}" 
+  <p-dialog
+    header="Potvrda brisanja"
+    [(visible)]="displayDialog"
+    modal="modal"
+    [style]="{ width: '300px' }"
     [baseZIndex]="10000"
   >
     <div class="ui-dialog-content">
@@ -59,10 +83,21 @@
     </div>
     <p-footer class="ui-dialog-footer">
       <div class="button-group-dialog">
-        <button pButton label="Odustani" icon="pi pi-times" (click)="closeDialog()" class="ui-button ui-button-secondary"></button>
-        <button pButton label="Potvrdi" icon="pi pi-check" (click)="confirmDelete()" class="ui-button ui-button-primary"></button>
+        <button
+          pButton
+          label="Odustani"
+          icon="pi pi-times"
+          (click)="closeDialog()"
+          class="ui-button ui-button-secondary"
+        ></button>
+        <button
+          pButton
+          label="Potvrdi"
+          icon="pi pi-check"
+          (click)="confirmDelete()"
+          class="ui-button ui-button-primary"
+        ></button>
       </div>
     </p-footer>
-    
   </p-dialog>
 </div>
