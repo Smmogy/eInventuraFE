@@ -19,11 +19,10 @@
           <p-toggleButton
             [ngModel]="artikl.prisutan"
             [disabled]="!detailData.inventuraStanje"
-            onIcon="pi-check"
-            offIcon="pi pi-times"
+            onIcon="pi pi-check-circle"
+            offIcon="pi pi-question-circle"
             onLabel="Prisutan"
-            offLabel="Nije"
-            class="artikl-toggle"
+            offLabel="Nije prisutan"
             (onChange)="togglePrisutan(artikl.idArtikl, artikl.prisutan)"
           >
           </p-toggleButton>
@@ -38,7 +37,7 @@
           class="scanner-button"
           type="button"
           label="Skeniraj"
-          icon="pi pi-camera"
+          icon="pi pi-barcode"
           (click)="startScanner()"
         ></button>
       </div>
@@ -54,10 +53,11 @@
   header="Skeniranje artikala"
 >
   <div class="scanner-hint">
-    Skenirajte bar kod artikla da bi ga označili prisutnog u ovoj inventuri.
+    Skenirajte barkod artikla da bi ga označili prisutnog u ovoj inventuri.
   </div>
   <zxing-scanner
     *ngIf="scannerEnabled"
+    [tryHarder]="true"
     [formats]="allowedFormats"
     (scanSuccess)="onCodeResult($event)"
   >
@@ -84,6 +84,19 @@
       class="scan-ok-button"
       (click)="lastScannedArtikl = undefined"
     >
+      U redu
+    </button>
+  </p-dialog>
+
+  <p-dialog
+    [visible]="scannedError"
+    header="Greška u skeniranju"
+    [closable]="false"
+    [draggable]="false"
+    [modal]="true"
+  >
+    <div class="scan-result">Dogodila se greška, artikl možda ne postoji.</div>
+    <button pButton class="scan-ok-button" (click)="scannedError = false">
       U redu
     </button>
   </p-dialog>

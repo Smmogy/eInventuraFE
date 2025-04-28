@@ -17,6 +17,7 @@ export class InventuraDetailProstorijaComponent implements OnInit {
   detailData?: InventuraDetailProstorija;
   scannerEnabled: boolean = false;
   scannedLoading: boolean = false;
+  scannedError: boolean = false;
   lastScannedArtikl?: Artikl = undefined;
 
   allowedFormats: BarcodeFormat[] = [
@@ -71,6 +72,7 @@ export class InventuraDetailProstorijaComponent implements OnInit {
     this.scannerEnabled = true;
     this.lastScannedArtikl = undefined;
     this.scannedLoading = false;
+    this.scannedError = false;
   }
 
   onCodeResult(resultString: string) {
@@ -79,6 +81,10 @@ export class InventuraDetailProstorijaComponent implements OnInit {
     }
 
     if (this.lastScannedArtikl != null) {
+      return;
+    }
+
+    if (this.scannedError) {
       return;
     }
 
@@ -91,9 +97,8 @@ export class InventuraDetailProstorijaComponent implements OnInit {
       };
 
       this.scannedLoading = true;
-      this.inventuraService
-        .updateArticlePresence(payload)
-        .subscribe((artiklDTO) => {
+      this.inventuraService.updateArticlePresence(payload).subscribe({
+        next: (artiklDTO) => {
           const artikl = this.detailData?.artikls.find(
             (a) => a.idArtikl === artiklId
           );
@@ -101,7 +106,12 @@ export class InventuraDetailProstorijaComponent implements OnInit {
 
           this.lastScannedArtikl = artiklDTO;
           this.scannedLoading = false;
-        });
+        },
+        error: () => {
+          this.scannedLoading = false;
+          this.scannedError = true;
+        },
+      });
     }
   }
 }
