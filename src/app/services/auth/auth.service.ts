@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import jwtDecode from 'jwt-decode'; // Correct default import
 import { Observable } from 'rxjs';
+import { appConfig } from '../appconfig';
 
 interface CustomJwtPayload {
   sub?: string;
@@ -14,6 +15,7 @@ interface CustomJwtPayload {
 })
 export class AuthService {
   private tokenKey = 'authToken';
+  private apiUrl = appConfig.apiURL + 'v1/auth';
 
   constructor(private http: HttpClient) {}
 
@@ -45,17 +47,11 @@ export class AuthService {
   }
 
   public login(loginInfo: any): Observable<any> {
-    return this.http.post(
-      'http://localhost:8080/api/v1/auth/authenticate',
-      loginInfo
-    );
+    return this.http.post(this.apiUrl + '/authenticate', loginInfo);
   }
 
   public register(registerInfo: any): Observable<any> {
-    return this.http.post(
-      'http://localhost:8080/api/v1/auth/register',
-      registerInfo
-    );
+    return this.http.post(this.apiUrl + '/register', registerInfo);
   }
 
   public logout(): void {

@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Institution } from '../../models/institution';
+import { appConfig } from '../appconfig';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InstitutionService {
-  private apiUrl = 'http://localhost:8080/api/institution';
+  private apiUrl = appConfig.apiURL + 'institution';
 
   constructor(private http: HttpClient) {}
 

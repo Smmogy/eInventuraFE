@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Artikl, ArtiklPrisutan } from '../../models/artikl';
+import { appConfig } from '../appconfig';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ArticleService {
-  private apiUrl = 'http://localhost:8080/api/rooms/artikl';
+  private apiUrl = appConfig.apiURL + 'rooms/artikl';
 
   constructor(private http: HttpClient) {}
 

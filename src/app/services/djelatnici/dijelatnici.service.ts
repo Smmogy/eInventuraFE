@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Djelatnici } from '../../models/djelatnici';
 import { map } from 'rxjs/operators';
+import { appConfig } from '../appconfig';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DjelatniciService {
-  private apiUrl = 'http://localhost:8080/api/users';
+  private apiUrl = appConfig.apiURL + 'users';
 
   constructor(private http: HttpClient) {}
 

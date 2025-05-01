@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Prostorija, ProstorijaUser } from '../../models/prostorija';
 import { Artikl } from '../../models/artikl';
+import { appConfig } from '../appconfig';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoomService {
-  private apiUrl = 'http://localhost:8080/api/rooms';
+  private apiUrl = appConfig.apiURL + 'rooms';
 
   constructor(private http: HttpClient) {}
 
@@ -38,8 +39,10 @@ export class RoomService {
     return this.http.get<Prostorija>(`${this.apiUrl}/${idProstorija}`);
   }
 
-  getInstitutionByRoomId(idProstorija: number): Observable<Prostorija>{
-    return this.http.get<Prostorija>(`${this.apiUrl}/institution-by-room/${idProstorija}`);
+  getInstitutionByRoomId(idProstorija: number): Observable<Prostorija> {
+    return this.http.get<Prostorija>(
+      `${this.apiUrl}/institution-by-room/${idProstorija}`
+    );
   }
   updateProstorija(prostorija: Prostorija): Observable<void> {
     return this.http.put<void>(
@@ -48,7 +51,12 @@ export class RoomService {
     );
   }
 
-  createRoomWithUsers(prostorijaUser: ProstorijaUser): Observable<ProstorijaUser> {
-    return this.http.post<ProstorijaUser>(`${this.apiUrl}/saveWithUsers`, prostorijaUser);
+  createRoomWithUsers(
+    prostorijaUser: ProstorijaUser
+  ): Observable<ProstorijaUser> {
+    return this.http.post<ProstorijaUser>(
+      `${this.apiUrl}/saveWithUsers`,
+      prostorijaUser
+    );
   }
 }

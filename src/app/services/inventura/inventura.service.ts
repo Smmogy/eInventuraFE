@@ -9,12 +9,13 @@ import {
 } from '../../models/inventura';
 import { CreateInventuraDTO } from '../../models/create-inventura-dto';
 import { Artikl, ArtiklPrisutan } from '../../models/artikl';
+import { appConfig } from '../appconfig';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InventuraService {
-  private apiUrl = 'http://localhost:8080/api/inventura';
+  private apiUrl = appConfig.apiURL + 'inventura';
 
   constructor(private http: HttpClient) {}
 
