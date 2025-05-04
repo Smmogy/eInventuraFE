@@ -2,8 +2,8 @@
 
 Set the correct `apiURL` in `appconfig.ts`
 
-`ng deploy --base-href=/eInventuraFE/`
+`ng build --base-href=/eInventuraFE/`
 
-and 
+and
 
 `npx angular-cli-ghpages --dir=dist/inventura-fe2/browser`
