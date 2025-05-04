@@ -32,7 +32,7 @@ export class ArticleService {
   }
 
   getArticleProstorijaById(id: number): Observable<Artikl> {
-    return this.http.get<Artikl>(`${this.apiUrl}/prostorija-dto/${id}`);
+    return this.http.get<Artikl>(`${this.apiUrl}/${id}`);
   }
 
   getArticlesByRoomId(roomId: number): Observable<Artikl[]> {

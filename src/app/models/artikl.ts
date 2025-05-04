@@ -4,6 +4,7 @@ export interface Artikl {
   idArtikl: number;
   name: string;
   idProstorija: number;
+  datumKreiranja?: string;
 }
 
 export interface ArtiklInventura {
