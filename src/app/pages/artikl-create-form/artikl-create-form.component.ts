@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from '../../services/article/article.service';
 import { Artikl } from '../../models/artikl';
 
@@ -13,11 +12,11 @@ import { Artikl } from '../../models/artikl';
 export class ArtiklCreateFormComponent implements OnInit {
   artiklForm: FormGroup;
   idProstorija!: number;
-  loading: boolean = false; 
+  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
-    private location: Location,
+    private router: Router,
     private route: ActivatedRoute,
     private artiklService: ArticleService
   ) {
@@ -39,7 +38,7 @@ export class ArtiklCreateFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.artiklForm.valid) {
-      this.loading = true;  
+      this.loading = true;
       const artiklData: Artikl = {
         idArtikl: 0,
         name: this.artiklForm.value.name,
@@ -49,12 +48,14 @@ export class ArtiklCreateFormComponent implements OnInit {
       this.artiklService.createArticle(artiklData).subscribe(
         (createdArtikl) => {
           console.log('Artikl created successfully:', createdArtikl);
-          this.location.back();
+          this.router.navigate(['artikl', 'edit', createdArtikl.idArtikl], {
+            replaceUrl: true,
+          });
           this.loading = false;
         },
         (error) => {
           console.error('Failed to create artikl:', error);
-          this.loading = false; 
+          this.loading = false;
         }
       );
     } else {
