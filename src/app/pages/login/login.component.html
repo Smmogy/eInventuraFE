@@ -5,21 +5,52 @@
     <div class="signup">
       <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
         <label for="chk" aria-hidden="true">Registracija</label>
-        <input type="text" name="firstname" placeholder="Ime" formControlName="firstname" />
-        <input type="text" name="lastname" placeholder="Prezime" formControlName="lastname" />
+        <input
+          type="text"
+          name="firstname"
+          placeholder="Ime"
+          formControlName="firstname"
+        />
+        <input
+          type="text"
+          name="lastname"
+          placeholder="Prezime"
+          formControlName="lastname"
+        />
         <input
           type="email"
           name="email"
           placeholder="Email"
           formControlName="email"
-          [ngClass]="{ 'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched }"
+          [ngClass]="{
+            'is-invalid':
+              registerForm.get('email')?.invalid &&
+              registerForm.get('email')?.touched
+          }"
         />
-        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error-message">
-          <small *ngIf="registerForm.get('email')?.errors?.['required']">Email je obavezan.</small>
-          <small *ngIf="registerForm.get('email')?.errors?.['email']">Unesite ispravnu email adresu.</small>
+        <div
+          *ngIf="
+            registerForm.get('email')?.invalid &&
+            registerForm.get('email')?.touched
+          "
+          class="error-message"
+        >
+          <small *ngIf="registerForm.get('email')?.errors?.['required']"
+            >Email je obavezan.</small
+          >
+          <small *ngIf="registerForm.get('email')?.errors?.['email']"
+            >Unesite ispravnu email adresu.</small
+          >
         </div>
-        <input type="password" name="password" placeholder="Lozinka" formControlName="password" />
-        <button type="submit" [disabled]="registerForm.invalid">Registrirajte se</button>
+        <input
+          type="password"
+          name="password"
+          placeholder="Lozinka"
+          formControlName="password"
+        />
+        <button type="submit" [disabled]="registerForm.invalid">
+          Registrirajte se
+        </button>
       </form>
     </div>
 
@@ -31,33 +62,53 @@
           name="email"
           placeholder="Email"
           formControlName="email"
-          [ngClass]="{ 'is-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.touched }"
+          [ngClass]="{
+            'is-invalid':
+              loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+          }"
         />
-        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
-          <small *ngIf="loginForm.get('email')?.errors?.['required']">Email je obavezan.</small>
-          <small *ngIf="loginForm.get('email')?.errors?.['email']">Unesite ispravnu email adresu.</small>
+        <div
+          *ngIf="
+            loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+          "
+          class="error-message"
+        >
+          <small *ngIf="loginForm.get('email')?.errors?.['required']"
+            >Email je obavezan.</small
+          >
+          <small *ngIf="loginForm.get('email')?.errors?.['email']"
+            >Unesite ispravnu email adresu.</small
+          >
         </div>
-        <input type="password" name="password" placeholder="Lozinka" formControlName="password" />
+        <input
+          type="password"
+          name="password"
+          placeholder="Lozinka"
+          formControlName="password"
+        />
         <button type="submit" [disabled]="loginForm.invalid">Prijava</button>
       </form>
     </div>
   </div>
 </div>
 
-<p-dialog header="Success" [(visible)]="successVisible" modal="modal" [style]="{ width: '300px' }" [baseZIndex]="10000">
-  <div class="ui-dialog-content">
-    <p>Registracija uspjela.</p>
-  </div>
-  <p-footer class="ui-dialog-footer">
-    <button pButton label="OK" icon="pi pi-check" (click)="closeSuccessDialog()" class="ui-button ui-button-primary"></button>
-  </p-footer>
-</p-dialog>
-
-<p-dialog header="Greška" [(visible)]="loginErrorVisible" modal="modal" [style]="{ width: '300px' }" [baseZIndex]="10000">
+<p-dialog
+  header="Greška"
+  [(visible)]="loginErrorVisible"
+  modal="modal"
+  [style]="{ width: '300px' }"
+  [baseZIndex]="10000"
+>
   <div class="ui-dialog-content">
     <p>{{ loginErrorMessage }}</p>
   </div>
   <p-footer class="ui-dialog-footer">
-    <button pButton label="OK" icon="pi pi-times" (click)="closeLoginErrorDialog()" class="ui-button ui-button-secondary"></button>
+    <button
+      pButton
+      label="OK"
+      icon="pi pi-times"
+      (click)="closeLoginErrorDialog()"
+      class="ui-button ui-button-secondary"
+    ></button>
   </p-footer>
 </p-dialog>

@@ -13,7 +13,6 @@ import jwtDecode from 'jwt-decode';
 export class LoginComponent {
   loginForm: FormGroup;
   registerForm: FormGroup;
-  successVisible = false;
   loginErrorVisible = false;
   loginErrorMessage = '';
 
@@ -40,22 +39,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: (res: any) => {
-          this.authService.setToken(res.token);
-          const email = this.getEmailFromToken(res.token);
-          if (email) {
-            this.userService.getUserIdByEmail(email).subscribe({
-              next: (userId: number) => {
-                if (this.authService.hasAdminRole()) {
-                  this.router.navigateByUrl(`/dashboard/list/admin`);
-                } else {
-                  this.router.navigateByUrl(`/dashboard/${userId}`);
-                }
-              },
-              error: () => this.showLoginErrorDialog('Failed to get user details'),
-            });
-          } else {
-            this.showLoginErrorDialog('Failed to extract email from token');
-          }
+          this.onLoginSuccess(res.token);
         },
         error: () => this.showLoginErrorDialog('Prijava nije uspjela'),
       });
@@ -65,9 +49,28 @@ export class LoginComponent {
   registerUser() {
     if (this.registerForm.valid) {
       this.authService.register(this.registerForm.value).subscribe({
-        next: () => (this.successVisible = true),
+        next: (res: any) => this.onLoginSuccess(res.token),
         error: () => this.showLoginErrorDialog('Email se već koristi'),
       });
+    }
+  }
+
+  private onLoginSuccess(token: string) {
+    this.authService.setToken(token);
+    const email = this.getEmailFromToken(token);
+    if (email) {
+      this.userService.getUserIdByEmail(email).subscribe({
+        next: (userId: number) => {
+          if (this.authService.hasAdminRole()) {
+            this.router.navigateByUrl(`/dashboard/list/admin`);
+          } else {
+            this.router.navigateByUrl(`/dashboard/${userId}`);
+          }
+        },
+        error: () => this.showLoginErrorDialog('Failed to get user details'),
+      });
+    } else {
+      this.showLoginErrorDialog('Failed to extract email from token');
     }
   }
 
@@ -78,11 +81,6 @@ export class LoginComponent {
 
   closeLoginErrorDialog() {
     this.loginErrorVisible = false;
-  }
-
-  closeSuccessDialog() {
-    this.successVisible = false;
-    this.router.navigateByUrl('/login');
   }
 
   private getEmailFromToken(token: string): string | null {
