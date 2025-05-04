@@ -47,6 +47,7 @@ import { ConfrimationDialogZavrsiComponent } from './dialog/confrimation-dialog-
 import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.component';
 import { DashboardAdminAllComponent } from './pages/dashboard-admin-all/dashboard-admin-all.component';
 import { InventuraDetailProstorijaComponent } from './pages/inventura-detail-prostorija/inventura-detail-prostorija.component';
+import { BarcodeDisplayComponent } from './pages/artikl-edit-form/barcode-display/barcode-display.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { InventuraDetailProstorijaComponent } from './pages/inventura-detail-pro
     ErrorDialogComponent,
     DashboardAdminAllComponent,
     InventuraDetailProstorijaComponent,
+    BarcodeDisplayComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,11 @@
 <div class="card institution-card">
-  <div class="card-header institution-card-header">
-    Uredi artikl
-  </div>
+  <div class="card-header institution-card-header">Uredi artikl</div>
   <div class="card-body">
-    <form *ngIf = "artikl != null" [formGroup]="artiklForm" (ngSubmit)="onSubmit()">
-      
+    <form
+      *ngIf="artikl != null"
+      [formGroup]="artiklForm"
+      (ngSubmit)="onSubmit()"
+    >
       <div class="form-group">
         <label for="name">Naziv:</label>
         <input
@@ -26,20 +27,33 @@
           id="idProstorija"
           required
         >
-          <option *ngFor="let prostorija of prostorije" [value]="prostorija.idProstorija">
+          <option
+            *ngFor="let prostorija of prostorije"
+            [value]="prostorija.idProstorija"
+          >
             {{ prostorija.name }}
           </option>
         </select>
       </div>
 
+      <div class="form-group mt-3">
+        <app-barcode-display [value]="idArtikl"></app-barcode-display>
+      </div>
+
       <div class="form-buttons mt-4">
-        <button type="submit" [disabled]="!artiklForm.valid" class="btn btn-primary">
+        <button
+          type="submit"
+          [disabled]="!artiklForm.valid"
+          class="btn btn-primary"
+        >
           Ažuriraj artikl
         </button>
         <button type="button" (click)="cancel()" class="btn btn-secondary">
-          Otkazaži
+          Otkaži
         </button>
       </div>
     </form>
   </div>
 </div>
+
+<!-- <div #barcode></div> -->
