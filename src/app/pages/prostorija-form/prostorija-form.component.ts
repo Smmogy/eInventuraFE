@@ -4,6 +4,7 @@ import { RoomService } from '../../services/room/room.service';
 import { InstitutionService } from '../../services/institution/institution.service';
 import { Prostorija } from '../../models/prostorija';
 import { Institution } from '../../models/institution';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-prostorija-form',
@@ -22,7 +23,8 @@ export class ProstorijaFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private institutionService: InstitutionService,
-    private roomService: RoomService
+    private roomService: RoomService,
+    private messageService: MessageService
   ) {
     this.idInstitution = Number(this.route.snapshot.paramMap.get('id'));
   }
@@ -87,6 +89,13 @@ export class ProstorijaFormComponent implements OnInit {
         (error: any) => {
           console.error('Error deleting room:', error);
           this.closeDialog();
+
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Greška',
+            detail:
+              'Nije moguće obrisati prostoriju koja se koristi u inventuri.',
+          });
         }
       );
     }

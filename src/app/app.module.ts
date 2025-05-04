@@ -48,6 +48,7 @@ import { ErrorDialogComponent } from './dialog/error-dialog/error-dialog.compone
 import { DashboardAdminAllComponent } from './pages/dashboard-admin-all/dashboard-admin-all.component';
 import { InventuraDetailProstorijaComponent } from './pages/inventura-detail-prostorija/inventura-detail-prostorija.component';
 import { BarcodeDisplayComponent } from './pages/artikl-edit-form/barcode-display/barcode-display.component';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [

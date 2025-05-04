@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InstitutionService } from '../../services/institution/institution.service';
 import { Institution } from '../../models/institution';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-institutions-form',
@@ -14,7 +15,10 @@ export class InstitutionsFormComponent implements OnInit {
   display: boolean = false;
   institutionIdToDelete: number | null = null;
 
-  constructor(private institutionService: InstitutionService) {}
+  constructor(
+    private institutionService: InstitutionService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.loadInstitutions();
@@ -65,7 +69,12 @@ export class InstitutionsFormComponent implements OnInit {
           (error) => {
             console.error('Failed to delete institution:', error);
             this.closeDialog();
-            this.closeDialog();
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Greška',
+              detail:
+                'Nije moguće obrisati instituciju koja se koristi u inventuri.',
+            });
           }
         );
     }

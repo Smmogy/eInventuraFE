@@ -4,6 +4,7 @@ import { ArticleService } from '../../services/article/article.service';
 import { RoomService } from '../../services/room/room.service';
 import { Artikl } from '../../models/artikl';
 import { Prostorija } from '../../models/prostorija';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-artikl-form',
@@ -23,7 +24,8 @@ export class ArtiklFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private prostorijaService: RoomService,
-    private artiklService: ArticleService
+    private artiklService: ArticleService,
+    private messageService: MessageService
   ) {
     this.idProstorija = Number(this.route.snapshot.paramMap.get('id'));
   }
@@ -85,6 +87,12 @@ export class ArtiklFormComponent implements OnInit {
         (error: any) => {
           console.error('Error deleting artikl:', error);
           this.closeConfirmDialog();
+
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Greška',
+            detail: 'Nije moguće obrisati artikl koji se koristi u inventuri.',
+          });
         }
       );
     }
