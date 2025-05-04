@@ -1,38 +1,78 @@
-<p-dialog header="Potvrda brisanja" [(visible)]="display" modal="modal" [style]="{width: '300px'}" [baseZIndex]="10000">
+<p-dialog
+  header="Potvrda brisanja"
+  [(visible)]="display"
+  modal="modal"
+  [style]="{ width: '300px' }"
+  [baseZIndex]="10000"
+>
   <p>Jeste li sigurni da želite izbrisati ovu instituciju?</p>
   <p-footer class="ui-dialog-footer">
     <div class="button-group-dialog">
-      <button pButton label="Odustani" icon="pi pi-times" (click)="closeDialog()" class="ui-button ui-button-secondary"></button>
-      <button pButton label="Potvrdi" icon="pi pi-check" (click)="confirmDelete()" class="ui-button ui-button-primary"></button>
+      <button
+        pButton
+        label="Odustani"
+        icon="pi pi-times"
+        (click)="closeDialog()"
+        class="ui-button ui-button-secondary"
+      ></button>
+      <button
+        pButton
+        label="Potvrdi"
+        icon="pi pi-check"
+        (click)="confirmDelete()"
+        class="ui-button ui-button-primary"
+      ></button>
     </div>
   </p-footer>
 </p-dialog>
 <div class="institutions-form card">
   <h2>Institutcije</h2>
-  <button pButton label="Kreiraj instituciju" [routerLink]="'/institutions/create'" class="p-button-success create-btn"></button>
+  <button
+    pButton
+    label="Kreiraj instituciju"
+    [routerLink]="'/institutions/create'"
+    class="p-button-success create-btn"
+  ></button>
 
-  <h2>Sve isntitucije</h2>
+  <h2>Sve institucije</h2>
 
   <!-- Search Bar -->
   <div class="search-container">
-    <input 
-      type="text" 
-      pInputText 
-      placeholder="Traži institucije..." 
-      [(ngModel)]="searchQuery" 
-      (ngModelChange)="filterInstitutions()" 
+    <input
+      type="text"
+      pInputText
+      placeholder="Traži institucije..."
+      [(ngModel)]="searchQuery"
+      (ngModelChange)="filterInstitutions()"
       class="search-input"
     />
   </div>
 
   <div *ngIf="filteredInstitutions.length">
     <ul class="institution-list">
-      <li *ngFor="let institution of filteredInstitutions" class="institution-item card">
+      <li
+        *ngFor="let institution of filteredInstitutions"
+        class="institution-item card"
+      >
         <div class="institution-content">
-          <a class="institution-name" [routerLink]="['/prostorija-form', institution.idInstitution]">{{ institution.name }}</a>
+          <a
+            class="institution-name"
+            [routerLink]="['/prostorija-form', institution.idInstitution]"
+            >{{ institution.name }}</a
+          >
           <div class="action-buttons">
-            <button pButton icon="pi pi-pencil" class="p-button-warning edit-btn" [routerLink]="['/institutions/edit', institution.idInstitution]"></button>
-            <button pButton icon="pi pi-trash" class="p-button-danger delete-btn" (click)="deleteInstitution(institution.idInstitution)"></button>
+            <button
+              pButton
+              icon="pi pi-pencil"
+              class="p-button-warning edit-btn"
+              [routerLink]="['/institutions/edit', institution.idInstitution]"
+            ></button>
+            <button
+              pButton
+              icon="pi pi-trash"
+              class="p-button-danger delete-btn"
+              (click)="deleteInstitution(institution.idInstitution)"
+            ></button>
           </div>
         </div>
       </li>
