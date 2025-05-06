@@ -49,7 +49,9 @@ export class InventuraFormComponent implements OnInit {
         [Validators.required, academicYearValidator(currentYear)],
       ],
       institution: [null, Validators.required],
-    });
+    },
+  
+    { validators: dateValidator() });
   }
 
   ngOnInit(): void {

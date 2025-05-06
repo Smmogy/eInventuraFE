@@ -14,7 +14,7 @@ export function dateValidator(): ValidatorFn {
 export function academicYearValidator(currentYear: number): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const year = control.value;
-    const minYear = currentYear - 1;
+    const minYear = currentYear;
     if (!Number.isInteger(year) || year < minYear) {
       return { yearInvalid: true };
     }
