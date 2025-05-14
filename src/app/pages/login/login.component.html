@@ -48,8 +48,8 @@
           placeholder="Lozinka"
           formControlName="password"
         />
-        <button type="submit" [disabled]="registerForm.invalid">
-          Registrirajte se
+        <button type="submit" [disabled]="registerForm.invalid || isRegistering">
+          {{ isRegistering ? 'Registracija...' : 'Registrirajte se' }}
         </button>
       </form>
     </div>
@@ -86,7 +86,9 @@
           placeholder="Lozinka"
           formControlName="password"
         />
-        <button type="submit" [disabled]="loginForm.invalid">Prijava</button>
+        <button type="submit" [disabled]="loginForm.invalid || isLoggingIn">
+          {{ isLoggingIn ? 'Prijava...' : 'Prijava' }}
+        </button>
       </form>
     </div>
   </div>

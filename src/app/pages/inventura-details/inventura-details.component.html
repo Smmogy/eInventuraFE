@@ -15,9 +15,9 @@
         <button pButton label="Nazad" (click)="goBack()" class="p-button-secondary back-btn"></button>
         <button *ngIf="inventura.stanje" pButton label="Zaključi" (click)="showConfirmDialog()"
           class="p-button-success finish-btn"></button>
-        <button pButton class="p-button-secondary back-btn" (click)="generatePdf()"
+        <button pButton  label="Generiraj izvješće" class="p-button-secondary back-btn" (click)="generatePdf()"
+          [disabled]="isDownloading"
           *ngIf="isAdmin && inventura?.stanje == !1">
-          Generiraj izvješće
         </button>
       </div>
 

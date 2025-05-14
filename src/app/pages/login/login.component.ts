@@ -15,6 +15,8 @@ export class LoginComponent {
   registerForm: FormGroup;
   loginErrorVisible = false;
   loginErrorMessage = '';
+  isLoggingIn = false;
+  isRegistering = false;
 
   constructor(
     private fb: FormBuilder,
@@ -37,20 +39,32 @@ export class LoginComponent {
 
   onLogin() {
     if (this.loginForm.valid) {
+      this.isLoggingIn = true;
       this.authService.login(this.loginForm.value).subscribe({
         next: (res: any) => {
           this.onLoginSuccess(res.token);
+          this.isLoggingIn = false;
         },
-        error: () => this.showLoginErrorDialog('Prijava nije uspjela'),
+        error: () => {
+          this.showLoginErrorDialog('Prijava nije uspjela');
+          this.isLoggingIn = false;
+        },
       });
     }
   }
 
   registerUser() {
     if (this.registerForm.valid) {
+      this.isRegistering = true;
       this.authService.register(this.registerForm.value).subscribe({
-        next: (res: any) => this.onLoginSuccess(res.token),
-        error: () => this.showLoginErrorDialog('Email se već koristi'),
+        next: (res: any) => {
+          this.onLoginSuccess(res.token);
+          this.isRegistering = false;
+        },
+        error: () => {
+          this.showLoginErrorDialog('Email se već koristi');
+          this.isRegistering = false;
+        },
       });
     }
   }

@@ -2,11 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { InventuraService } from '../../services/inventura/inventura.service';
-import { RoomService } from '../../services/room/room.service';
-import { ArticleService } from '../../services/article/article.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { InventuraDetail } from '../../models/inventura';
-import { ArtiklPrisutan } from '../../models/artikl';
 
 @Component({
   selector: 'app-inventura-details',
@@ -17,6 +14,7 @@ export class InventuraDetailsComponent implements OnInit {
   inventura!: InventuraDetail;
   isAdmin: boolean = false;
   displayConfirmDialog: boolean = false;
+  isDownloading: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -66,8 +64,11 @@ export class InventuraDetailsComponent implements OnInit {
         },
       });
   }
-  
+
   generatePdf(): void {
+    if (this.isDownloading) return;
+    this.isDownloading = true;
+
     this.inventuraService.getGeneratedPdf(this.inventura.idInventura).subscribe({
       next: (pdfBlob: Blob) => {
         const blob = new Blob([pdfBlob], { type: 'application/pdf' });
@@ -76,14 +77,17 @@ export class InventuraDetailsComponent implements OnInit {
         link.href = url;
         link.download = `inventura_${this.inventura.idInventura}.pdf`;
         link.click();
-        window.URL.revokeObjectURL(url); // Clean up after download
+        window.URL.revokeObjectURL(url);
+        this.isDownloading = false;
       },
       error: (err) => {
         console.error('Failed to download PDF:', err);
-        alert('Greška pri generisanju PDF-a.');
+        alert('Greška pri generiranju PDF-a.');
+        this.isDownloading = false;
       }
     });
   }
+
   goBack() {
     this.location.back();
   }
