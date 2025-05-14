@@ -66,7 +66,24 @@ export class InventuraDetailsComponent implements OnInit {
         },
       });
   }
-
+  
+  generatePdf(): void {
+    this.inventuraService.getGeneratedPdf(this.inventura.idInventura).subscribe({
+      next: (pdfBlob: Blob) => {
+        const blob = new Blob([pdfBlob], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `inventura_${this.inventura.idInventura}.pdf`;
+        link.click();
+        window.URL.revokeObjectURL(url); // Clean up after download
+      },
+      error: (err) => {
+        console.error('Failed to download PDF:', err);
+        alert('Greška pri generisanju PDF-a.');
+      }
+    });
+  }
   goBack() {
     this.location.back();
   }

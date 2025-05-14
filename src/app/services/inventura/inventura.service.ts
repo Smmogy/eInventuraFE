@@ -46,6 +46,12 @@ export class InventuraService {
     );
   }
 
+  getGeneratedPdf(idInventura: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/pdf/${idInventura}`, {
+      responseType: 'blob'
+    });
+  }
+
   getInventurasByUserId(userId: number): Observable<InventuraList[]> {
     return this.http.get<InventuraList[]>(`${this.apiUrl}/user/${userId}`);
   }

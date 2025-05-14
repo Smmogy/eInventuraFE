@@ -4,7 +4,8 @@
       <h3 class="institution-name">Institucija: {{ inventura.institution.name }}</h3>
 
       <div *ngIf="inventura.prostorije && inventura.prostorije.length > 0" class="room-list">
-        <div *ngFor="let room of inventura.prostorije" class="room-card" (click)="navigateToRoomDetails(room.idProstorija)">
+        <div *ngFor="let room of inventura.prostorije" class="room-card"
+          (click)="navigateToRoomDetails(room.idProstorija)">
           <h4 class="room-name">{{ room.name }}</h4>
           <p class="room-description">Kliknite za detalje o prostoriji</p>
         </div>
@@ -12,14 +13,18 @@
 
       <div *ngIf="isAdmin" class="button-wrapper">
         <button pButton label="Nazad" (click)="goBack()" class="p-button-secondary back-btn"></button>
-        <button *ngIf="inventura.stanje" pButton label="Zaključi" (click)="showConfirmDialog()" class="p-button-success finish-btn"></button>
+        <button *ngIf="inventura.stanje" pButton label="Zaključi" (click)="showConfirmDialog()"
+          class="p-button-success finish-btn"></button>
+        <button pButton class="p-button-secondary back-btn" (click)="generatePdf()"
+          *ngIf="isAdmin && inventura?.stanje == !1">
+          Generiraj izvješće
+        </button>
       </div>
+
     </div>
   </div>
 
-  <app-confrimation-dialog-zavrsi
-    [display]="displayConfirmDialog"
-    (displayChange)="displayConfirmDialog = $event"
+  <app-confrimation-dialog-zavrsi [display]="displayConfirmDialog" (displayChange)="displayConfirmDialog = $event"
     (confirmAction)="finishInventura()">
   </app-confrimation-dialog-zavrsi>
 </div>
