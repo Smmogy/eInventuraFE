@@ -13,6 +13,7 @@ export class DashboardAdminAllComponent {
   institution?: String;
   displayDialog: boolean = false;
   itemToDeleteId: number | null = null;
+
   constructor(
     private inventuraService: InventuraService,
     private router: Router
@@ -32,6 +33,7 @@ export class DashboardAdminAllComponent {
       },
     });
   }
+
   openDeleteDialog(id: number) {
     this.itemToDeleteId = id;
     this.displayDialog = true;
@@ -46,7 +48,6 @@ export class DashboardAdminAllComponent {
     if (this.itemToDeleteId !== null) {
       this.inventuraService.deleteInventura(this.itemToDeleteId).subscribe(
         () => {
-          // Refresh the list after deletion
           this.getListOfInventuras();
           this.closeDialog();
         },
@@ -59,6 +60,10 @@ export class DashboardAdminAllComponent {
   }
 
   viewInventuraDetails(id: number) {
-    this.router.navigate(['inventura/edit/', id]);
+    this.router.navigate(['inventura/edit', id]);
+  }
+
+  editInventura(id: number) {
+    this.router.navigate(['inventura/edit', id]);
   }
 }

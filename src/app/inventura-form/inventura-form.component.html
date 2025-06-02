@@ -1,84 +1,138 @@
 <div class="form-container">
-  <form [formGroup]="inventuraForm" (ngSubmit)="onSubmit()" class="p-fluid form-padding">
+  <form
+    [formGroup]="inventuraForm"
+    (ngSubmit)="onSubmit()"
+    class="p-fluid form-padding"
+  >
     <div class="p-field">
       <label for="naziv">Naziv:</label>
       <input id="naziv" type="text" pInputText formControlName="naziv" />
-      <div *ngIf="
+      <div
+        *ngIf="
           inventuraForm.get('naziv')?.invalid &&
-          (inventuraForm.get('naziv')?.touched || inventuraForm.get('naziv')?.dirty)
-        " class="p-error">
+          (inventuraForm.get('naziv')?.touched ||
+            inventuraForm.get('naziv')?.dirty)
+        "
+        class="p-error"
+      >
         Naziv je obavezan.
       </div>
     </div>
 
     <div class="p-field">
       <label for="datumPocetka">Datum početka:</label>
-      <p-calendar id="datumPocetka" formControlName="datumPocetka" dateFormat="dd.mm.yy" showIcon="true"></p-calendar>
-      <div *ngIf="
-      inventuraForm.get('datumPocetka')?.invalid &&
-      (inventuraForm.get('datumPocetka')?.touched || inventuraForm.get('datumPocetka')?.dirty)
-    " class="p-error">
+      <p-calendar
+        id="datumPocetka"
+        formControlName="datumPocetka"
+        dateFormat="dd.mm.yy"
+        showIcon="true"
+      ></p-calendar>
+      <div
+        *ngIf="
+          inventuraForm.get('datumPocetka')?.invalid &&
+          (inventuraForm.get('datumPocetka')?.touched ||
+            inventuraForm.get('datumPocetka')?.dirty)
+        "
+        class="p-error"
+      >
         Datum početka je obavezan.
       </div>
-      <div *ngIf="
-      inventuraForm.hasError('startDateInPast') &&
-      (inventuraForm.get('datumPocetka')?.touched || inventuraForm.get('datumPocetka')?.dirty)
-    " class="p-error">
+      <div
+        *ngIf="
+          inventuraForm.hasError('startDateInPast') &&
+          (inventuraForm.get('datumPocetka')?.touched ||
+            inventuraForm.get('datumPocetka')?.dirty)
+        "
+        class="p-error"
+      >
         Početni datum ne može biti u prošlosti.
       </div>
     </div>
 
     <div class="p-field">
       <label for="datumZavrsetka">Datum završetka:</label>
-      <p-calendar id="datumZavrsetka" formControlName="datumZavrsetka" dateFormat="dd.mm.yy"
-        showIcon="true"></p-calendar>
-      <div *ngIf="
+      <p-calendar
+        id="datumZavrsetka"
+        formControlName="datumZavrsetka"
+        dateFormat="dd.mm.yy"
+        showIcon="true"
+      ></p-calendar>
+      <div
+        *ngIf="
           inventuraForm.get('datumZavrsetka')?.invalid &&
-          (inventuraForm.get('datumZavrsetka')?.touched || inventuraForm.get('datumZavrsetka')?.dirty)
-        " class="p-error">
+          (inventuraForm.get('datumZavrsetka')?.touched ||
+            inventuraForm.get('datumZavrsetka')?.dirty)
+        "
+        class="p-error"
+      >
         Datum završetka je obavezan.
       </div>
-      <div *ngIf="
+      <div
+        *ngIf="
           inventuraForm.hasError('dateInvalid') &&
-          (inventuraForm.get('datumZavrsetka')?.touched || inventuraForm.get('datumZavrsetka')?.dirty)
-        " class="p-error">
+          (inventuraForm.get('datumZavrsetka')?.touched ||
+            inventuraForm.get('datumZavrsetka')?.dirty)
+        "
+        class="p-error"
+      >
         Unesite točne datume
       </div>
     </div>
 
     <div class="p-field">
       <label for="akademskaGod">Akademska godina:</label>
-      <input id="akademskaGod" formControlName="akademskaGod" type="number" pInputText />
-      <div *ngIf="
-    (inventuraForm.get('akademskaGod')?.touched || inventuraForm.get('akademskaGod')?.dirty) &&
-    inventuraForm.get('akademskaGod')?.invalid
-  " class="p-error">
+      <input
+        id="akademskaGod"
+        formControlName="akademskaGod"
+        type="number"
+        pInputText
+      />
+      <div
+        *ngIf="
+          (inventuraForm.get('akademskaGod')?.touched ||
+            inventuraForm.get('akademskaGod')?.dirty) &&
+          inventuraForm.get('akademskaGod')?.invalid
+        "
+        class="p-error"
+      >
         {{
         inventuraForm.get('akademskaGod')?.errors?.['required']
         ? 'Akademska godina je obavezna.'
         : 'Unesite točnu akademsku godinu.'
         }}
       </div>
-
     </div>
 
     <div class="p-field">
       <label for="institution">Institucija:</label>
-      <p-dropdown [options]="institutions" optionLabel="name" formControlName="institution"
-        placeholder="Odaberite instituciju" (onChange)="onInstitutionChange($event)"></p-dropdown>
+      <p-dropdown
+        [options]="institutions"
+        optionLabel="name"
+        formControlName="institution"
+        placeholder="Odaberite instituciju"
+        (onChange)="onInstitutionChange($event)"
+      ></p-dropdown>
 
-      <div *ngIf="
-          (inventuraForm.get('institution')?.touched || inventuraForm.get('institution')?.dirty) &&
+      <div
+        *ngIf="
+          (inventuraForm.get('institution')?.touched ||
+            inventuraForm.get('institution')?.dirty) &&
           !institutionHasRooms
-        " class="p-error">
+        "
+        class="p-error"
+      >
         Odabrana institucija nema niti jednu prostoriju.
       </div>
 
-      <div *ngIf="
-          (inventuraForm.get('institution')?.touched || inventuraForm.get('institution')?.dirty) &&
+      <div
+        *ngIf="
+          (inventuraForm.get('institution')?.touched ||
+            inventuraForm.get('institution')?.dirty) &&
           institutionHasRooms &&
           !roomsHaveArticles
-        " class="p-error">
+        "
+        class="p-error"
+      >
         Sve prostorije moraju imati barem jedan artikl.
       </div>
     </div>
@@ -86,22 +140,38 @@
     <div *ngIf="institutionHasRooms && roomsHaveArticles" class="p-mt-4">
       <div *ngFor="let room of rooms" class="p-field">
         <label>{{ room.name }}</label>
-        <p-multiSelect [options]="users" [(ngModel)]="roomUserMap[room.idProstorija]"
-          [ngModelOptions]="{ standalone: true }" optionLabel="name" display="chip"
-          [defaultLabel]="'Odaberite korisnike'" [filter]="true"
-          (onChange)="markRoomUserTouched(room.idProstorija)"></p-multiSelect>
+        <p-multiSelect
+          [options]="users"
+          [(ngModel)]="roomUserMap[room.idProstorija]"
+          [ngModelOptions]="{ standalone: true }"
+          optionLabel="name"
+          display="chip"
+          [defaultLabel]="'Odaberite korisnike'"
+          [filter]="true"
+          [dataKey]="'id'"
+          (onChange)="markRoomUserTouched(room.idProstorija)"
+        ></p-multiSelect>
 
-        <div *ngIf="
+        <div
+          *ngIf="
             roomUserMap[room.idProstorija]?.length === 0 &&
             roomUserMapTouched(room.idProstorija)
-          " class="p-error">
+          "
+          class="p-error"
+        >
           Morate dodijeliti barem jednog korisnika za ovu prostoriju.
         </div>
       </div>
     </div>
 
-    <button type="submit" pButton label="Kreiraj inventuru" icon="pi pi-check" [disabled]="!canCreateInventura()"
-      class="submitButton"></button>
+    <button
+      type="submit"
+      pButton
+      [label]="isEditMode ? 'Uredi inventuru' : 'Kreiraj inventuru'"
+      icon="pi pi-check"
+      [disabled]="!canCreateInventura()"
+      class="submitButton"
+    ></button>
 
     <div *ngIf="isLoading" class="loading-spinner p-mt-2">
       <i class="pi pi-spin pi-spinner"></i> Kreiranje inventure...

@@ -63,6 +63,11 @@ const routes: Routes = [
         component: InventuraFormComponent,
         canActivate: [LoggedInGuard],
       },
+      {
+        path: 'inventura-form/:id',
+        component: InventuraFormComponent,
+        canActivate: [LoggedInGuard],
+      },
 
       {
         path: 'prostorija-form/:id',

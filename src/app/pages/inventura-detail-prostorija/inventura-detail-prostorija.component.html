@@ -19,7 +19,7 @@
           <p-toggleButton
             [ngModel]="artikl.prisutan"
             [disabled]="!detailData.inventuraStanje"
-            onIcon="pi pi-check-circle"
+            onIcon="pi-check-circle"
             offIcon="pi pi-question-circle"
             onLabel="Prisutan"
             offLabel="Nije prisutan"
@@ -55,8 +55,20 @@
   <div class="scanner-hint">
     Skenirajte barkod artikla da bi ga označili prisutnog u ovoj inventuri.
   </div>
+
+  <p-dropdown
+    *ngIf="availableDevices.length > 0"
+    [options]="availableDevices"
+    [(ngModel)]="selectedDevice"
+    optionLabel="label"
+    placeholder="Odaberite kameru"
+    [style]="{ width: '100%', marginBottom: '10px' }"
+  ></p-dropdown>
+
   <zxing-scanner
     *ngIf="scannerEnabled"
+    [device]="selectedDevice"
+    [enable]="selectedDevice != null"
     [tryHarder]="true"
     [formats]="allowedFormats"
     (scanSuccess)="onCodeResult($event)"

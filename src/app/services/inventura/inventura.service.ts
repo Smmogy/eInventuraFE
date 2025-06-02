@@ -19,7 +19,7 @@ export class InventuraService {
 
   constructor(private http: HttpClient) {}
 
-  createInventura(inventura: CreateInventuraDTO): Observable<Inventura> {
+  saveInventura(inventura: CreateInventuraDTO): Observable<Inventura> {
     return this.http.post<Inventura>(`${this.apiUrl}`, inventura);
   }
 
@@ -48,7 +48,7 @@ export class InventuraService {
 
   getGeneratedPdf(idInventura: number): Observable<Blob> {
     return this.http.get(`${this.apiUrl}/pdf/${idInventura}`, {
-      responseType: 'blob'
+      responseType: 'blob',
     });
   }
 

@@ -26,8 +26,10 @@ export class DashboardAdminComponent implements OnInit {
   getListOfInventuras() {
     this.inventuraService.getAllInventura().subscribe({
       next: (inventuras) => {
-        this.inventuraList = inventuras.sort((a, b) =>
-          new Date(a.datumPocetka).getTime() - new Date(b.datumPocetka).getTime()
+        this.inventuraList = inventuras.sort(
+          (a, b) =>
+            new Date(a.datumPocetka).getTime() -
+            new Date(b.datumPocetka).getTime()
         );
         this.isLoading = false;
       },
@@ -61,7 +63,9 @@ export class DashboardAdminComponent implements OnInit {
       );
     }
   }
-
+  editInventura(id: number) {
+    this.router.navigate(['inventura-form', id]);
+  }
   viewInventuraDetails(id: number) {
     this.router.navigate(['inventura/edit/', id]);
   }

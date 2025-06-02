@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { InventuraService } from '../services/inventura/inventura.service';
 import { InstitutionService } from '../services/institution/institution.service';
 import { DjelatniciService } from '../services/djelatnici/dijelatnici.service';
@@ -17,7 +17,7 @@ import {
 } from '../customValidators/date-range.validator';
 import { Prostorija } from '../models/prostorija';
 import { forkJoin, Observable, of } from 'rxjs';
-import { switchMap, map, catchError } from 'rxjs/operators';
+import { switchMap, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-inventura-form',
@@ -33,14 +33,19 @@ export class InventuraFormComponent implements OnInit {
   roomUserMap: { [key: number]: Djelatnici[] } = {};
   isLoading: boolean = false;
   isRoomsLoading: boolean = false;
-  roomUserTouchedMap: { [key: number]: boolean } = {};
+  loadingInventura: boolean = false;
+  isEditMode: boolean = false;
 
+  roomUserTouchedMap: { [key: number]: boolean } = {};
   institutionHasRooms: boolean = false;
   roomsHaveArticles: boolean = false;
+
+  private inventuraId: number | null = null;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private inventuraService: InventuraService,
     private institutionService: InstitutionService,
     private userService: DjelatniciService,
@@ -54,7 +59,10 @@ export class InventuraFormComponent implements OnInit {
         naziv: ['', Validators.required],
         datumPocetka: ['', Validators.required],
         datumZavrsetka: ['', Validators.required],
-        akademskaGod: ['', [Validators.required, academicYearValidator(currentYear)]],
+        akademskaGod: [
+          '',
+          [Validators.required, academicYearValidator(currentYear)],
+        ],
         institution: [null, Validators.required],
       },
       { validators: dateValidator() }
@@ -64,67 +72,125 @@ export class InventuraFormComponent implements OnInit {
   ngOnInit(): void {
     this.loadInstitutions();
     this.loadUsers();
+
+    const id = this.activatedRoute.snapshot.params['id'];
+    if (id !== undefined) {
+      this.isEditMode = true;
+      this.inventuraId = Number(id);
+      this.loadInventuraData(this.inventuraId);
+    }
+  }
+
+  loadInventuraData(id: number): void {
+    this.loadingInventura = true;
+
+    this.inventuraService.getInventuraById(id).subscribe({
+      next: (inventura) => {
+        const patchForm = () => {
+          this.inventuraForm.patchValue({
+            naziv: inventura.naziv,
+            datumPocetka: new Date(inventura.datumPocetka),
+            datumZavrsetka: new Date(inventura.datumZavrsetka),
+            akademskaGod: inventura.akademskaGod,
+            institution: this.institutions.find(
+              (i) => i.idInstitution === inventura.institutionId
+            ),
+          });
+          this.loadRoomsAndUsersForEdit(
+            inventura.institutionId,
+            inventura.roomUserMap
+          );
+
+          this.inventuraForm.get('institution')?.disable();
+          this.loadingInventura = false;
+        };
+
+        if (this.institutions.length > 0) {
+          patchForm();
+        } else {
+          this.institutionService
+            .getInstitutions()
+            .subscribe((institutions) => {
+              this.institutions = institutions;
+              patchForm();
+            });
+        }
+      },
+      error: (err) => {
+        console.error('Greška kod učitavanja inventure:', err);
+        this.loadingInventura = false;
+      },
+    });
+  }
+
+  loadRoomsAndUsersForEdit(
+    institutionId: number,
+    roomUserMapFromBackend: any
+  ): void {
+    this.isRoomsLoading = true;
+
+    this.roomService
+      .getRoomsByInstitutionId(institutionId)
+      .pipe(
+        switchMap((rooms: Prostorija[]) => {
+          this.rooms = rooms;
+          this.institutionHasRooms = rooms.length > 0;
+
+          if (!this.institutionHasRooms) {
+            this.isRoomsLoading = false;
+            return of([]);
+          }
+
+          const articlesObservables: Observable<Artikl[]>[] = rooms.map(
+            (room) =>
+              this.artiklService
+                .getArticlesByRoomId(room.idProstorija)
+                .pipe(catchError(() => of([])))
+          );
+
+          return forkJoin(articlesObservables);
+        })
+      )
+      .subscribe({
+        next: (articlesArray: Artikl[][]) => {
+          this.roomsHaveArticles =
+            articlesArray.length === this.rooms.length &&
+            articlesArray.every((artikli) => artikli.length > 0);
+
+          if (this.institutionHasRooms && this.roomsHaveArticles) {
+            this.rooms.forEach((room) => {
+              this.roomUserMap[room.idProstorija] =
+                roomUserMapFromBackend[room.idProstorija] || [];
+            });
+          } else {
+            this.roomUserMap = {};
+          }
+          this.isRoomsLoading = false;
+        },
+        error: (err) => {
+          console.error('Greška kod prostorija/artikala:', err);
+          this.isRoomsLoading = false;
+        },
+      });
   }
 
   loadInstitutions(): void {
     this.institutionService.getInstitutions().subscribe(
       (data) => (this.institutions = data),
-      (error) => console.error('Error loading institutions:', error)
+      (error) => console.error('Greška kod institucija:', error)
     );
   }
 
   loadUsers(): void {
     this.userService.getDjelatnici().subscribe(
       (data) => (this.users = data),
-      (error) => console.error('Error loading users:', error)
+      (error) => console.error('Greška kod korisnika:', error)
     );
   }
 
   onInstitutionChange(event: any): void {
     const institutionId = event.value.idInstitution;
-    this.isRoomsLoading = true;
-    this.rooms = [];
-    this.roomUserMap = {};
-    this.roomUserTouchedMap = {};
-    this.institutionHasRooms = false;
-    this.roomsHaveArticles = false;
-
-    this.roomService.getRoomsByInstitutionId(institutionId).pipe(
-      switchMap((rooms: Prostorija[]) => {
-        this.rooms = rooms;
-        this.institutionHasRooms = rooms.length > 0;
-
-        if (!this.institutionHasRooms) {
-          this.isRoomsLoading = false;
-          return of([]);
-        }
-        const articlesObservables: Observable<Artikl[]>[] = rooms.map((room) =>
-          this.artiklService.getArticlesByRoomId(room.idProstorija).pipe(
-            catchError(() => of([]))
-          )
-        );
-
-        return forkJoin(articlesObservables);
-      })
-    ).subscribe({
-      next: (articlesArray: Artikl[][]) => {
-        this.roomsHaveArticles = articlesArray.length === this.rooms.length &&
-          articlesArray.every((artikli) => artikli.length > 0);
-
-        if (this.institutionHasRooms && this.roomsHaveArticles) {
-          this.rooms.forEach((room) => {
-            this.roomUserMap[room.idProstorija] = [];
-          });
-        } else {
-          this.roomUserMap = {};
-        }
-        this.isRoomsLoading = false;
-      },
-      error: (error) => {
-        console.error('Greška pri dohvaćanju prostorija ili artikala:', error);
-        this.isRoomsLoading = false;
-      },
-    });
+    this.loadRoomsAndUsersForEdit(institutionId, {});
   }
 
   allRoomsValid(): boolean {
@@ -151,43 +217,7 @@ export class InventuraFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.canCreateInventura()) {
-      this.isLoading = true;
-
-      const institution: Institution = this.inventuraForm.value.institution;
-
-      const usersIds: number[] = [];
-      for (const roomUsers of Object.values(this.roomUserMap)) {
-        roomUsers.forEach((user) => {
-          if (!usersIds.includes(user.id)) {
-            usersIds.push(user.id);
-          }
-        });
-      }
-
-      const inventuraData: CreateInventuraDTO = {
-        idInventura: 0,
-        naziv: this.inventuraForm.value.naziv,
-        datumPocetka: this.inventuraForm.value.datumPocetka,
-        datumZavrsetka: this.inventuraForm.value.datumZavrsetka,
-        akademskaGod: this.inventuraForm.value.akademskaGod,
-        institutionId: institution.idInstitution,
-        usersIds: usersIds,
-        roomUserMap: this.roomUserMap,
-      };
-
-      this.inventuraService.createInventura(inventuraData).subscribe({
-        next: (createdInventura) => {
-          console.log('Inventura uspješno spremljena:', createdInventura);
-          this.isLoading = false;
-          this.location.back();
-        },
-        error: (error) => {
-          console.error('Greška kod kreiranja inventure:', error);
-          this.isLoading = false;
-        },
-      });
-    } else {
+    if (!this.canCreateInventura()) {
       this.inventuraForm.markAllAsTouched();
       Object.keys(this.roomUserMap).forEach((roomIdStr) => {
         const roomId = Number(roomIdStr);
@@ -195,6 +225,43 @@ export class InventuraFormComponent implements OnInit {
           this.roomUserTouchedMap[roomId] = true;
         }
       });
+      return;
     }
+
+    this.isLoading = true;
+    const institution: Institution =
+      this.inventuraForm.getRawValue().institution;
+
+    const usersIds: number[] = [];
+    for (const roomUsers of Object.values(this.roomUserMap)) {
+      roomUsers.forEach((user) => {
+        if (!usersIds.includes(user.id)) {
+          usersIds.push(user.id);
+        }
+      });
+    }
+
+    const inventuraData: CreateInventuraDTO = {
+      idInventura: this.inventuraId || 0,
+      naziv: this.inventuraForm.value.naziv,
+      datumPocetka: this.inventuraForm.value.datumPocetka,
+      datumZavrsetka: this.inventuraForm.value.datumZavrsetka,
+      akademskaGod: this.inventuraForm.value.akademskaGod,
+      institutionId: institution.idInstitution,
+      usersIds: usersIds,
+      roomUserMap: this.roomUserMap,
+    };
+
+    this.inventuraService.saveInventura(inventuraData).subscribe({
+      next: (res) => {
+        console.log('Inventura spremljena:', res);
+        this.isLoading = false;
+        this.location.back();
+      },
+      error: (error) => {
+        console.error('Greška kod spremanja:', error);
+        this.isLoading = false;
+      },
+    });
   }
 }

@@ -54,6 +54,12 @@
             <td class="actions-container">
               <button
                 pButton
+                label="Uredi"
+                (click)="editInventura(inventura.idInventura)"
+                class="btn-edit"
+              ></button>
+              <button
+                pButton
                 label="Detalji"
                 (click)="viewInventuraDetails(inventura.idInventura)"
                 class="btn-action"

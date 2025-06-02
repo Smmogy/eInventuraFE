@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { InventuraService } from '../../services/inventura/inventura.service';
 import { InventuraDetailProstorija } from '../../models/inventura';
 import { Artikl, ArtiklPrisutan } from '../../models/artikl';
-import { BarcodeFormat } from '@zxing/library';
+import { BarcodeFormat, BrowserMultiFormatReader } from '@zxing/library';
 import { Location } from '@angular/common';
 
 @Component({
@@ -20,13 +20,16 @@ export class InventuraDetailProstorijaComponent implements OnInit {
   scannedError: boolean = false;
   lastScannedArtikl?: Artikl = undefined;
 
-  allowedFormats: BarcodeFormat[] = [
+  allowedFormats = [
     BarcodeFormat.CODE_128,
     BarcodeFormat.EAN_13,
     BarcodeFormat.EAN_8,
     BarcodeFormat.CODE_39,
     BarcodeFormat.UPC_A,
   ];
+
+  availableDevices: MediaDeviceInfo[] = [];
+  selectedDevice?: MediaDeviceInfo;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,8 +40,8 @@ export class InventuraDetailProstorijaComponent implements OnInit {
   ngOnInit(): void {
     this.inventuraId = +this.route.snapshot.paramMap.get('idInventura')!;
     this.prostorijaId = +this.route.snapshot.paramMap.get('idProstorija')!;
-
     this.loadDetails();
+    this.initCameras();
   }
 
   loadDetails() {
@@ -73,18 +76,27 @@ export class InventuraDetailProstorijaComponent implements OnInit {
     this.lastScannedArtikl = undefined;
     this.scannedLoading = false;
     this.scannedError = false;
+
+    setTimeout(() => (this.selectedDevice = this.availableDevices[0]));
+  }
+
+  initCameras() {
+    const codeReader = new BrowserMultiFormatReader();
+    codeReader
+      .listVideoInputDevices()
+      .then((devices) => {
+        this.availableDevices = devices.map((d) => ({
+          ...d,
+          label: d.label || `Kamera ${devices.indexOf(d) + 1}`,
+        }));
+      })
+      .catch((err) => {
+        console.error('Greška pri dohvaćanju kamera:', err);
+      });
   }
 
   onCodeResult(resultString: string) {
-    if (this.scannedLoading) {
-      return;
-    }
-
-    if (this.lastScannedArtikl != null) {
-      return;
-    }
-
-    if (this.scannedError) {
+    if (this.scannedLoading || this.lastScannedArtikl || this.scannedError) {
       return;
     }
 

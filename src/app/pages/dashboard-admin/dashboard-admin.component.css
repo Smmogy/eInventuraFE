@@ -91,28 +91,42 @@
 
 .actions-container {
   display: flex;
-  gap: 5px;
+  gap: 0.5rem;
   flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.btn-action,
+.btn-edit,
+.btn-delete {
+  min-width: 90px;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-edit {
+  background-color: #ffc107;
+}
+.btn-edit:hover {
+  background-color: #e0a800;
 }
 
 .btn-action {
   background-color: #007bff;
-  border: none;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
+}
+.btn-action:hover {
+  background-color: #0056b3;
 }
 
 .btn-delete {
   background-color: #dc3545;
-  border: none;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
 }
-
 .btn-delete:hover {
   background-color: #c82333;
 }
@@ -123,6 +137,7 @@
   text-align: center;
   margin-top: 2rem;
 }
+
 .ui-button {
   border-radius: 12px;
   padding: 0.75rem 1.25rem;
@@ -159,4 +174,15 @@ p-dialog {
   text-align: center;
   font-weight: bold;
   margin-top: 20px;
+}
+
+@media (max-width: 576px) {
+  .actions-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actions-container button {
+    width: 100%;
+  }
 }

@@ -53,7 +53,6 @@ export class InstitutionEditFormComponent implements OnInit {
       const updatedInstitution: Institution = {
         idInstitution: this.institution.idInstitution,
         name: this.institutionForm.value.name,
-        inventura: this.institution.inventura,
       };
 
       this.institutionService.updateInstitution(updatedInstitution).subscribe({

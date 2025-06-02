@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpInterceptorFn } from '@angular/common/http';
 
-import { customeInterceptor } from './custome.interceptor';
+import { CustomeInterceptor } from './custome.interceptor';
 
 describe('customeInterceptor', () => {
-  const interceptor: HttpInterceptorFn = (req, next) => 
+  const interceptor: HttpInterceptorFn = (req, next) =>
     TestBed.runInInjectionContext(() => customeInterceptor(req, next));
 
   beforeEach(() => {

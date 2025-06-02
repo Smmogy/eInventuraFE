@@ -10,8 +10,8 @@ export interface Inventura {
   datumZavrsetka: Date;
   akademskaGod: number;
   users: Djelatnici[];
-  institution: Institution;
-  institucijaId: number;
+  institutionId: number;
+  roomUserMap: Record<number, Djelatnici[]>;
 }
 
 export interface InventuraList {
