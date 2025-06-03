@@ -53,6 +53,7 @@
             </td>
             <td class="actions-container">
               <button
+                *ngIf="inventura.stanje"
                 pButton
                 label="Uredi"
                 (click)="editInventura(inventura.idInventura)"
