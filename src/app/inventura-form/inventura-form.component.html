@@ -1,5 +1,6 @@
 <div class="form-container">
   <form
+    *ngIf="!loadingInventura"
     [formGroup]="inventuraForm"
     (ngSubmit)="onSubmit()"
     class="p-fluid form-padding"
@@ -164,6 +165,10 @@
       </div>
     </div>
 
+    <div *ngIf="isRoomsLoading" class="loading-spinner p-mt-2">
+      Učitavanje prostorija
+    </div>
+
     <button
       type="submit"
       pButton
@@ -174,7 +179,9 @@
     ></button>
 
     <div *ngIf="isLoading" class="loading-spinner p-mt-2">
-      <i class="pi pi-spin pi-spinner"></i> Kreiranje inventure...
+      {{ isEditMode ? "Spremanje inventure..." : "Kreiranje inventure..." }}
     </div>
   </form>
+
+  <div *ngIf="loadingInventura" class="loading-spinner p-mt-2">Učitavanje</div>
 </div>

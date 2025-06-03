@@ -128,6 +128,7 @@ export class InventuraFormComponent implements OnInit {
     roomUserMapFromBackend: any
   ): void {
     this.isRoomsLoading = true;
+    this.rooms = [];
 
     this.roomService
       .getRoomsByInstitutionId(institutionId)

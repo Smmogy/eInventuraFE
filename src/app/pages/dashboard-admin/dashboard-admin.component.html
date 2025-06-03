@@ -51,26 +51,28 @@
             <td class="status-td">
               {{ inventura.stanje ? "U provođenju" : "Završena" }}
             </td>
-            <td class="actions-container">
-              <button
-                *ngIf="inventura.stanje"
-                pButton
-                label="Uredi"
-                (click)="editInventura(inventura.idInventura)"
-                class="btn-edit"
-              ></button>
-              <button
-                pButton
-                label="Detalji"
-                (click)="viewInventuraDetails(inventura.idInventura)"
-                class="btn-action"
-              ></button>
-              <button
-                pButton
-                label="Obriši"
-                (click)="openDeleteDialog(inventura.idInventura)"
-                class="btn-delete"
-              ></button>
+            <td>
+              <div class="actions-container">
+                <button
+                  *ngIf="inventura.stanje"
+                  pButton
+                  label="Uredi"
+                  (click)="editInventura(inventura.idInventura)"
+                  class="btn-edit"
+                ></button>
+                <button
+                  pButton
+                  label="Detalji"
+                  (click)="viewInventuraDetails(inventura.idInventura)"
+                  class="btn-action"
+                ></button>
+                <button
+                  pButton
+                  label="Obriši"
+                  (click)="openDeleteDialog(inventura.idInventura)"
+                  class="btn-delete"
+                ></button>
+              </div>
             </td>
           </tr>
         </ng-template>
