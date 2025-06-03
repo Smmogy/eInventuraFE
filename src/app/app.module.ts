@@ -38,7 +38,6 @@ import { ArtiklFormComponent } from './pages/artikl-form/artikl-form.component';
 import { ArtiklCreateFormComponent } from './pages/artikl-create-form/artikl-create-form.component';
 import { ArtiklEditFormComponent } from './pages/artikl-edit-form/artikl-edit-form.component';
 import { InventuraDetailsComponent } from './pages/inventura-details/inventura-details.component';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { ConfirmationDialogComponent } from './dialog/confirmation-dialog/confirmation-dialog.component';
 import { DialogModule } from 'primeng/dialog';
 import { SuccessDialogComponent } from './dialog/success-dialog/success-dialog.component';
@@ -49,6 +48,7 @@ import { DashboardAdminAllComponent } from './pages/dashboard-admin-all/dashboar
 import { InventuraDetailProstorijaComponent } from './pages/inventura-detail-prostorija/inventura-detail-prostorija.component';
 import { BarcodeDisplayComponent } from './pages/artikl-edit-form/barcode-display/barcode-display.component';
 import { MessageService } from 'primeng/api';
+import { BarcodeScannerLivestreamModule } from 'ngx-barcode-scanner';
 
 @NgModule({
   declarations: [
@@ -97,9 +97,9 @@ import { MessageService } from 'primeng/api';
     TableModule,
     DropdownModule,
     MultiSelectModule,
-    ZXingScannerModule,
     DialogModule,
     ToggleButtonModule,
+    BarcodeScannerLivestreamModule,
   ],
   providers: [
     {

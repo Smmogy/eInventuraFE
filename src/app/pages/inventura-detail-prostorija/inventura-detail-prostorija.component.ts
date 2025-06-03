@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { InventuraService } from '../../services/inventura/inventura.service';
 import { InventuraDetailProstorija } from '../../models/inventura';
 import { Artikl, ArtiklPrisutan } from '../../models/artikl';
-import { BarcodeFormat, BrowserMultiFormatReader } from '@zxing/library';
 import { Location } from '@angular/common';
+import { BarcodeScannerLivestreamComponent } from 'ngx-barcode-scanner';
 
 @Component({
   selector: 'app-inventura-detai-prostorija',
@@ -12,6 +12,9 @@ import { Location } from '@angular/common';
   styleUrls: ['./inventura-detail-prostorija.component.css'],
 })
 export class InventuraDetailProstorijaComponent implements OnInit {
+  @ViewChild(BarcodeScannerLivestreamComponent)
+  barcodeScanner?: BarcodeScannerLivestreamComponent;
+
   inventuraId!: number;
   prostorijaId!: number;
   detailData?: InventuraDetailProstorija;
@@ -20,16 +23,8 @@ export class InventuraDetailProstorijaComponent implements OnInit {
   scannedError: boolean = false;
   lastScannedArtikl?: Artikl = undefined;
 
-  allowedFormats = [
-    BarcodeFormat.CODE_128,
-    BarcodeFormat.EAN_13,
-    BarcodeFormat.EAN_8,
-    BarcodeFormat.CODE_39,
-    BarcodeFormat.UPC_A,
-  ];
-
-  availableDevices: MediaDeviceInfo[] = [];
-  selectedDevice?: MediaDeviceInfo;
+  availableDevices: { label: string; deviceId: string }[] = [];
+  selectedDevice?: { label: string; deviceId: string };
 
   constructor(
     private route: ActivatedRoute,
@@ -77,25 +72,39 @@ export class InventuraDetailProstorijaComponent implements OnInit {
     this.scannedLoading = false;
     this.scannedError = false;
 
-    setTimeout(() => (this.selectedDevice = this.availableDevices[0]));
+    this.selectedDevice = this.availableDevices[0];
+
+    setTimeout(() => {
+      if (this.barcodeScanner == null) {
+        throw new Error('Barcode scanner not found');
+      }
+
+      this.barcodeScanner.start();
+    });
   }
 
   initCameras() {
-    const codeReader = new BrowserMultiFormatReader();
-    codeReader
-      .listVideoInputDevices()
+    navigator.mediaDevices
+      .enumerateDevices()
       .then((devices) => {
-        this.availableDevices = devices.map((d) => ({
-          ...d,
-          label: d.label || `Kamera ${devices.indexOf(d) + 1}`,
-        }));
+        this.availableDevices = devices
+          .filter((d) => d.kind == 'videoinput')
+          .map((d) => ({
+            deviceId: d.deviceId,
+            label: d.label || `Kamera ${devices.indexOf(d) + 1}`,
+          }));
+        console.log(devices);
       })
       .catch((err) => {
         console.error('Greška pri dohvaćanju kamera:', err);
       });
   }
 
-  onCodeResult(resultString: string) {
+  onCodeResult(resultString: string | null) {
+    if (resultString == null) {
+      return;
+    }
+
     if (this.scannedLoading || this.lastScannedArtikl || this.scannedError) {
       return;
     }

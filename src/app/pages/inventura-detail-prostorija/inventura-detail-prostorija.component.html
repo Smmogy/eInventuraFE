@@ -33,6 +33,7 @@
         <button class="back-button" (click)="goBack()">Nazad</button>
         <button
           *ngIf="detailData.inventuraStanje"
+          [disabled]="availableDevices.length == 0"
           pButton
           class="scanner-button"
           type="button"
@@ -65,15 +66,12 @@
     [style]="{ width: '100%', marginBottom: '10px' }"
   ></p-dropdown>
 
-  <zxing-scanner
-    *ngIf="scannerEnabled"
-    [device]="selectedDevice"
-    [enable]="selectedDevice != null"
-    [tryHarder]="true"
-    [formats]="allowedFormats"
-    (scanSuccess)="onCodeResult($event)"
-  >
-  </zxing-scanner>
+  <barcode-scanner-livestream
+    *ngIf="scannerEnabled && selectedDevice != null"
+    [deviceId]="selectedDevice.deviceId"
+    (valueChanges)="onCodeResult($event.codeResult.code)"
+    type="code_128"
+  ></barcode-scanner-livestream>
 
   <p-dialog
     [visible]="lastScannedArtikl != null"
