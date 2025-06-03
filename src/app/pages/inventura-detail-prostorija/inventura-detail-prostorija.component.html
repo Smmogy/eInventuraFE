@@ -15,7 +15,11 @@
       <h3 class="institution-name">Artikli</h3>
       <div class="artikl-list">
         <div *ngFor="let artikl of detailData.artikls" class="artikl-item">
-          <span class="artikl-name">{{ artikl.name }}</span>
+          <a
+            class="artikl-name"
+            [routerLink]="['/', 'artikl', 'edit', artikl.idArtikl]"
+            >{{ artikl.name }}</a
+          >
           <p-toggleButton
             [ngModel]="artikl.prisutan"
             [disabled]="!detailData.inventuraStanje"

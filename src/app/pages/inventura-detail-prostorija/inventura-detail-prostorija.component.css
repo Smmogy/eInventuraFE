@@ -75,7 +75,12 @@
 
 .artikl-name {
   font-size: 16px;
-  color: #333;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.artikl-name:hover {
+  text-decoration: underline;
 }
 
 .button-container {
