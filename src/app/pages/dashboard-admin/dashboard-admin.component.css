@@ -176,13 +176,7 @@ p-dialog {
   margin-top: 20px;
 }
 
-@media (max-width: 576px) {
-  .actions-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .actions-container button {
-    width: 100%;
-  }
+.actions-container {
+  display: flex;
+  justify-content: flex-end;
 }
