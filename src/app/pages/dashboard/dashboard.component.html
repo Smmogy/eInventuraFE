@@ -1,17 +1,23 @@
 <div class="container">
   <div class="card">
-    <div class="card-header">
-    </div>
+    <div class="card-header"></div>
     <div class="card-body">
       <h2 class="list-heading">Lista inventura</h2>
 
       <div *ngIf="isLoading" class="loading-spinner">
         Učitavanje inventura...
       </div>
-<p *ngIf="inventuraList.length === 0 && !isLoading" class="no-data-message">
+      <p
+        *ngIf="inventuraList.length === 0 && !isLoading"
+        class="no-data-message"
+      >
         Nema dostupnih inventura
       </p>
-      <p-table [value]="inventuraList" class="mt-5 table-custom" *ngIf="inventuraList.length > 0 && !isLoading">
+      <p-table
+        [value]="inventuraList"
+        class="mt-5 table-custom"
+        *ngIf="inventuraList.length > 0 && !isLoading"
+      >
         <ng-template pTemplate="header">
           <tr>
             <th>Naziv</th>
@@ -25,17 +31,21 @@
         <ng-template pTemplate="body" let-inventura>
           <tr>
             <td>{{ inventura.naziv }}</td>
-            <td>{{ inventura.datumPocetka | date: 'dd/MM/yyyy' }}</td>
-            <td>{{ inventura.datumZavrsetka | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ inventura.datumPocetka | date : "dd/MM/yyyy" }}</td>
+            <td>{{ inventura.datumZavrsetka | date : "dd/MM/yyyy" }}</td>
             <td>{{ inventura.akademskaGod }}</td>
             <td>{{ inventura.institutionName }}</td>
             <td>
-              <button pButton label="Details" (click)="viewInventuraDetails(inventura.idInventura)" class="btn-action"></button>
+              <button
+                pButton
+                label="Detalji"
+                (click)="viewInventuraDetails(inventura.idInventura)"
+                class="btn-action"
+              ></button>
             </td>
           </tr>
         </ng-template>
       </p-table>
     </div>
   </div>
-  
-
+</div>
