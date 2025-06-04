@@ -1,30 +1,54 @@
 <div class="container" *ngIf="inventura">
   <div class="card">
     <div class="card-body">
-      <h3 class="institution-name">Institucija: {{ inventura.institution.name }}</h3>
+      <h3 class="institution-name">
+        Institucija: {{ inventura.institution.name }}
+      </h3>
 
-      <div *ngIf="inventura.prostorije && inventura.prostorije.length > 0" class="room-list">
-        <div *ngFor="let room of inventura.prostorije" class="room-card"
-          (click)="navigateToRoomDetails(room.idProstorija)">
+      <div
+        *ngIf="inventura.prostorije && inventura.prostorije.length > 0"
+        class="room-list"
+      >
+        <div
+          *ngFor="let room of inventura.prostorije"
+          class="room-card"
+          (click)="navigateToRoomDetails(room.idProstorija)"
+        >
           <h4 class="room-name">{{ room.name }}</h4>
           <p class="room-description">Kliknite za detalje o prostoriji</p>
         </div>
       </div>
 
-      <div *ngIf="isAdmin" class="button-wrapper">
-        <button pButton label="Nazad" (click)="goBack()" class="p-button-secondary back-btn"></button>
-        <button *ngIf="inventura.stanje" pButton label="Zaključi" (click)="showConfirmDialog()"
-          class="p-button-success finish-btn"></button>
-        <button pButton  label="Generiraj izvješće" class="p-button-secondary back-btn" (click)="generatePdf()"
+      <div class="button-wrapper">
+        <button
+          pButton
+          label="Nazad"
+          (click)="goBack()"
+          class="p-button-secondary back-btn"
+        ></button>
+        <button
+          *ngIf="inventura.stanje && isAdmin"
+          pButton
+          label="Zaključi"
+          (click)="showConfirmDialog()"
+          class="p-button-success finish-btn"
+        ></button>
+        <button
+          pButton
+          label="Generiraj izvješće"
+          class="p-button-secondary back-btn"
+          (click)="generatePdf()"
           [disabled]="isDownloading"
-          *ngIf="isAdmin && inventura?.stanje == !1">
-        </button>
+          *ngIf="isAdmin && inventura?.stanje == !1"
+        ></button>
       </div>
-
     </div>
   </div>
 
-  <app-confrimation-dialog-zavrsi [display]="displayConfirmDialog" (displayChange)="displayConfirmDialog = $event"
-    (confirmAction)="finishInventura()">
+  <app-confrimation-dialog-zavrsi
+    [display]="displayConfirmDialog"
+    (displayChange)="displayConfirmDialog = $event"
+    (confirmAction)="finishInventura()"
+  >
   </app-confrimation-dialog-zavrsi>
 </div>
